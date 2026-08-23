@@ -2,16 +2,19 @@
 
 ## 1. Project Identity
 
-Project Name: Fashion Brand — Working Title
+Project Name: WREN WOLD
 Project Status: Pre-launch / Development
 Primary Market: Netherlands
 Future Market: Europe and international markets
 Platform: WordPress + WooCommerce
 Development Environment: Local
-Theme: Custom WordPress Theme
+Theme: Custom WordPress Theme (`fashion-brand-theme` slug until a controlled rename)
 
-The final brand name has NOT been selected yet.
-Until the naming process is completed, use neutral placeholders such as "BRAND DEMO".
+The finalized brand name is **WREN WOLD**.
+
+Brand identity documentation: `docs/BRAND_IDENTITY.md`, `docs/LOGO_GUIDELINES.md`, `docs/VISUAL_IDENTITY.md`.
+
+Production logo files, final colors, and final typography remain to be supplied; the theme may still use temporary placeholders until those assets are integrated.
 
 ---
 
@@ -54,23 +57,17 @@ Work → Everyday → Social → Dinner → Weekend.
 
 ## 4. Brand Direction
 
-The desired brand personality is:
+**Core idea:** Quiet Character — distinctive without trying too hard.
 
-Calm
-Refined
-Minimal
-Modern
-Intelligent
-Friendly
-Expert
-Slightly bold
-Natural
-Elegant
-Accessible premium
+**Brand promise:** “Thoughtfully made fashion for a life well lived.”
+
+**Personality:** Quiet, Intelligent, Natural, Modern, Confident, Human, Independent, Refined.
 
 The brand should feel premium without becoming inaccessible or overly luxurious.
 
 It should not look like a typical fast-fashion or dropshipping store.
+
+Full identity: `docs/BRAND_IDENTITY.md`.
 
 ---
 
@@ -190,21 +187,23 @@ SEO decisions must not compromise the user experience.
 
 ## 10. Current Brand Status
 
-The final:
+**Finalized:**
 
-- Brand Name
+- Brand name — WREN WOLD
+- Brand personality, promise, tone of voice, and core concept (Quiet Character)
+- Logo direction (custom W monogram + wordmark system)
+- Display typeface — Fraunces (SIL OFL 1.1)
+- Body/UI typeface — Source Sans 3 (SIL OFL 1.1)
+- Mineral color palette (see `DESIGN_SYSTEM.md`)
+
+**Not yet finalized / not yet supplied:**
+
 - Domain
-- Logo
-- Color Palette
-- Typography
-- Brand Identity
-- Packaging Identity
+- Production logo SVG / vector files and favicon set
+- Packaging identity
+- Photography production library
 
-have NOT been finalized.
-
-Therefore, development must use neutral placeholders and a flexible design system.
-
-Do not hard-code temporary brand decisions into the architecture.
+Do not invent production logo vectors in theme architecture.
 
 ---
 
@@ -224,9 +223,12 @@ The website should be capable of evolving from an MVP into a serious internation
 
 This document provides the high-level technical and business context for the project.
 
-Additional documents inside `/docs` will progressively define:
+Additional documents inside `/docs` define:
 
-- Brand Strategy
+- Brand Identity (`BRAND_IDENTITY.md`)
+- Logo Guidelines (`LOGO_GUIDELINES.md`)
+- Visual Identity (`VISUAL_IDENTITY.md`)
+- Visual Concept (`VISUAL_CONCEPT.md`)
 - Design System
 - Content Strategy
 - SEO Strategy

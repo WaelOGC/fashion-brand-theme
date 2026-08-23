@@ -33,17 +33,19 @@ If two documents appear to conflict, stop and identify the conflict instead of s
 
 ## 3. Brand Restrictions
 
-The final brand name has not been selected.
+The finalized brand name is **WREN WOLD**.
 
 Do NOT:
 
-- Invent a final brand name
-- Hard-code a temporary brand name into architecture
-- Create permanent branding around "BRAND DEMO"
-- Assume temporary colors or typography are final
-- Create irreversible brand-specific dependencies
+- Invent a different brand name
+- Fabricate production logo SVG / vectors from concept images
+- Assume temporary theme colors or typography are final
+- Create irreversible dependencies on placeholder assets
+- Treat `BRAND DEMO` or other temporary labels as permanent branding
 
-Use neutral placeholders until the Brand Identity is officially approved.
+Follow `docs/BRAND_IDENTITY.md`, `docs/LOGO_GUIDELINES.md`, and `docs/VISUAL_IDENTITY.md`.
+
+Use temporary theme placeholders only until production assets and locked design tokens are integrated.
 
 ---
 
@@ -98,15 +100,17 @@ Colors, typography, spacing, buttons, cards and reusable UI patterns should not 
 
 Use CSS variables/design tokens where appropriate.
 
-The final Brand Identity will define the official:
+**WREN WOLD** brand identity is finalized at the strategic level (`BRAND_IDENTITY.md`, `LOGO_GUIDELINES.md`, `VISUAL_IDENTITY.md`).
 
-- Colors
-- Typography
-- Logo
-- Spacing system
-- Visual language
+Typography and color tokens are locked in `DESIGN_SYSTEM.md` (Fraunces + Source Sans 3; mineral palette).
 
-Until then, use neutral temporary values.
+Still pending:
+
+- Production logo / favicon files
+- Packaging and photography libraries
+- Motion timing refinements
+
+Use the token system; do not invent one-off colors or fonts in components.
 
 ---
 

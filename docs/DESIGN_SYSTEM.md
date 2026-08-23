@@ -2,13 +2,19 @@
 
 ## 1. Purpose
 
-This document defines the visual and UX principles for the custom WordPress/WooCommerce theme.
+This document defines the visual and UX principles for the custom WordPress/WooCommerce theme for **WREN WOLD**.
 
-The design system must create a coherent, premium and scalable digital experience for the fashion brand.
+The design system must create a coherent, premium and scalable digital experience for the brand.
 
-The final brand identity has not yet been selected.
+**Brand identity is finalized at the strategic level** (name, personality, promise, tone, Quiet Character, logo direction). See:
 
-Therefore, this document defines the design direction and rules without locking the project into a final brand name, logo or color palette.
+- `BRAND_IDENTITY.md`
+- `LOGO_GUIDELINES.md`
+- `VISUAL_IDENTITY.md`
+
+**Locked in this design system:** typefaces (Fraunces + Source Sans 3) and mineral color palette (see Typography and Color sections).
+
+**Still pending:** production logo geometry/files, packaging, photography library, and motion timing refinements.
 
 ---
 
@@ -24,22 +30,22 @@ The experience should feel like a carefully curated European fashion brand rathe
 
 ## 3. Visual Personality
 
-The desired visual personality is:
+Aligned with WREN WOLD:
 
-- Calm
-- Refined
-- Minimal
-- Modern
+- Quiet
 - Intelligent
 - Natural
-- Elegant
-- Friendly
-- Slightly bold
-- Premium but accessible
+- Modern
+- Confident
+- Human
+- Independent
+- Refined
 
-The design should feel confident without being loud.
+Core idea: **Quiet Character** — distinctive without trying too hard.
 
-It should feel sophisticated without becoming excessively luxurious.
+The design should feel confident without being loud, and sophisticated without becoming excessively luxurious.
+
+See `VISUAL_IDENTITY.md` for consolidated visual pillars.
 
 ---
 
@@ -82,52 +88,114 @@ Avoid:
 
 ## 6. Typography
 
-Typography should feel:
+### Typefaces
 
-- Editorial
-- Elegant
-- Highly readable
-- Contemporary
-- Premium
+| Role | Typeface | Source | License |
+|------|----------|--------|---------|
+| Display | **Fraunces** | Undercase Type / Google Fonts | SIL OFL 1.1 |
+| Body / UI | **Source Sans 3** | Adobe / Google Fonts | SIL OFL 1.1 |
 
-The final font family has not been selected.
+Self-hosted as WOFF2 under `assets/fonts/`. Loaded via `assets/css/base/fonts.css`.
 
-Use temporary system-safe or project-approved fonts during development.
+**Why Fraunces:** Soft editorial serif with contemporary European character. Distinctive at large sizes without luxury Playfair/Didot clichés. Supports Quiet Character — refined presence, not spectacle.
 
-Typography should establish a clear hierarchy between:
+**Why Source Sans 3:** Designed for UI and reading. Excellent commerce clarity (prices, nav, product meta). Strong contrast with Fraunces while remaining related in proportion and neutrality.
 
-- Display headings
-- Section headings
-- Body text
-- Product names
-- Prices
-- Labels
-- Navigation
-- Buttons
-- Supporting information
+### Hierarchy
 
-Do not permanently hard-code the final typography until the Brand Identity is approved.
+| Token | Family | Size | Weight | Line height | Letter spacing |
+|-------|--------|------|--------|-------------|----------------|
+| Display XL | Fraunces | `clamp(2.75rem … 4.75rem)` | 400 | 1.15 | -0.025em |
+| Display | Fraunces | `clamp(2.125rem … 3.5rem)` | 400 | 1.15 | -0.025em |
+| H1 | Fraunces | `clamp(1.75rem … 2.5rem)` | 400 | 1.15 | -0.015em |
+| H2 | Fraunces | `clamp(1.375rem … 1.875rem)` | 400 | 1.3 | -0.015em |
+| H3 | Source Sans 3 | `clamp(1.125rem … 1.375rem)` | 500 | 1.3 | default |
+| Body Large | Source Sans 3 | `clamp(1.0625rem … 1.1875rem)` | 400 | 1.75 | 0 |
+| Body | Source Sans 3 | `1rem` | 400 | 1.6 | 0 |
+| Small | Source Sans 3 | `0.875rem` | 400 | 1.6 | 0 |
+| Caption | Source Sans 3 | `0.8125rem` | 400 | 1.6 | 0 |
+| Label | Source Sans 3 | `0.75rem` | 500 | 1.3 | 0.06em (uppercase) |
+| Navigation | Source Sans 3 | `0.9375rem` | 500 | 1.3 | 0.02em |
+| Button | Source Sans 3 | `0.9375rem` | 500 | 1.3 | 0.02em |
+| Price | Source Sans 3 | `1rem` | 500 | 1.3 | default |
+| Product name | Source Sans 3 | `1rem` | 500 | 1.3 | default |
+
+Chapter / statement composites remain available for homepage editorial use (`--font-chapter`, `--font-statement`).
+
+### Responsive behavior
+
+- Display sizes use `clamp()` for fluid scaling from smartphone to large desktop.
+- At ≤360px (`22.5rem`), display and chapter sizes compress further to prevent overflow.
+- Body stays at `1rem` minimum for readability on all viewports.
+- Product name and price stay Source Sans 3 — scannable in commerce contexts.
+
+### Usage principles
+
+- Fraunces for brand voice: heroes, collection titles, editorial statements, H1/H2.
+- Source Sans 3 for interface and commerce: body, nav, buttons, prices, product names, labels.
+- Do not use Fraunces for dense product grids or cart line items.
+- Prefer regular (400) for display; reserve 500/600 for emphasis in UI.
 
 ---
 
 ## 7. Color System
 
-The final Brand Color Palette is TBD.
+### Palette direction
 
-The initial design direction may use neutral, natural and warm tones such as:
+Natural · mineral · muted · editorial · restrained · contemporary European.
 
-- Off-white
-- Soft beige
-- Natural stone
-- Warm brown
-- Charcoal
-- Soft black
+Avoids generic luxury black/gold and overly warm beige “Pinterest fashion” treatments.
 
-These are temporary visual direction only.
+Accent is **oxidized moss** — landscape association with WOLD, quiet rather than loud.
 
-Do not treat these colors as the final brand palette.
+### Neutral scale
 
-All colors should eventually be centralized through design tokens / CSS variables.
+| Token | HEX | Role |
+|-------|-----|------|
+| `--color-neutral-50` | `#F3F2EF` | Primary background |
+| `--color-neutral-100` | `#E9E7E2` | Secondary / chapter surface |
+| `--color-neutral-200` | `#D6D2CB` | Borders, soft fills |
+| `--color-neutral-300` | `#B8B3A9` | Strong borders |
+| `--color-neutral-400` | `#8C877E` | Subtle text |
+| `--color-neutral-500` | `#5A564F` | Secondary text |
+| `--color-neutral-600` | `#4A4742` | Deep muted |
+| `--color-neutral-700` | `#35332F` | Strong text support |
+| `--color-neutral-800` | `#242321` | Primary text / dark surface |
+| `--color-neutral-900` | `#161514` | Deepest ink |
+
+### Semantic colors
+
+| Token | HEX / mapping | Use |
+|-------|---------------|-----|
+| `--color-background` | `#F3F2EF` | Page background |
+| `--color-surface` | `#FAFAF8` | Cards, elevated surfaces |
+| `--color-surface-muted` | `#E9E7E2` | Muted panels |
+| `--color-surface-collection` | `#242321` | Inverse / dark editorial bands |
+| `--color-text` | `#242321` | Primary text |
+| `--color-text-muted` | `#5A564F` | Secondary text |
+| `--color-text-subtle` | `#8C877E` | Captions, decorative indices |
+| `--color-text-inverse` | `#F3F2EF` | Text on dark surfaces |
+| `--color-accent` | `#3F5348` | Primary interactive / CTA |
+| `--color-accent-hover` | `#33443B` | Hover / active |
+| `--color-border` | `#D6D2CB` | Default borders |
+| `--color-border-strong` | `#B8B3A9` | Emphasized borders |
+| `--color-focus` | `#3F5348` | Focus rings |
+| `--color-success` | `#3D5C4A` | Success UI |
+| `--color-warning` | `#7A6235` | Warning UI |
+| `--color-error` | `#8B4A42` | Error UI |
+
+### Accessibility (WCAG 2.1 AA)
+
+| Pair | Contrast | Result |
+|------|----------|--------|
+| Primary text on background | ~14.0:1 | Pass (AAA) |
+| Muted text on background | ~6.5:1 | Pass (AA) |
+| Inverse text on dark surface | ~14.0:1 | Pass (AAA) |
+| Button text on accent | ~7.9:1 | Pass (AA) |
+| Accent text on background | ~7.4:1 | Pass (AA) |
+| Error on background | ~5.9:1 | Pass (AA) |
+
+All colors are centralized in `assets/css/tokens/colors.css`.
 
 ---
 
@@ -359,19 +427,23 @@ Avoid scattering these values throughout individual components.
 
 ## 18. Brand Identity Dependency
 
-The following remain intentionally undecided:
+**Finalized:**
 
-- Final Brand Name
-- Logo
-- Final Color Palette
-- Final Typography
-- Final Brand Assets
-- Packaging Identity
-- Photography Direction
+- Brand name — WREN WOLD
+- Personality, promise, tone, Quiet Character
+- Logo direction (W monogram + wordmark system)
+- Display + body typefaces (Fraunces + Source Sans 3)
+- Mineral color palette and semantic tokens
 
-These decisions will be finalized during the Brand Identity phase.
+**Still pending:**
 
-The theme architecture must remain flexible enough to accommodate them without major restructuring.
+- Production logo SVG / vector files and favicon set (`assets/brand/`)
+- Packaging identity
+- Photography production library
+- Exact motion timing refinements beyond current tokens
+
+Logo usage: `LOGO_GUIDELINES.md`  
+Visual pillars: `VISUAL_IDENTITY.md`
 
 ---
 

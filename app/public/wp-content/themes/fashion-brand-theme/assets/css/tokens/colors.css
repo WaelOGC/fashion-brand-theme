@@ -1,45 +1,64 @@
 /**
- * Color tokens — temporary neutral palette.
+ * Color tokens — WREN WOLD mineral palette.
  *
- * Replace semantic mappings during Brand Identity phase.
- * Raw neutral scale values may also be updated without restructuring consumers.
+ * Direction: natural, mineral, muted, editorial, restrained.
+ * Accent: oxidized moss (landscape / Quiet Character) — not gold, not terracotta.
  *
  * @package Fashion_Brand_Theme
  */
 
 :root {
-	/* Neutral scale (temporary direction: off-white, beige, stone, brown, charcoal, soft black) */
-	--color-neutral-50: #f8f6f3;
-	--color-neutral-100: #f1ece6;
-	--color-neutral-200: #e4ded6;
-	--color-neutral-300: #c9c0b5;
-	--color-neutral-400: #9a8f82;
-	--color-neutral-500: #6b635a;
-	--color-neutral-600: #4a4540;
-	--color-neutral-700: #3a3632;
-	--color-neutral-800: #2b2826;
-	--color-neutral-900: #1a1918;
+	/* Neutral mineral scale */
+	--color-neutral-50: #f3f2ef;
+	--color-neutral-100: #e9e7e2;
+	--color-neutral-200: #d6d2cb;
+	--color-neutral-300: #b8b3a9;
+	--color-neutral-400: #8c877e;
+	--color-neutral-500: #5a564f;
+	--color-neutral-600: #4a4742;
+	--color-neutral-700: #35332f;
+	--color-neutral-800: #242321;
+	--color-neutral-900: #161514;
 
-	/* Semantic colors */
+	/* Semantic surfaces */
 	--color-background: var(--color-neutral-50);
-	--color-surface: #ffffff;
+	--color-surface: #fafaf8;
 	--color-surface-muted: var(--color-neutral-100);
 	--color-surface-chapter: var(--color-neutral-100);
 	--color-surface-atmosphere: var(--color-neutral-200);
 	--color-surface-collection: var(--color-neutral-800);
+
+	/* Placeholder media (production photography TBD) */
 	--color-placeholder-start: var(--color-neutral-200);
 	--color-placeholder-end: var(--color-neutral-300);
 	--color-placeholder-deep-start: var(--color-neutral-600);
 	--color-placeholder-deep-end: var(--color-neutral-700);
+
+	/* Text */
 	--color-text: var(--color-neutral-800);
 	--color-text-muted: var(--color-neutral-500);
 	--color-text-subtle: var(--color-neutral-400);
 	--color-text-inverse: var(--color-neutral-50);
-	--color-accent: #5c4a3d;
-	--color-accent-hover: #4a3d32;
+
+	/* Accent — oxidized moss */
+	--color-accent: #3f5348;
+	--color-accent-hover: #33443b;
+	--color-accent-muted: #5a6e62;
+
+	/* Borders & focus */
 	--color-border: var(--color-neutral-200);
 	--color-border-strong: var(--color-neutral-300);
-	--color-focus: var(--color-neutral-700);
+	--color-focus: var(--color-accent);
+
+	/* Selection */
 	--color-selection-background: var(--color-neutral-200);
 	--color-selection-text: var(--color-neutral-900);
+
+	/* Status (UI only) */
+	--color-success: #3d5c4a;
+	--color-success-text: #f3f2ef;
+	--color-warning: #7a6235;
+	--color-warning-text: #f3f2ef;
+	--color-error: #8b4a42;
+	--color-error-text: #f3f2ef;
 }

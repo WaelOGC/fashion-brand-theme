@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This document translates the strategic direction in `BRAND_IDENTITY.md` into a concrete visual concept for the fashion brand’s digital experience.
+This document translates the strategic direction in `BRAND_IDENTITY.md` into a concrete visual concept for the **WREN WOLD** digital experience.
 
-It is a **concept bridge** between brand strategy and future implementation in the custom WordPress theme. It does **not** implement design, select final fonts, define hex values, choose a brand name, or create a logo.
+It is a **concept bridge** between brand strategy and future implementation in the custom WordPress theme. It does **not** implement design, select final fonts, define hex values, or create production logo files.
 
 **Mandatory sources of truth:**
 
@@ -13,8 +13,10 @@ It is a **concept bridge** between brand strategy and future implementation in t
 - `DESIGN_SYSTEM.md`
 - `TECHNICAL_ARCHITECTURE.md`
 - `BRAND_IDENTITY.md`
+- `VISUAL_IDENTITY.md`
+- `LOGO_GUIDELINES.md`
 
-The current homepage and theme are placeholders. They are **not** the visual reference for this document.
+The current homepage and theme may still use placeholders. They are **not** the final visual reference for brand identity.
 
 ---
 
@@ -22,12 +24,13 @@ The current homepage and theme are placeholders. They are **not** the visual ref
 
 | Item | Status |
 |------|--------|
-| Brand name | TBD |
-| Logo | TBD |
+| Brand name | Finalized — WREN WOLD |
+| Logo direction | Approved (see `LOGO_GUIDELINES.md`) |
+| Production logo files | Not supplied |
 | Final fonts | TBD |
 | Final color palette | TBD |
 | Photography assets | TBD |
-| Homepage implementation | TBD |
+| Homepage implementation | In progress / prototype stages |
 
 ---
 
@@ -1022,9 +1025,11 @@ Rules for designers and developers building future pages without losing identity
 
 | Document | Relationship |
 |----------|--------------|
-| `BRAND_IDENTITY.md` | Strategic source — personality, principles, guardrails |
-| `VISUAL_CONCEPT.md` (this document) | Concept bridge — visual idea, composition, three directions, recommendation |
-| `DESIGN_SYSTEM.md` | Updated **after** concept approval — tokens, components, exact scales |
+| `BRAND_IDENTITY.md` | Strategic source — WREN WOLD name, personality, promise, Quiet Character |
+| `VISUAL_IDENTITY.md` | Consolidated visual pillars |
+| `LOGO_GUIDELINES.md` | Logo system and asset status |
+| `VISUAL_CONCEPT.md` (this document) | Concept bridge — visual idea, composition, experience directions |
+| `DESIGN_SYSTEM.md` | Tokens, components, exact scales (when production values lock) |
 | `TECHNICAL_ARCHITECTURE.md` | Implementation boundary — theme settings vs code-controlled design |
 | `CONTENT_ARCHITECTURE.md` | Page and navigation structure this concept must respect |
 

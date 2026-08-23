@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-This document defines the content and information architecture of the fashion e-commerce website.
+This document defines the content and information architecture of the **WREN WOLD** fashion e-commerce website.
 
 It describes:
 

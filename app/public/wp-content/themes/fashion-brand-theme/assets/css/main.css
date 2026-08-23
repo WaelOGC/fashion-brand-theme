@@ -13,6 +13,7 @@
 @import url("tokens/layout.css");
 @import url("tokens/effects.css");
 
+@import url("base/fonts.css");
 @import url("base/reset.css");
 @import url("base/typography.css");
 @import url("base/buttons.css");

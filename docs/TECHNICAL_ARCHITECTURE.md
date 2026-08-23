@@ -2,11 +2,13 @@
 
 ## 1. Purpose
 
-This document defines the technical architecture of the custom WordPress/WooCommerce theme.
+This document defines the technical architecture of the custom WordPress/WooCommerce theme for **WREN WOLD**.
 
 The architecture must remain clean, modular, maintainable and scalable.
 
 The project is developed locally using Local and Cursor, then prepared for deployment to a production WordPress environment.
+
+Brand identity (name, logo direction, Quiet Character): see `BRAND_IDENTITY.md`, `LOGO_GUIDELINES.md`, `VISUAL_IDENTITY.md`.
 
 ---
 
@@ -33,17 +35,17 @@ Avoid unnecessary frameworks unless a clear technical requirement exists.
 
 ## 3. Project Location
 
-The custom theme will live inside the WordPress installation at:
+The custom theme lives inside the WordPress installation at:
 
 `app/public/wp-content/themes/`
 
-The final theme directory will use a neutral theme slug until the final brand name is approved.
-
-Example:
+Current theme directory (technical slug):
 
 `app/public/wp-content/themes/fashion-brand-theme/`
 
-The theme slug may be changed later after the final brand identity is established.
+**Brand name:** WREN WOLD (finalized).
+
+The theme directory slug may be renamed later in a controlled technical migration. Brand identity documentation is the source of truth for the public brand name.
 
 ---
 
@@ -220,7 +222,7 @@ Fashion Brand
     └── Social & Integrations
 ```
 
-Implemented as one Settings API page with native WordPress tabs. Settings are not duplicated across multiple pages.
+Note: The public brand name is **WREN WOLD**. The WordPress admin menu label above reflects the current theme implementation and may be renamed in a later admin-label update. Brand identity docs are the source of truth for the public name.
 
 ### Module files
 
