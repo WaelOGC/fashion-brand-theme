@@ -91,3 +91,22 @@
 .site-footer__social-list a:hover {
 	color: var(--color-text);
 }
+
+.site-footer__menu-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-3);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-footer__menu-list a {
+	font: var(--font-small);
+	color: var(--color-text-muted);
+	text-decoration: none;
+}
+
+.site-footer__menu-list a:hover {
+	color: var(--color-text);
+}

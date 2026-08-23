@@ -19,3 +19,8 @@
 	color: var(--color-text-muted);
 	text-align: center;
 }
+
+.announcement-bar__link {
+	margin-left: var(--space-2);
+	color: inherit;
+}

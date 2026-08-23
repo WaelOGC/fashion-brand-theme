@@ -1,0 +1,13 @@
+.fashion-brand-theme-settings__panel {
+	margin-top: 1rem;
+}
+
+.fashion-brand-theme-settings__section + .fashion-brand-theme-settings__section {
+	margin-top: 2rem;
+	padding-top: 1.5rem;
+	border-top: 1px solid #dcdcde;
+}
+
+.fashion-brand-theme-settings__section h2 {
+	margin-top: 0;
+}

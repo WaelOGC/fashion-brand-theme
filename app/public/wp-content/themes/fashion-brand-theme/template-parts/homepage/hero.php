@@ -12,16 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="homepage-section homepage-hero" aria-labelledby="homepage-hero-heading">
 	<div class="homepage-hero__inner container">
 		<div class="homepage-hero__content">
-			<p class="homepage-section__eyebrow"><?php esc_html_e( 'Curated European Fashion', 'fashion-brand-theme' ); ?></p>
+			<p class="homepage-section__eyebrow"><?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_eyebrow' ) ); ?></p>
 			<h1 id="homepage-hero-heading" class="homepage-hero__title text-display">
-				<?php esc_html_e( 'Clothing with intention.', 'fashion-brand-theme' ); ?>
+				<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_heading' ) ); ?>
 			</h1>
 			<p class="homepage-hero__statement">
-				<?php esc_html_e( 'Considered pieces for modern life — designed for quality, longevity and quiet confidence.', 'fashion-brand-theme' ); ?>
+				<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_text' ) ); ?>
 			</p>
 			<div class="homepage-hero__actions">
-				<a class="button button--primary" href="<?php echo esc_url( fashion_brand_theme_get_shop_url() ); ?>">
-					<?php esc_html_e( 'Explore the Shop', 'fashion-brand-theme' ); ?>
+				<a class="button button--primary" href="<?php echo esc_url( fashion_brand_theme_get_homepage_url( 'homepage_hero_cta_url', fashion_brand_theme_get_shop_url() ) ); ?>">
+					<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_cta_label' ) ); ?>
 				</a>
 			</div>
 		</div>

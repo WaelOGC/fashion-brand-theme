@@ -545,3 +545,20 @@ body.is-header-nav-open {
 		overflow: visible;
 	}
 }
+
+/* Settings-driven header behavior (disabled by default) */
+.site-header--sticky {
+	position: sticky;
+	top: 0;
+	z-index: 30;
+}
+
+.site-header--scroll-shadow.is-scrolled {
+	box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 63.99rem) {
+	.site-header--no-mobile-menu .site-header__navigation {
+		display: block;
+	}
+}

@@ -44,6 +44,7 @@ function fashion_brand_theme_setup() {
 		array(
 			'primary' => esc_html__( 'Primary Navigation', 'fashion-brand-theme' ),
 			'utility' => esc_html__( 'Utility Navigation', 'fashion-brand-theme' ),
+			'footer'  => esc_html__( 'Footer Menu', 'fashion-brand-theme' ),
 		)
 	);
 }

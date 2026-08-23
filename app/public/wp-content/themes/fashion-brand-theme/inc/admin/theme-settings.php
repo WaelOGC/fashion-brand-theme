@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme Settings admin page.
+ * Theme Settings admin page and field renderers.
  *
  * @package Fashion_Brand_Theme
  */
@@ -37,169 +37,24 @@ function fashion_brand_theme_register_admin_menu() {
 add_action( 'admin_menu', 'fashion_brand_theme_register_admin_menu' );
 
 /**
- * Register theme settings.
+ * Enqueue minimal admin styles for settings tabs.
  *
+ * @param string $hook_suffix Current admin page hook.
  * @return void
  */
-function fashion_brand_theme_register_settings() {
-	register_setting(
-		'fashion_brand_theme_settings_group',
-		FASHION_BRAND_THEME_SETTINGS_OPTION,
-		array(
-			'type'              => 'array',
-			'sanitize_callback' => 'fashion_brand_theme_sanitize_settings',
-			'default'           => fashion_brand_theme_get_default_settings(),
-		)
-	);
-
-	add_settings_section(
-		'fashion_brand_theme_general',
-		__( 'General', 'fashion-brand-theme' ),
-		'fashion_brand_theme_render_general_section',
-		'fashion-brand-theme'
-	);
-
-	add_settings_section(
-		'fashion_brand_theme_header',
-		__( 'Header', 'fashion-brand-theme' ),
-		'fashion_brand_theme_render_header_section',
-		'fashion-brand-theme'
-	);
-
-	add_settings_section(
-		'fashion_brand_theme_footer',
-		__( 'Footer', 'fashion-brand-theme' ),
-		'fashion_brand_theme_render_footer_section',
-		'fashion-brand-theme'
-	);
-
-	add_settings_section(
-		'fashion_brand_theme_social',
-		__( 'Social / External Links', 'fashion-brand-theme' ),
-		'fashion_brand_theme_render_social_section',
-		'fashion-brand-theme'
-	);
-
-	fashion_brand_theme_add_settings_fields();
-}
-add_action( 'admin_init', 'fashion_brand_theme_register_settings' );
-
-/**
- * Register individual settings fields.
- *
- * @return void
- */
-function fashion_brand_theme_add_settings_fields() {
-	$fields = array(
-		array(
-			'id'       => 'display_label',
-			'title'    => __( 'Display Label Fallback', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_general',
-			'callback' => 'fashion_brand_theme_render_text_field',
-			'args'     => array(
-				'key'         => 'display_label',
-				'description' => __( 'Used when no custom logo is set. Does not replace the WordPress site title setting.', 'fashion-brand-theme' ),
-			),
-		),
-		array(
-			'id'       => 'announcement_enabled',
-			'title'    => __( 'Enable Announcement Bar', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_general',
-			'callback' => 'fashion_brand_theme_render_checkbox_field',
-			'args'     => array(
-				'key'         => 'announcement_enabled',
-				'description' => __( 'Shows a simple announcement bar above the site header.', 'fashion-brand-theme' ),
-			),
-		),
-		array(
-			'id'       => 'announcement_text',
-			'title'    => __( 'Announcement Text', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_general',
-			'callback' => 'fashion_brand_theme_render_textarea_field',
-			'args'     => array(
-				'key'         => 'announcement_text',
-				'description' => __( 'Short message displayed in the announcement bar.', 'fashion-brand-theme' ),
-			),
-		),
-		array(
-			'id'       => 'header_search_enabled',
-			'title'    => __( 'Show Search', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_header',
-			'callback' => 'fashion_brand_theme_render_checkbox_field',
-			'args'     => array( 'key' => 'header_search_enabled' ),
-		),
-		array(
-			'id'       => 'header_account_enabled',
-			'title'    => __( 'Show Account Link', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_header',
-			'callback' => 'fashion_brand_theme_render_checkbox_field',
-			'args'     => array( 'key' => 'header_account_enabled' ),
-		),
-		array(
-			'id'       => 'header_cart_enabled',
-			'title'    => __( 'Show Cart Link', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_header',
-			'callback' => 'fashion_brand_theme_render_checkbox_field',
-			'args'     => array( 'key' => 'header_cart_enabled' ),
-		),
-		array(
-			'id'       => 'footer_copyright_text',
-			'title'    => __( 'Footer Copyright Text', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_footer',
-			'callback' => 'fashion_brand_theme_render_text_field',
-			'args'     => array(
-				'key'         => 'footer_copyright_text',
-				'description' => __( 'Optional override. Leave empty to use the default copyright line.', 'fashion-brand-theme' ),
-			),
-		),
-		array(
-			'id'       => 'footer_visible',
-			'title'    => __( 'Show Footer', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_footer',
-			'callback' => 'fashion_brand_theme_render_checkbox_field',
-			'args'     => array( 'key' => 'footer_visible' ),
-		),
-		array(
-			'id'       => 'social_instagram',
-			'title'    => __( 'Instagram URL', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_social',
-			'callback' => 'fashion_brand_theme_render_url_field',
-			'args'     => array( 'key' => 'social_instagram' ),
-		),
-		array(
-			'id'       => 'social_facebook',
-			'title'    => __( 'Facebook URL', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_social',
-			'callback' => 'fashion_brand_theme_render_url_field',
-			'args'     => array( 'key' => 'social_facebook' ),
-		),
-		array(
-			'id'       => 'social_pinterest',
-			'title'    => __( 'Pinterest URL', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_social',
-			'callback' => 'fashion_brand_theme_render_url_field',
-			'args'     => array( 'key' => 'social_pinterest' ),
-		),
-		array(
-			'id'       => 'social_tiktok',
-			'title'    => __( 'TikTok URL', 'fashion-brand-theme' ),
-			'section'  => 'fashion_brand_theme_social',
-			'callback' => 'fashion_brand_theme_render_url_field',
-			'args'     => array( 'key' => 'social_tiktok' ),
-		),
-	);
-
-	foreach ( $fields as $field ) {
-		add_settings_field(
-			$field['id'],
-			$field['title'],
-			$field['callback'],
-			'fashion-brand-theme',
-			$field['section'],
-			$field['args']
-		);
+function fashion_brand_theme_admin_assets( $hook_suffix ) {
+	if ( 'toplevel_page_fashion-brand-theme' !== $hook_suffix ) {
+		return;
 	}
+
+	wp_enqueue_style(
+		'fashion-brand-theme-admin-settings',
+		FASHION_BRAND_THEME_URI . '/assets/css/admin/theme-settings.css',
+		array(),
+		FASHION_BRAND_THEME_VERSION
+	);
 }
+add_action( 'admin_enqueue_scripts', 'fashion_brand_theme_admin_assets' );
 
 /**
  * Render the Theme Settings page.
@@ -210,56 +65,80 @@ function fashion_brand_theme_render_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
+
+	$tabs       = fashion_brand_theme_get_settings_tabs();
+	$active_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
+
+	if ( ! array_key_exists( $active_tab, $tabs ) ) {
+		$active_tab = 'general';
+	}
 	?>
-	<div class="wrap">
+	<div class="wrap fashion-brand-theme-settings">
 		<h1><?php esc_html_e( 'Theme Settings', 'fashion-brand-theme' ); ?></h1>
-		<p><?php esc_html_e( 'Operational theme settings for content and front-end behavior. Design, layout, and architecture changes remain code-controlled.', 'fashion-brand-theme' ); ?></p>
+		<p class="description">
+			<?php esc_html_e( 'Operational controls for site owners. Design system, layout architecture, responsive behavior, and major visual changes remain code-controlled.', 'fashion-brand-theme' ); ?>
+		</p>
+
+		<h2 class="nav-tab-wrapper">
+			<?php foreach ( $tabs as $tab_id => $label ) : ?>
+				<a
+					href="<?php echo esc_url( admin_url( 'admin.php?page=fashion-brand-theme&tab=' . $tab_id ) ); ?>"
+					class="nav-tab <?php echo $active_tab === $tab_id ? 'nav-tab-active' : ''; ?>"
+				>
+					<?php echo esc_html( $label ); ?>
+				</a>
+			<?php endforeach; ?>
+		</h2>
 
 		<form action="options.php" method="post">
-			<?php
-			settings_fields( 'fashion_brand_theme_settings_group' );
-			do_settings_sections( 'fashion-brand-theme' );
-			submit_button();
-			?>
+			<?php settings_fields( 'fashion_brand_theme_settings_group' ); ?>
+
+			<div class="fashion-brand-theme-settings__panels">
+				<?php foreach ( $tabs as $tab_id => $label ) : ?>
+					<div
+						class="fashion-brand-theme-settings__panel <?php echo $active_tab === $tab_id ? 'is-active' : ''; ?>"
+						data-tab-panel="<?php echo esc_attr( $tab_id ); ?>"
+						<?php echo $active_tab === $tab_id ? '' : 'hidden'; ?>
+					>
+						<?php fashion_brand_theme_render_settings_tab_sections( $tab_id ); ?>
+					</div>
+				<?php endforeach; ?>
+			</div>
+
+			<?php submit_button(); ?>
 		</form>
 	</div>
 	<?php
 }
 
 /**
- * General section description.
+ * Render settings sections for a tab.
  *
+ * @param string $tab_id Tab identifier.
  * @return void
  */
-function fashion_brand_theme_render_general_section() {
-	echo '<p>' . esc_html__( 'General theme presentation and optional announcement messaging.', 'fashion-brand-theme' ) . '</p>';
-}
+function fashion_brand_theme_render_settings_tab_sections( $tab_id ) {
+	$tab_sections = fashion_brand_theme_get_settings_tab_sections();
+	$sections     = $tab_sections[ $tab_id ] ?? array();
 
-/**
- * Header section description.
- *
- * @return void
- */
-function fashion_brand_theme_render_header_section() {
-	echo '<p>' . esc_html__( 'Utility header controls. Navigation structure remains defined by the theme.', 'fashion-brand-theme' ) . '</p>';
-}
+	foreach ( $sections as $section_id ) {
+		echo '<div class="fashion-brand-theme-settings__section">';
+		global $wp_settings_sections;
 
-/**
- * Footer section description.
- *
- * @return void
- */
-function fashion_brand_theme_render_footer_section() {
-	echo '<p>' . esc_html__( 'Basic footer visibility and copyright text.', 'fashion-brand-theme' ) . '</p>';
-}
+		if ( isset( $wp_settings_sections['fashion-brand-theme'][ $section_id ] ) ) {
+			$section = $wp_settings_sections['fashion-brand-theme'][ $section_id ];
+			if ( $section['title'] ) {
+				echo '<h2>' . esc_html( $section['title'] ) . '</h2>';
+			}
+			if ( $section['callback'] ) {
+				call_user_func( $section['callback'], $section );
+			}
+		}
 
-/**
- * Social section description.
- *
- * @return void
- */
-function fashion_brand_theme_render_social_section() {
-	echo '<p>' . esc_html__( 'External profile links stored for theme use. URLs are sanitized on save.', 'fashion-brand-theme' ) . '</p>';
+		echo '<table class="form-table" role="presentation">';
+		do_settings_fields( 'fashion-brand-theme', $section_id );
+		echo '</table></div>';
+	}
 }
 
 /**
@@ -340,6 +219,29 @@ function fashion_brand_theme_render_url_field( $args ) {
 		value="<?php echo esc_url( is_string( $value ) ? $value : '' ); ?>"
 		class="regular-text code"
 		placeholder="https://"
+	/>
+	<?php fashion_brand_theme_render_field_description( $args ); ?>
+	<?php
+}
+
+/**
+ * Render a number field.
+ *
+ * @param array<string, string> $args Field arguments.
+ * @return void
+ */
+function fashion_brand_theme_render_number_field( $args ) {
+	$key   = $args['key'];
+	$value = fashion_brand_theme_get_settings_field_value( $key );
+	?>
+	<input
+		type="number"
+		id="<?php echo esc_attr( $key ); ?>"
+		name="<?php echo esc_attr( fashion_brand_theme_settings_field_name( $key ) ); ?>"
+		value="<?php echo esc_attr( (string) $value ); ?>"
+		class="small-text"
+		min="1"
+		step="1"
 	/>
 	<?php fashion_brand_theme_render_field_description( $args ); ?>
 	<?php

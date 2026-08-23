@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $show_search  = fashion_brand_theme_is_setting_enabled( 'header_search_enabled' );
 $show_account = fashion_brand_theme_is_setting_enabled( 'header_account_enabled' );
 $show_cart    = fashion_brand_theme_is_setting_enabled( 'header_cart_enabled' );
+$use_panel    = fashion_brand_theme_is_setting_enabled( 'header_search_panel_enabled' );
 
 if ( ! $show_search && ! $show_account && ! $show_cart ) {
 	return;
@@ -21,15 +22,21 @@ if ( ! $show_search && ! $show_account && ! $show_cart ) {
 	<ul id="utility-menu" class="utility-menu">
 		<?php if ( $show_search ) : ?>
 			<li class="menu-item menu-item-search">
-				<button
-					type="button"
-					class="utility-menu__search-toggle"
-					aria-expanded="false"
-					aria-controls="header-search-panel"
-					data-search-toggle
-				>
-					<?php esc_html_e( 'Search', 'fashion-brand-theme' ); ?>
-				</button>
+				<?php if ( $use_panel ) : ?>
+					<button
+						type="button"
+						class="utility-menu__search-toggle"
+						aria-expanded="false"
+						aria-controls="header-search-panel"
+						data-search-toggle
+					>
+						<?php esc_html_e( 'Search', 'fashion-brand-theme' ); ?>
+					</button>
+				<?php else : ?>
+					<a href="<?php echo esc_url( fashion_brand_theme_get_search_url() ); ?>">
+						<?php esc_html_e( 'Search', 'fashion-brand-theme' ); ?>
+					</a>
+				<?php endif; ?>
 			</li>
 		<?php endif; ?>
 

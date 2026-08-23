@@ -10,3 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require FASHION_BRAND_THEME_DIR . '/inc/admin/theme-settings.php';
+require FASHION_BRAND_THEME_DIR . '/inc/admin/settings-fields.php';

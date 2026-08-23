@@ -211,4 +211,14 @@
 	} else {
 		updateHeaderOffset();
 	}
+
+	if ( siteHeader && siteHeader.classList.contains( 'site-header--scroll-shadow' ) ) {
+		window.addEventListener(
+			'scroll',
+			function () {
+				siteHeader.classList.toggle( 'is-scrolled', window.scrollY > 0 );
+			},
+			{ passive: true }
+		);
+	}
 }() );

@@ -49,44 +49,32 @@ The theme slug may be changed later after the final brand identity is establishe
 
 ## 4. Theme Architecture
 
-The custom theme should be organized into logical layers.
-
-Initial structure:
-
 ```text
 fashion-brand-theme/
 │
 ├── style.css
 ├── functions.php
-├── index.php
 ├── front-page.php
-├── page.php
-├── single.php
-├── archive.php
-├── search.php
-├── 404.php
-│
 ├── header.php
 ├── footer.php
-├── sidebar.php
 │
 ├── assets/
 │   ├── css/
-│   ├── js/
-│   ├── images/
-│   └── fonts/
+│   │   ├── tokens/
+│   │   ├── base/
+│   │   ├── components/
+│   │   └── admin/
+│   └── js/
 │
 ├── inc/
 │   ├── setup.php
 │   ├── enqueue.php
-│   ├── template-functions.php
-│   ├── template-hooks.php
-│   ├── accessibility.php
-│   ├── woocommerce.php
 │   ├── navigation.php
 │   ├── homepage.php
+│   ├── woocommerce.php
 │   └── admin/
 │       ├── settings.php
+│       ├── settings-fields.php
 │       ├── theme-settings.php
 │       ├── customizer.php
 │       └── admin.php
@@ -95,169 +83,375 @@ fashion-brand-theme/
 │   ├── global/
 │   ├── header/
 │   ├── footer/
-│   ├── homepage/
-│   ├── product/
-│   ├── archive/
-│   └── components/
+│   └── homepage/
 │
 └── woocommerce/
-    └── [only required WooCommerce template overrides]
 ```
+
+### Site Information Architecture
+
+Primary navigation (code-controlled; assignable via **Appearance → Menus** using the **Primary Navigation** location):
+
+| Item | Type | Placeholder path |
+|------|------|------------------|
+| Shop | Top-level + submenu | `/shop/` |
+| Collections | Top-level | `/collections/` |
+| Guides | Top-level | `/guides/` |
+| About | Top-level | `/about/` |
+| Contact | Top-level | `/contact/` |
+
+Utility navigation (header template; not primary menu):
+
+| Item | Resolution |
+|------|------------|
+| Search | WordPress search (`get_search_link()`) |
+| Account | WooCommerce My Account page, or `/my-account/` placeholder |
+| Cart | WooCommerce Cart page, or `/cart/` placeholder |
+
+Approved shop category slugs (nested under Shop):
+
+| Label | Slug | Placeholder path |
+|-------|------|------------------|
+| T-Shirts | `t-shirts` | `/product-category/t-shirts/` |
+| Hoodies | `hoodies` | `/product-category/hoodies/` |
+| Tops | `tops` | `/product-category/tops/` |
+| Dresses | `dresses` | `/product-category/dresses/` |
+| Pants | `pants` | `/product-category/pants/` |
+| Everyday Essentials | `everyday-essentials` | `/product-category/everyday-essentials/` |
+| Occasion / Evening Wear | `occasion-evening-wear` | `/product-category/occasion-evening-wear/` |
+
+The Shop submenu also includes **All Products**, which resolves to the shop URL rather than a category archive.
+
+### URL helpers (`inc/navigation.php`)
+
+All theme destinations must use centralized helpers — templates must not hardcode paths.
+
+| Helper | Purpose |
+|--------|---------|
+| `fashion_brand_theme_get_theme_page_slugs()` | Canonical page slug registry |
+| `fashion_brand_theme_get_product_category_slugs()` | Canonical category slug registry |
+| `fashion_brand_theme_get_shop_url()` | Shop archive (WooCommerce page or `/shop/` placeholder) |
+| `fashion_brand_theme_get_page_url( $slug )` | Theme page (published page permalink or placeholder) |
+| `fashion_brand_theme_get_product_category_url( $slug )` | Category archive (term link or placeholder) |
+| `fashion_brand_theme_get_account_url()` | Account page (WooCommerce or placeholder) |
+| `fashion_brand_theme_get_cart_url()` | Cart page (WooCommerce or placeholder) |
+| `fashion_brand_theme_get_search_url()` | WordPress search URL |
+
+When real WordPress pages are published with matching slugs, helpers automatically resolve to permalinks. The theme does not create pages automatically.
+
+### Template hierarchy
+
+| Context | Template | Notes |
+|---------|----------|-------|
+| Front page | `front-page.php` | Homepage sections via settings helpers |
+| Pages | `page.php` | Standard page output |
+| Single posts | `single.php` | Uses `template-parts/components/content` |
+| Archives | `archive.php` | Generic archive fallback |
+| Search | `search.php` | Search form + results |
+| 404 | `404.php` | Theme 404; no redirects |
+| Fallback | `index.php` | Last resort template |
+
+Invalid URLs continue to use the theme `404.php` template. No automatic redirects are implemented.
 
 ---
 
-## 5. Theme Settings Architecture
+## 5. Theme Control Matrix
 
-The theme uses a two-level control model.
+The theme uses a strict boundary between WordPress Core, Theme Settings, Customizer, WooCommerce, and code-controlled architecture.
 
-### A. WordPress Admin — Fashion Brand → Theme Settings
+| Area | WordPress Core | Theme Settings | Customizer | WooCommerce | Code / Cursor |
+|------|----------------|----------------|------------|-------------|---------------|
+| Site title / tagline | ✓ | | | | |
+| Site icon / custom logo | ✓ | | ✓ (core Site Identity) | | |
+| Users / roles | ✓ | | | | |
+| Menus (structure & links) | ✓ | | | | Theme registers locations |
+| Reading settings / permalinks | ✓ | | | | |
+| Media library | ✓ | | | | |
+| Announcement bar | | ✓ | partial | | Markup/styles in code |
+| Display label fallback | | ✓ | ✓ | | |
+| Header utility toggles | | ✓ | | | Layout in code |
+| Header sticky / scroll shadow | | ✓ | | | Implementation in code |
+| Primary navigation structure | | | | | ✓ |
+| Homepage section order | | | | | ✓ |
+| Homepage section visibility | | ✓ | | | |
+| Hero / closing CTA copy | | ✓ | | | |
+| Homepage layout / design | | | | | ✓ |
+| Footer copyright / visibility | | ✓ | | | |
+| Footer menu visibility | | ✓ | | | Uses WP menus |
+| Social URLs / behavior | | ✓ | | | |
+| Shop grid / product presentation | | ✓ | | | Applied via theme filters |
+| Products / prices / inventory | | | | ✓ | |
+| Cart / checkout / payments | | | | ✓ | |
+| Design tokens / typography / colors | | | | | ✓ |
+| Responsive behavior / breakpoints | | | | | ✓ |
+| Component templates / animations | | | | | ✓ |
+| SEO metadata / schema / sitemaps | | | | | SEO plugin + semantic templates |
 
-Used for simple operational and content-related settings that a site owner may change after deployment without editing code.
+---
 
-Stored in a single option:
+## 6. Theme Settings Architecture
+
+### Storage
+
+All theme settings are stored in one centralized option:
 
 - `fashion_brand_theme_settings`
 
-Current admin sections:
+Settings are grouped logically:
 
-**General**
+- `general`
+- `header`
+- `footer`
+- `homepage`
+- `shop`
+- `social`
 
-- Display label fallback (used when no custom logo is set)
-- Announcement bar enable/disable
-- Announcement text
+### Admin menu
 
-**Header**
+WordPress Dashboard:
 
-- Enable/disable search
-- Enable/disable account link
-- Enable/disable cart link
+```text
+Fashion Brand
+└── Theme Settings
+    ├── General
+    ├── Header & Footer
+    ├── Homepage
+    ├── Shop Presentation
+    └── Social & Integrations
+```
 
-**Footer**
+Implemented as one Settings API page with native WordPress tabs. Settings are not duplicated across multiple pages.
 
-- Footer copyright text override
-- Footer visibility
-
-**Social / External Links**
-
-- Instagram URL
-- Facebook URL
-- Pinterest URL
-- TikTok URL
-
-Implementation:
+### Module files
 
 - `inc/admin/settings.php` — defaults, getters, sanitization, front-end helpers
-- `inc/admin/theme-settings.php` — Settings API registration and admin page
+- `inc/admin/settings-fields.php` — Settings API field registration
+- `inc/admin/theme-settings.php` — admin menu and settings page UI
+- `inc/admin/customizer.php` — lightweight Customizer integration
 - `inc/admin/admin.php` — admin bootstrap
 
-Capability required:
+### Capability
 
-- `manage_options`
+- Theme Settings page: `manage_options`
+- Customizer controls: `edit_theme_options`
 
-### B. WordPress Customizer — Fashion Brand Theme section
+---
 
-Used only for lightweight presentation controls that benefit from live preview.
+## 7. WordPress Admin — Theme Settings
 
-Current Customizer controls:
+### General
 
 - Display label fallback
-- Announcement bar enable/disable
+- Enable announcement bar
+- Announcement text
+- Enable announcement link
+- Announcement link label
+- Announcement link URL
+
+### Header
+
+- Show search
+- Show account link
+- Show cart link
+- Enable search panel
+- Enable mobile menu
+- Enable sticky header (default: off)
+- Enable header shadow on scroll (default: off)
+
+### Footer
+
+- Show footer
+- Show copyright
+- Footer copyright text
+- Show social links
+- Show footer menu
+
+Footer menus are assigned under **Appearance → Menus** using the **Footer Menu** location.
+
+### Homepage
+
+Section visibility toggles:
+
+- Hero
+- Philosophy
+- Categories
+- Featured Collection
+- Guides
+- Closing CTA
+
+Limited content controls:
+
+- Hero eyebrow, heading, supporting text, primary CTA label/URL
+- Closing CTA heading, supporting text, primary/secondary CTA labels/URLs
+
+Homepage section order is intentionally code-controlled:
+
+```text
+Hero → Philosophy → Categories → Featured Collection → Guides → Closing CTA
+```
+
+### Shop Presentation
+
+Presentation-only settings (applied when WooCommerce is installed):
+
+- Product grid columns
+- Products per page
+- Show product price
+- Show product excerpt
+- Show product category
+- Show product badges
+
+When WooCommerce is not installed, values are stored but safely ignored.
+
+### Social & Integrations
+
+- Enable social links
+- Open social links in a new tab
+- Instagram, Facebook, Pinterest, TikTok, LinkedIn, YouTube URLs
+
+---
+
+## 8. WordPress Customizer Boundary
+
+The Customizer remains lightweight and exposes only presentation controls that benefit from live preview:
+
+- Display label fallback
+- Enable announcement bar
 - Announcement text
 
-Implementation:
+The Customizer does **not** replace Theme Settings.
 
-- `inc/admin/customizer.php`
-
-Capability required:
-
-- `edit_theme_options`
-
-The Customizer is intentionally small. It does not replace Theme Settings.
-
-### C. Cursor / Codebase
-
-Remains the source of truth for:
-
-- Design system and tokens
-- Component architecture
-- Homepage section structure
-- Header layout and responsive behavior
-- Navigation information architecture
-- Template structure
-- WooCommerce template overrides
-- Performance, accessibility, and SEO implementation
-- Animations and interaction patterns
-- Major layout or visual redesign
-
-### D. WooCommerce Admin
-
-When WooCommerce is installed, the following remain WooCommerce responsibilities:
-
-- Products and categories (data model)
-- Inventory
-- Payments
-- Shipping
-- Tax
-- Cart and checkout configuration
-- Customer account system configuration
-- Order management
-
-The theme must not duplicate WooCommerce operational settings.
-
-### E. WordPress Core
-
-The theme must not duplicate WordPress core settings such as:
+WordPress Core **Site Identity** remains responsible for:
 
 - Site title
 - Site tagline
-- Site URL
+- Site icon
+- Custom logo
+
+---
+
+## 9. WordPress Core Boundary
+
+The theme does not duplicate:
+
+- Site title
+- Site tagline
+- Site icon
+- Users
 - Reading settings
 - Permalinks
-- User management
-
-Custom logo continues to use the WordPress core Customizer / Site Identity control.
-
----
-
-## 6. Settings Security Model
-
-- Settings are registered through the WordPress Settings API.
-- All saved values are sanitized before storage.
-- All output is escaped at render time.
-- Admin access requires `manage_options`.
-- Customizer access requires `edit_theme_options`.
-- Admin forms use WordPress nonces via `settings_fields()`.
+- Privacy settings
+- Media settings
+- Menu management (theme registers locations only)
 
 ---
 
-## 7. Front-End Settings Integration
+## 10. WooCommerce Boundary
 
-Theme settings currently affect:
+WooCommerce owns:
 
-- Site branding display label fallback
-- Announcement bar output
-- Header utility navigation visibility
-- Header search panel visibility
-- Footer visibility
-- Footer copyright text
-- Footer social link output when URLs are configured
+- Products
+- Categories (commerce data)
+- Product prices
+- Inventory
+- Orders
+- Customers
+- Coupons
+- Taxes
+- Shipping
+- Payments
+- Cart configuration
+- Checkout configuration
+- Account functionality
 
-Settings do not alter design tokens, responsive breakpoints, or component layout architecture.
+The theme only controls visual presentation and template integration through filters and future template overrides.
 
 ---
 
-## 8. Future Settings (Intentionally Deferred)
+## 11. Code / Cursor Boundary
 
-The following are not part of the current Theme Settings foundation:
+The following remain code-controlled:
 
-- Homepage section content management
-- Product or collection merchandising controls
-- Header navigation structure editing
-- Sticky header behavior
-- Footer menu/widget architecture
+- Design system and tokens
+- Typography system
+- Color architecture
+- Breakpoints and responsive strategy
+- Header/footer/homepage composition
+- Navigation information architecture
+- Homepage section order
+- Component markup
+- Animations and JavaScript behavior
+- Template selection
+- WooCommerce template overrides
+- Performance, accessibility, and SEO template structure
+
+---
+
+## 12. Collections, Guides, and Editorial Content
+
+### Collections
+
+Collections are part of the approved site architecture but do not yet have a custom management system.
+
+The homepage featured collection uses placeholder theme data.
+
+Future collection management may use WordPress pages, categories, or a dedicated content model in a later phase.
+
+### Guides
+
+Guides remain compatible with normal WordPress content architecture.
+
+No custom editorial CMS or page builder is implemented in the theme admin.
+
+---
+
+## 13. SEO Boundary
+
+The theme does not implement SEO settings.
+
+SEO metadata, canonical URLs, sitemaps, Open Graph, and schema configuration belong to an SEO plugin such as Yoast SEO.
+
+The theme remains SEO-friendly through semantic HTML and template structure.
+
+---
+
+## 14. Security Model
+
+- WordPress Settings API registration
+- Nonce protection via `settings_fields()`
+- Sanitization on save (`sanitize_text_field`, `sanitize_textarea_field`, `esc_url_raw`, checkbox normalization)
+- Escaping on output (`esc_html`, `esc_attr`, `esc_url`)
+- Capability checks (`manage_options`, `edit_theme_options`)
+
+---
+
+## 15. Intentionally Deferred Controls
+
+- Homepage section reordering
+- Homepage visual/layout controls
+- Collection CMS / custom post types
+- Guides editorial field system
+- Brand colors / typography admin controls
+- Header spacing / color controls
+- Sticky announcement behavior variants
 - SEO plugin configuration
-- WooCommerce presentation overrides
-- Brand color / typography controls (awaiting Brand Identity approval)
+- WooCommerce checkout/cart admin overrides
 - AI assistant configuration
+- Product merchandising picker in admin
 
-These may be added later if there is a clear operational need.
+These may be added only when there is a clear operational requirement.
+
+---
+
+## 16. Backward Compatibility
+
+Existing settings stored in `fashion_brand_theme_settings` remain valid.
+
+New settings use safe defaults that preserve current front-end behavior unless an administrator explicitly changes them.
+
+Examples:
+
+- Sticky header: default off
+- Header scroll shadow: default off
+- Homepage sections: default on
+- Header utility links: default on

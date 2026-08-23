@@ -12,17 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="homepage-section homepage-cta" aria-labelledby="homepage-cta-heading">
 	<div class="container container--narrow">
 		<h2 id="homepage-cta-heading" class="homepage-cta__title">
-			<?php esc_html_e( 'Begin with pieces that feel considered — and stay relevant.', 'fashion-brand-theme' ); ?>
+			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_heading' ) ); ?>
 		</h2>
 		<p class="homepage-cta__statement">
-			<?php esc_html_e( 'Discover a calm, curated shop designed for modern European living.', 'fashion-brand-theme' ); ?>
+			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_text' ) ); ?>
 		</p>
 		<div class="homepage-cta__actions">
-			<a class="button button--primary" href="<?php echo esc_url( fashion_brand_theme_get_shop_url() ); ?>">
-				<?php esc_html_e( 'Shop the Edit', 'fashion-brand-theme' ); ?>
+			<a class="button button--primary" href="<?php echo esc_url( fashion_brand_theme_get_homepage_url( 'homepage_cta_primary_url', fashion_brand_theme_get_shop_url() ) ); ?>">
+				<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_primary_label' ) ); ?>
 			</a>
-			<a class="button" href="<?php echo esc_url( fashion_brand_theme_get_page_url( 'collections' ) ); ?>">
-				<?php esc_html_e( 'View Collections', 'fashion-brand-theme' ); ?>
+			<a class="button" href="<?php echo esc_url( fashion_brand_theme_get_homepage_url( 'homepage_cta_secondary_url', fashion_brand_theme_get_page_url( 'collections' ) ) ); ?>">
+				<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_secondary_label' ) ); ?>
 			</a>
 		</div>
 	</div>

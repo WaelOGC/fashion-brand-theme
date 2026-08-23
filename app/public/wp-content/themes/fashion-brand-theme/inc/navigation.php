@@ -10,13 +10,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Approved shop categories for nested navigation.
+ * Canonical WordPress page slugs for top-level theme destinations.
+ *
+ * Used as placeholder paths until real pages exist. When a matching page is
+ * published, `fashion_brand_theme_get_page_url()` resolves to its permalink.
+ *
+ * @return array<string, string> Page slug => navigation label.
+ */
+function fashion_brand_theme_get_theme_page_slugs() {
+	return array(
+		'collections' => __( 'Collections', 'fashion-brand-theme' ),
+		'guides'      => __( 'Guides', 'fashion-brand-theme' ),
+		'about'       => __( 'About', 'fashion-brand-theme' ),
+		'contact'     => __( 'Contact', 'fashion-brand-theme' ),
+	);
+}
+
+/**
+ * Approved WooCommerce product category slugs.
  *
  * @return array<string, string> Category slug => label.
  */
-function fashion_brand_theme_get_shop_categories() {
+function fashion_brand_theme_get_product_category_slugs() {
 	return array(
-		'all-products'          => __( 'All Products', 'fashion-brand-theme' ),
 		't-shirts'              => __( 'T-Shirts', 'fashion-brand-theme' ),
 		'hoodies'               => __( 'Hoodies', 'fashion-brand-theme' ),
 		'tops'                  => __( 'Tops', 'fashion-brand-theme' ),
@@ -24,6 +40,20 @@ function fashion_brand_theme_get_shop_categories() {
 		'pants'                 => __( 'Pants', 'fashion-brand-theme' ),
 		'everyday-essentials'   => __( 'Everyday Essentials', 'fashion-brand-theme' ),
 		'occasion-evening-wear' => __( 'Occasion / Evening Wear', 'fashion-brand-theme' ),
+	);
+}
+
+/**
+ * Shop submenu categories for navigation (includes All Products → shop URL).
+ *
+ * @return array<string, string> Category slug => label.
+ */
+function fashion_brand_theme_get_shop_categories() {
+	return array_merge(
+		array(
+			'all-products' => __( 'All Products', 'fashion-brand-theme' ),
+		),
+		fashion_brand_theme_get_product_category_slugs()
 	);
 }
 
@@ -51,6 +81,8 @@ function fashion_brand_theme_get_shop_url() {
  * @return string
  */
 function fashion_brand_theme_get_product_category_url( $slug ) {
+	$slug = sanitize_title( (string) $slug );
+
 	if ( 'all-products' === $slug ) {
 		return fashion_brand_theme_get_shop_url();
 	}
@@ -77,6 +109,7 @@ function fashion_brand_theme_get_product_category_url( $slug ) {
  * @return string
  */
 function fashion_brand_theme_get_page_url( $slug ) {
+	$slug = sanitize_title( (string) $slug );
 	$page = get_page_by_path( $slug );
 
 	if ( $page ) {
@@ -84,6 +117,15 @@ function fashion_brand_theme_get_page_url( $slug ) {
 	}
 
 	return home_url( '/' . trim( $slug, '/' ) . '/' );
+}
+
+/**
+ * Resolve the site search URL.
+ *
+ * @return string
+ */
+function fashion_brand_theme_get_search_url() {
+	return get_search_link();
 }
 
 /**
@@ -136,23 +178,14 @@ function fashion_brand_theme_primary_nav_fallback( $args ) {
 			'url'      => fashion_brand_theme_get_shop_url(),
 			'children' => fashion_brand_theme_get_shop_categories(),
 		),
-		array(
-			'label' => __( 'Collections', 'fashion-brand-theme' ),
-			'url'   => fashion_brand_theme_get_page_url( 'collections' ),
-		),
-		array(
-			'label' => __( 'Guides', 'fashion-brand-theme' ),
-			'url'   => fashion_brand_theme_get_page_url( 'guides' ),
-		),
-		array(
-			'label' => __( 'About', 'fashion-brand-theme' ),
-			'url'   => fashion_brand_theme_get_page_url( 'about' ),
-		),
-		array(
-			'label' => __( 'Contact', 'fashion-brand-theme' ),
-			'url'   => fashion_brand_theme_get_page_url( 'contact' ),
-		),
 	);
+
+	foreach ( fashion_brand_theme_get_theme_page_slugs() as $slug => $label ) {
+		$primary_items[] = array(
+			'label' => $label,
+			'url'   => fashion_brand_theme_get_page_url( $slug ),
+		);
+	}
 
 	echo '<ul id="' . esc_attr( $menu_id ) . '" class="' . esc_attr( $menu_class ) . '">';
 
