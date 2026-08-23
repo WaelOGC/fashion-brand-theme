@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage closing CTA section.
+ * Homepage closing threshold — quiet final composition.
  *
  * @package Fashion_Brand_Theme
  */
@@ -9,15 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<section class="homepage-section homepage-cta" aria-labelledby="homepage-cta-heading">
-	<div class="container container--narrow">
-		<h2 id="homepage-cta-heading" class="homepage-cta__title">
+<section
+	class="homepage-chapter homepage-chapter--closing homepage-closing"
+	aria-labelledby="homepage-cta-heading"
+	data-homepage-chapter="closing"
+>
+	<div class="homepage-closing__inner container" data-homepage-reveal="closing">
+		<p class="homepage-closing__index text-label" aria-hidden="true">06</p>
+		<h2 id="homepage-cta-heading" class="homepage-closing__title text-display-xl">
 			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_heading' ) ); ?>
 		</h2>
-		<p class="homepage-cta__statement">
+		<p class="homepage-closing__statement">
 			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_text' ) ); ?>
 		</p>
-		<div class="homepage-cta__actions">
+		<div class="homepage-closing__actions">
 			<a class="button button--primary" href="<?php echo esc_url( fashion_brand_theme_get_homepage_url( 'homepage_cta_primary_url', fashion_brand_theme_get_shop_url() ) ); ?>">
 				<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_cta_primary_label' ) ); ?>
 			</a>

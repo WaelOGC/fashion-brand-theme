@@ -23,7 +23,10 @@
 	--line-height-relaxed: 1.75;
 
 	/* Font sizes */
+	--font-size-display-xl: clamp(2.75rem, 6vw + 1rem, 5rem);
 	--font-size-display: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+	--font-size-chapter: clamp(3.5rem, 10vw + 1rem, 8rem);
+	--font-size-statement: clamp(1.375rem, 2vw + 0.5rem, 2.125rem);
 	--font-size-h1: clamp(1.875rem, 3vw + 0.75rem, 2.75rem);
 	--font-size-h2: clamp(1.5rem, 2vw + 0.75rem, 2rem);
 	--font-size-h3: clamp(1.25rem, 1vw + 0.75rem, 1.5rem);
@@ -35,7 +38,10 @@
 	--font-size-price: 1rem;
 
 	/* Composite typography tokens */
+	--font-display-xl: var(--font-weight-regular) var(--font-size-display-xl) / var(--line-height-tight) var(--font-family-display);
 	--font-display: var(--font-weight-regular) var(--font-size-display) / var(--line-height-tight) var(--font-family-display);
+	--font-chapter: var(--font-weight-regular) var(--font-size-chapter) / 0.9 var(--font-family-display);
+	--font-statement: var(--font-weight-regular) var(--font-size-statement) / var(--line-height-snug) var(--font-family-display);
 	--font-h1: var(--font-weight-regular) var(--font-size-h1) / var(--line-height-tight) var(--font-family-display);
 	--font-h2: var(--font-weight-regular) var(--font-size-h2) / var(--line-height-snug) var(--font-family-base);
 	--font-h3: var(--font-weight-medium) var(--font-size-h3) / var(--line-height-snug) var(--font-family-base);

@@ -24,6 +24,13 @@
 	--color-background: var(--color-neutral-50);
 	--color-surface: #ffffff;
 	--color-surface-muted: var(--color-neutral-100);
+	--color-surface-chapter: var(--color-neutral-100);
+	--color-surface-atmosphere: var(--color-neutral-200);
+	--color-surface-collection: var(--color-neutral-800);
+	--color-placeholder-start: var(--color-neutral-200);
+	--color-placeholder-end: var(--color-neutral-300);
+	--color-placeholder-deep-start: var(--color-neutral-600);
+	--color-placeholder-deep-end: var(--color-neutral-700);
 	--color-text: var(--color-neutral-800);
 	--color-text-muted: var(--color-neutral-500);
 	--color-text-subtle: var(--color-neutral-400);

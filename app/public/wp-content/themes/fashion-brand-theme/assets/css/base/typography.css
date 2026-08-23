@@ -52,6 +52,24 @@ label,
 	color: var(--color-text);
 }
 
+.text-display-xl {
+	font: var(--font-display-xl);
+	letter-spacing: var(--letter-spacing-display);
+	color: var(--color-text);
+}
+
+.text-chapter {
+	font: var(--font-chapter);
+	letter-spacing: var(--letter-spacing-display);
+	color: var(--color-text-subtle);
+}
+
+.text-statement {
+	font: var(--font-statement);
+	letter-spacing: var(--letter-spacing-heading);
+	color: var(--color-text);
+}
+
 .text-body {
 	font: var(--font-body);
 }

@@ -22,6 +22,26 @@ function fashion_brand_theme_get_homepage_categories() {
 }
 
 /**
+ * Layout modifier for editorial category tiles.
+ *
+ * @param int $index Zero-based position in the category list.
+ * @return string BEM modifier suffix.
+ */
+function fashion_brand_theme_get_homepage_category_layout_modifier( $index ) {
+	$modifiers = array(
+		'tall',
+		'offset',
+		'compact',
+		'wide',
+		'standard',
+		'offset',
+		'feature',
+	);
+
+	return $modifiers[ $index ] ?? 'standard';
+}
+
+/**
  * Placeholder featured collection items.
  *
  * @return array<int, array<string, string>>
@@ -29,20 +49,28 @@ function fashion_brand_theme_get_homepage_categories() {
 function fashion_brand_theme_get_featured_collection_items() {
 	return array(
 		array(
-			'title' => __( 'Structured Wool Coat', 'fashion-brand-theme' ),
-			'note'  => __( 'Placeholder product', 'fashion-brand-theme' ),
+			'title'       => __( 'Structured Wool Coat', 'fashion-brand-theme' ),
+			'note'        => __( 'Placeholder product photography', 'fashion-brand-theme' ),
+			'price'       => '€289',
+			'is_featured' => true,
 		),
 		array(
-			'title' => __( 'Silk Blend Blouse', 'fashion-brand-theme' ),
-			'note'  => __( 'Placeholder product', 'fashion-brand-theme' ),
+			'title'       => __( 'Silk Blend Blouse', 'fashion-brand-theme' ),
+			'note'        => __( 'Placeholder product photography', 'fashion-brand-theme' ),
+			'price'       => '€119',
+			'is_featured' => false,
 		),
 		array(
-			'title' => __( 'Tailored Wide-Leg Trouser', 'fashion-brand-theme' ),
-			'note'  => __( 'Placeholder product', 'fashion-brand-theme' ),
+			'title'       => __( 'Tailored Wide-Leg Trouser', 'fashion-brand-theme' ),
+			'note'        => __( 'Placeholder product photography', 'fashion-brand-theme' ),
+			'price'       => '€149',
+			'is_featured' => false,
 		),
 		array(
-			'title' => __( 'Compact Merino Knit', 'fashion-brand-theme' ),
-			'note'  => __( 'Placeholder product', 'fashion-brand-theme' ),
+			'title'       => __( 'Compact Merino Knit', 'fashion-brand-theme' ),
+			'note'        => __( 'Placeholder product photography', 'fashion-brand-theme' ),
+			'price'       => '€99',
+			'is_featured' => false,
 		),
 	);
 }
