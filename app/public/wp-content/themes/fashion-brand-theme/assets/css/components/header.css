@@ -1,0 +1,547 @@
+/**
+ * Site header component styles.
+ *
+ * Responsive strategy:
+ * - Mobile-first layout with collapsible primary navigation
+ * - Desktop horizontal layout from 64rem
+ * - Hover dropdowns only when fine pointer + hover is available
+ * - Touch/coarse pointer always uses explicit submenu toggles
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+.site-header {
+	position: relative;
+	z-index: 20;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: clip;
+	background-color: var(--color-surface);
+	border-bottom: var(--border-default);
+}
+
+.site-header__inner {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-areas:
+		"branding controls"
+		"navigation navigation";
+	align-items: center;
+	gap: var(--space-3);
+	padding-block: var(--space-3);
+	min-width: 0;
+}
+
+.site-branding {
+	grid-area: branding;
+	min-width: 0;
+	max-width: 55%;
+}
+
+.site-header__controls {
+	grid-area: controls;
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--space-2);
+	min-width: 0;
+}
+
+.site-header__navigation {
+	grid-area: navigation;
+	min-width: 0;
+}
+
+.site-branding__logo {
+	margin: 0;
+	font: var(--font-nav);
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: var(--letter-spacing-heading);
+}
+
+.site-branding__logo a {
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	color: var(--color-text);
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.site-branding__logo a:hover {
+	color: var(--color-accent);
+}
+
+.primary-menu,
+.utility-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.primary-menu {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-1);
+}
+
+.primary-menu > .menu-item > a,
+.utility-menu a,
+.utility-menu__search-toggle,
+.menu-toggle {
+	font: var(--font-nav);
+	color: var(--color-text);
+	text-decoration: none;
+}
+
+.utility-menu {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.utility-menu .menu-item {
+	flex-shrink: 0;
+}
+
+.utility-menu a,
+.utility-menu__search-toggle,
+.menu-toggle,
+.submenu-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: var(--touch-target-min);
+	min-height: var(--touch-target-min);
+	padding: var(--space-2) var(--space-3);
+	border: 0;
+	background: transparent;
+	touch-action: manipulation;
+	cursor: pointer;
+}
+
+.utility-menu a {
+	padding-inline: var(--space-3);
+}
+
+.utility-menu a:hover,
+.utility-menu__search-toggle:hover,
+.menu-toggle:hover {
+	color: var(--color-accent);
+}
+
+.utility-menu__search-toggle:focus,
+.menu-toggle:focus,
+.submenu-toggle:focus,
+.utility-menu a:focus {
+	outline: none;
+}
+
+.utility-menu__search-toggle:focus-visible,
+.menu-toggle:focus-visible,
+.submenu-toggle:focus-visible,
+.utility-menu a:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.menu-toggle {
+	gap: var(--space-2);
+}
+
+.menu-toggle__icon {
+	position: relative;
+	flex-shrink: 0;
+	width: 1.125rem;
+	height: 0.125rem;
+	background-color: currentColor;
+	transition: background-color var(--transition-fast);
+}
+
+.menu-toggle__icon::before,
+.menu-toggle__icon::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: currentColor;
+	transition: transform var(--transition-base);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.menu-toggle__icon,
+	.menu-toggle__icon::before,
+	.menu-toggle__icon::after,
+	.submenu-toggle__icon::before,
+	.submenu-toggle__icon::after {
+		transition: none;
+	}
+}
+
+.menu-toggle__icon::before {
+	top: -0.375rem;
+}
+
+.menu-toggle__icon::after {
+	top: 0.375rem;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon {
+	background-color: transparent;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::before {
+	top: 0;
+	transform: rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle__icon::after {
+	top: 0;
+	transform: rotate(-45deg);
+}
+
+.site-header__navigation {
+	display: none;
+	padding-block: var(--space-3);
+	border-top: var(--border-default);
+}
+
+.site-header__navigation.is-open {
+	display: block;
+	max-height: calc(100dvh - var(--site-header-offset));
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	-webkit-overflow-scrolling: touch;
+}
+
+.primary-menu .menu-item {
+	position: relative;
+}
+
+.primary-menu .menu-item > a {
+	display: inline-flex;
+	align-items: center;
+	min-height: var(--touch-target-min);
+	padding-block: var(--space-2);
+	padding-inline: var(--space-2);
+}
+
+.menu-item-has-children {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) var(--touch-target-min);
+	grid-template-areas:
+		"link toggle"
+		"submenu submenu";
+	align-items: center;
+	column-gap: var(--space-2);
+}
+
+.menu-item-has-children > a {
+	grid-area: link;
+	min-width: 0;
+}
+
+.menu-item-has-children > .submenu-toggle {
+	grid-area: toggle;
+	width: var(--touch-target-min);
+	height: var(--touch-target-min);
+	padding: 0;
+}
+
+.submenu-toggle__icon {
+	position: relative;
+	width: 0.625rem;
+	height: 0.625rem;
+}
+
+.submenu-toggle__icon::before,
+.submenu-toggle__icon::after {
+	content: "";
+	position: absolute;
+	background-color: currentColor;
+	transition: transform var(--transition-base);
+}
+
+.submenu-toggle__icon::before {
+	top: 50%;
+	left: 0;
+	width: 100%;
+	height: 1px;
+	transform: translateY(-50%);
+}
+
+.submenu-toggle__icon::after {
+	top: 0;
+	left: 50%;
+	width: 1px;
+	height: 100%;
+	transform: translateX(-50%);
+}
+
+.submenu-toggle[aria-expanded="true"] .submenu-toggle__icon::after {
+	transform: translateX(-50%) scaleY(0);
+}
+
+.sub-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0 0 0 var(--space-4);
+	display: none;
+}
+
+.sub-menu.is-open,
+.site-header__navigation.is-open .menu-item-has-children:not(:has(.submenu-toggle)) > .sub-menu {
+	display: block;
+}
+
+.sub-menu .menu-item a {
+	display: flex;
+	align-items: center;
+	min-height: var(--touch-target-min);
+	padding-block: var(--space-2);
+	padding-inline: var(--space-2);
+	color: var(--color-text-muted);
+}
+
+.sub-menu .menu-item a:hover {
+	color: var(--color-text);
+}
+
+.header-search-panel {
+	width: 100%;
+	max-width: 100%;
+	overflow-x: clip;
+	background-color: var(--color-surface-muted);
+	border-bottom: var(--border-default);
+}
+
+.header-search-panel[hidden] {
+	display: none;
+}
+
+.header-search-panel__inner {
+	padding-block: var(--space-4);
+	min-width: 0;
+}
+
+.header-search-form {
+	display: grid;
+	gap: var(--space-3);
+	min-width: 0;
+}
+
+.header-search-form__label {
+	font: var(--font-label);
+}
+
+.header-search-form__field {
+	width: 100%;
+	min-width: 0;
+	min-height: var(--touch-target-min);
+	padding: var(--space-3) var(--space-4);
+	border: var(--border-default);
+	border-radius: var(--radius-md);
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	font: var(--font-body);
+}
+
+.header-search-form__field:focus {
+	outline: none;
+}
+
+.header-search-form__field:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.header-search-form__submit {
+	justify-self: stretch;
+	width: 100%;
+	min-height: var(--touch-target-min);
+}
+
+body.is-header-nav-open {
+	overflow: hidden;
+}
+
+/* Small smartphones — preserve utility usability in narrow viewports */
+@media (min-width: 25rem) {
+	.site-header__inner {
+		gap: var(--space-4);
+		padding-block: var(--space-4);
+	}
+
+	.utility-menu {
+		gap: var(--space-3);
+	}
+}
+
+/* Small tablets and large phones in landscape */
+@media (min-width: 40rem) and (max-width: 63.99rem) {
+	.site-header__inner {
+		gap: var(--space-4);
+	}
+
+	.utility-menu {
+		gap: var(--space-4);
+	}
+}
+
+/* Standard desktop layout */
+@media (min-width: 64rem) {
+	.site-header__inner {
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		grid-template-areas: "branding navigation controls";
+		gap: var(--space-4);
+		padding-block: var(--space-5);
+	}
+
+	.site-branding {
+		max-width: none;
+		flex-shrink: 0;
+	}
+
+	.site-header__controls {
+		gap: var(--space-3);
+	}
+
+	.menu-toggle {
+		display: none;
+	}
+
+	.site-header__navigation {
+		display: block;
+		max-height: none;
+		overflow: visible;
+		padding-block: 0;
+		border-top: 0;
+	}
+
+	.site-header__navigation.is-open {
+		max-height: none;
+		overflow: visible;
+	}
+
+	.primary-menu {
+		flex-flow: row wrap;
+		justify-content: center;
+		gap: var(--space-4);
+	}
+
+	.primary-menu > .menu-item > a {
+		min-height: auto;
+		padding-block: var(--space-2);
+		padding-inline: var(--space-2);
+		white-space: nowrap;
+	}
+
+	body.is-header-nav-open {
+		overflow: auto;
+	}
+
+	.header-search-form {
+		grid-template-columns: 1fr auto;
+		align-items: end;
+	}
+
+	.header-search-form__label {
+		grid-column: 1 / -1;
+	}
+
+	.header-search-form__submit {
+		justify-self: stretch;
+		width: auto;
+	}
+}
+
+/* Large desktop — additional breathing room */
+@media (min-width: 80rem) {
+	.site-header__inner {
+		gap: var(--space-6);
+	}
+
+	.primary-menu {
+		gap: var(--space-6);
+	}
+
+	.site-header__controls {
+		gap: var(--space-4);
+	}
+}
+
+/* Fine pointer + hover: desktop dropdown behavior */
+@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
+	.menu-item-has-children {
+		display: block;
+	}
+
+	.submenu-toggle {
+		display: none;
+	}
+
+	.sub-menu {
+		position: absolute;
+		top: calc(100% + var(--space-2));
+		left: 0;
+		z-index: 30;
+		min-width: 14rem;
+		max-width: min(18rem, calc(100vw - (var(--container-padding) * 2)));
+		max-height: min(24rem, calc(100dvh - var(--site-header-offset) - var(--space-6)));
+		padding: var(--space-3);
+		border: var(--border-default);
+		border-radius: var(--radius-md);
+		background-color: var(--color-surface);
+		box-shadow: var(--shadow-md);
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+
+	.menu-item-has-children:last-child > .sub-menu,
+	.menu-item-has-children:nth-last-child(2) > .sub-menu {
+		left: auto;
+		right: 0;
+	}
+
+	.site-header__navigation.is-open .menu-item-has-children:not(:has(.submenu-toggle)) > .sub-menu,
+	.sub-menu.is-open {
+		display: none;
+	}
+
+	.menu-item-has-children:not(:hover):not(:focus-within) > .sub-menu {
+		display: none;
+	}
+
+	.menu-item-has-children:hover > .sub-menu,
+	.menu-item-has-children:focus-within > .sub-menu {
+		display: block;
+	}
+
+	.sub-menu .menu-item a {
+		min-height: var(--touch-target-min);
+	}
+}
+
+/* Touch / coarse pointer at desktop widths — keep explicit submenu toggles */
+@media (min-width: 64rem) and (hover: none), (min-width: 64rem) and (pointer: coarse) {
+	.primary-menu {
+		flex-wrap: wrap;
+	}
+
+	.menu-item-has-children > .sub-menu {
+		position: static;
+		min-width: 0;
+		max-width: none;
+		max-height: none;
+		padding: 0 0 0 var(--space-4);
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+		overflow: visible;
+	}
+}

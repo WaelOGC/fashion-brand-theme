@@ -1,0 +1,34 @@
+# Local by Flywheel infrastructure
+conf/
+logs/
+app/.envrc
+
+# WordPress core (install separately on each environment)
+app/public/wp-admin/
+app/public/wp-includes/
+app/public/*.php
+app/public/license.txt
+app/public/readme.html
+app/public/.htaccess
+app/public/local-xdebuginfo.php
+
+# Secrets
+app/public/wp-config.php
+.env
+.env.*
+
+# Default WordPress themes
+app/public/wp-content/themes/twentytwenty*/
+
+# Plugins (install via WordPress admin or composer)
+app/public/wp-content/plugins/
+
+# Media and caches
+app/public/wp-content/uploads/
+app/public/wp-content/cache/
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

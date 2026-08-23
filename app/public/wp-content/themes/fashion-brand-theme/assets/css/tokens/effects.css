@@ -1,0 +1,41 @@
+/**
+ * Effect tokens — borders, radius, shadows, transitions.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+:root {
+	/* Border radius */
+	--radius-none: 0;
+	--radius-sm: 0.125rem;
+	--radius-md: 0.25rem;
+	--radius-lg: 0.5rem;
+	--radius-full: 9999px;
+
+	/* Borders */
+	--border-width: 1px;
+	--border-width-thick: 2px;
+	--border-style: solid;
+	--border-default: var(--border-width) var(--border-style) var(--color-border);
+	--border-strong: var(--border-width) var(--border-style) var(--color-border-strong);
+	--border-focus: var(--border-width-thick) var(--border-style) var(--color-focus);
+
+	/* Shadows */
+	--shadow-none: none;
+	--shadow-sm: 0 1px 2px rgb(26 25 24 / 0.04);
+	--shadow-md: 0 2px 8px rgb(26 25 24 / 0.06);
+	--shadow-lg: 0 4px 16px rgb(26 25 24 / 0.08);
+
+	/* Transitions */
+	--transition-duration-fast: 120ms;
+	--transition-duration-base: 200ms;
+	--transition-duration-slow: 320ms;
+	--transition-easing: ease;
+	--transition-base: var(--transition-duration-base) var(--transition-easing);
+	--transition-fast: var(--transition-duration-fast) var(--transition-easing);
+	--transition-slow: var(--transition-duration-slow) var(--transition-easing);
+
+	/* Focus */
+	--focus-outline-width: 2px;
+	--focus-outline-offset: 2px;
+}

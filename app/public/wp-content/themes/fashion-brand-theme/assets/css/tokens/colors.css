@@ -1,0 +1,38 @@
+/**
+ * Color tokens — temporary neutral palette.
+ *
+ * Replace semantic mappings during Brand Identity phase.
+ * Raw neutral scale values may also be updated without restructuring consumers.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+:root {
+	/* Neutral scale (temporary direction: off-white, beige, stone, brown, charcoal, soft black) */
+	--color-neutral-50: #f8f6f3;
+	--color-neutral-100: #f1ece6;
+	--color-neutral-200: #e4ded6;
+	--color-neutral-300: #c9c0b5;
+	--color-neutral-400: #9a8f82;
+	--color-neutral-500: #6b635a;
+	--color-neutral-600: #4a4540;
+	--color-neutral-700: #3a3632;
+	--color-neutral-800: #2b2826;
+	--color-neutral-900: #1a1918;
+
+	/* Semantic colors */
+	--color-background: var(--color-neutral-50);
+	--color-surface: #ffffff;
+	--color-surface-muted: var(--color-neutral-100);
+	--color-text: var(--color-neutral-800);
+	--color-text-muted: var(--color-neutral-500);
+	--color-text-subtle: var(--color-neutral-400);
+	--color-text-inverse: var(--color-neutral-50);
+	--color-accent: #5c4a3d;
+	--color-accent-hover: #4a3d32;
+	--color-border: var(--color-neutral-200);
+	--color-border-strong: var(--color-neutral-300);
+	--color-focus: var(--color-neutral-700);
+	--color-selection-background: var(--color-neutral-200);
+	--color-selection-text: var(--color-neutral-900);
+}

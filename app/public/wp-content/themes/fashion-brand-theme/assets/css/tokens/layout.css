@@ -1,0 +1,51 @@
+/**
+ * Layout tokens — containers and breakpoints.
+ *
+ * Breakpoint values are defined as tokens for reference and documentation.
+ * Media queries use matching literal values because CSS variables
+ * are not reliably supported in @media conditions.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+:root {
+	/* Breakpoints (reference tokens) */
+	--breakpoint-sm: 40rem;
+	--breakpoint-md: 48rem;
+	--breakpoint-lg: 64rem;
+	--breakpoint-xl: 80rem;
+
+	/* Container widths */
+	--container-max: 72rem;
+	--container-narrow: 40rem;
+	--container-wide: 80rem;
+
+	/* Responsive horizontal padding */
+	--container-padding-mobile: var(--space-4);
+	--container-padding-tablet: var(--space-5);
+	--container-padding-desktop: var(--space-6);
+	--container-padding: var(--container-padding-mobile);
+
+	/* Vertical rhythm for main content regions */
+	--content-padding-block: var(--space-6);
+
+	/* Minimum interactive target size for touch accessibility */
+	--touch-target-min: 2.75rem;
+
+	/* Fallback for mobile navigation height calculations */
+	--site-header-offset: 4.5rem;
+}
+
+@media (min-width: 48rem) {
+	:root {
+		--container-padding: var(--container-padding-tablet);
+		--content-padding-block: var(--space-7);
+	}
+}
+
+@media (min-width: 64rem) {
+	:root {
+		--container-padding: var(--container-padding-desktop);
+		--content-padding-block: var(--space-8);
+	}
+}

@@ -1,0 +1,21 @@
+/**
+ * Announcement bar styles.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+.announcement-bar {
+	background-color: var(--color-surface-muted);
+	border-bottom: var(--border-default);
+}
+
+.announcement-bar__inner {
+	padding-block: var(--space-3);
+}
+
+.announcement-bar__text {
+	margin: 0;
+	font: var(--font-small);
+	color: var(--color-text-muted);
+	text-align: center;
+}

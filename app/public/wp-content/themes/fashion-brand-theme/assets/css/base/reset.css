@@ -1,0 +1,63 @@
+/**
+ * Global reset and document defaults.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font: var(--font-body);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg,
+video,
+canvas {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+figure {
+	margin: 0;
+}
+
+a {
+	color: var(--color-text);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.15em;
+	transition: color var(--transition-fast);
+}
+
+a:hover {
+	color: var(--color-accent);
+}
+
+a:focus {
+	outline: none;
+}
+
+a:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+::selection {
+	background-color: var(--color-selection-background);
+	color: var(--color-selection-text);
+}

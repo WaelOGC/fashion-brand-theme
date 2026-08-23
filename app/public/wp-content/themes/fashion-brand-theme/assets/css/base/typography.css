@@ -1,0 +1,87 @@
+/**
+ * Typography hierarchy — element and utility classes.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-block: 0 var(--space-4);
+	color: var(--color-text);
+}
+
+h1 {
+	font: var(--font-h1);
+	letter-spacing: var(--letter-spacing-heading);
+}
+
+h2 {
+	font: var(--font-h2);
+	letter-spacing: var(--letter-spacing-heading);
+}
+
+h3 {
+	font: var(--font-h3);
+}
+
+p {
+	margin-block: 0 var(--space-4);
+}
+
+small,
+.text-small {
+	font: var(--font-small);
+	color: var(--color-text-muted);
+}
+
+label,
+.text-label {
+	font: var(--font-label);
+	letter-spacing: var(--letter-spacing-label);
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+}
+
+.text-display {
+	font: var(--font-display);
+	letter-spacing: var(--letter-spacing-display);
+	color: var(--color-text);
+}
+
+.text-body {
+	font: var(--font-body);
+}
+
+.text-nav,
+nav a {
+	font: var(--font-nav);
+	letter-spacing: var(--letter-spacing-nav);
+}
+
+.text-button {
+	font: var(--font-button);
+	letter-spacing: var(--letter-spacing-nav);
+}
+
+.text-price,
+.price {
+	font: var(--font-price);
+	color: var(--color-text);
+}
+
+.entry-title,
+.page-title {
+	margin-top: 0;
+}
+
+.page-header {
+	margin-bottom: var(--space-lg);
+}
+
+.pagination {
+	margin-top: var(--space-lg);
+}

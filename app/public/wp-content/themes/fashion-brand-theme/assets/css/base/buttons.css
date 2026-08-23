@@ -1,0 +1,85 @@
+/**
+ * Button foundation — unstyled component primitives only.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+.button,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	min-height: 2.75rem;
+	padding: var(--space-3) var(--space-5);
+	border: var(--border-default);
+	border-radius: var(--radius-md);
+	background-color: var(--color-surface);
+	color: var(--color-text);
+	font: var(--font-button);
+	letter-spacing: var(--letter-spacing-nav);
+	line-height: 1;
+	text-decoration: none;
+	cursor: pointer;
+	transition:
+		background-color var(--transition-base),
+		border-color var(--transition-base),
+		color var(--transition-base);
+}
+
+.button:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover,
+.wp-block-button__link:hover {
+	background-color: var(--color-surface-muted);
+	border-color: var(--color-border-strong);
+	color: var(--color-text);
+}
+
+.button:focus,
+button:focus,
+input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
+.wp-block-button__link:focus {
+	outline: none;
+}
+
+.button:focus-visible,
+button:focus-visible,
+input[type="button"]:focus-visible,
+input[type="reset"]:focus-visible,
+input[type="submit"]:focus-visible,
+.wp-block-button__link:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.button:disabled,
+button:disabled,
+input[type="button"]:disabled,
+input[type="reset"]:disabled,
+input[type="submit"]:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.button--primary,
+button.button--primary {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+	color: var(--color-text-inverse);
+}
+
+.button--primary:hover,
+button.button--primary:hover {
+	background-color: var(--color-accent-hover);
+	border-color: var(--color-accent-hover);
+	color: var(--color-text-inverse);
+}

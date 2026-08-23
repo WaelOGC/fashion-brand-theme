@@ -1,0 +1,54 @@
+/**
+ * Typography tokens.
+ *
+ * Font families are temporary system stacks until Brand Identity is approved.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+:root {
+	/* Font families */
+	--font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-family-display: var(--font-family-base);
+
+	/* Font weights */
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+
+	/* Line heights */
+	--line-height-tight: 1.2;
+	--line-height-snug: 1.35;
+	--line-height-base: 1.6;
+	--line-height-relaxed: 1.75;
+
+	/* Font sizes */
+	--font-size-display: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+	--font-size-h1: clamp(1.875rem, 3vw + 0.75rem, 2.75rem);
+	--font-size-h2: clamp(1.5rem, 2vw + 0.75rem, 2rem);
+	--font-size-h3: clamp(1.25rem, 1vw + 0.75rem, 1.5rem);
+	--font-size-body: 1rem;
+	--font-size-small: 0.875rem;
+	--font-size-label: 0.8125rem;
+	--font-size-nav: 0.9375rem;
+	--font-size-button: 0.9375rem;
+	--font-size-price: 1rem;
+
+	/* Composite typography tokens */
+	--font-display: var(--font-weight-regular) var(--font-size-display) / var(--line-height-tight) var(--font-family-display);
+	--font-h1: var(--font-weight-regular) var(--font-size-h1) / var(--line-height-tight) var(--font-family-display);
+	--font-h2: var(--font-weight-regular) var(--font-size-h2) / var(--line-height-snug) var(--font-family-base);
+	--font-h3: var(--font-weight-medium) var(--font-size-h3) / var(--line-height-snug) var(--font-family-base);
+	--font-body: var(--font-weight-regular) var(--font-size-body) / var(--line-height-base) var(--font-family-base);
+	--font-small: var(--font-weight-regular) var(--font-size-small) / var(--line-height-base) var(--font-family-base);
+	--font-label: var(--font-weight-medium) var(--font-size-label) / var(--line-height-snug) var(--font-family-base);
+	--font-nav: var(--font-weight-medium) var(--font-size-nav) / var(--line-height-snug) var(--font-family-base);
+	--font-button: var(--font-weight-medium) var(--font-size-button) / var(--line-height-snug) var(--font-family-base);
+	--font-price: var(--font-weight-medium) var(--font-size-price) / var(--line-height-snug) var(--font-family-base);
+
+	/* Letter spacing */
+	--letter-spacing-display: -0.02em;
+	--letter-spacing-heading: -0.01em;
+	--letter-spacing-label: 0.04em;
+	--letter-spacing-nav: 0.01em;
+}
