@@ -23,6 +23,26 @@ $social_rel       = fashion_brand_theme_get_social_link_rel();
 ?>
 <footer id="colophon" class="site-footer">
 	<div class="site-footer__inner container">
+		<?php
+		$monogram_uri = fashion_brand_theme_get_monogram_uri( 'primary' );
+		if ( $monogram_uri ) :
+			?>
+			<p class="site-footer__brand">
+				<a class="site-footer__brand-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<img
+						class="site-footer__monogram"
+						src="<?php echo esc_url( $monogram_uri ); ?>"
+						alt=""
+						width="40"
+						height="40"
+						decoding="async"
+						loading="lazy"
+					/>
+					<span class="screen-reader-text"><?php echo esc_html( fashion_brand_theme_get_display_label() ); ?></span>
+				</a>
+			</p>
+		<?php endif; ?>
+
 		<?php if ( $show_footer_menu && has_nav_menu( 'footer' ) ) : ?>
 			<nav class="site-footer__menu" aria-label="<?php esc_attr_e( 'Footer Navigation', 'fashion-brand-theme' ); ?>">
 				<?php
@@ -45,7 +65,7 @@ $social_rel       = fashion_brand_theme_get_social_link_rel();
 					<?php echo esc_html( $copyright_text ); ?>
 				<?php else : ?>
 					&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?>
-					<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( fashion_brand_theme_get_display_label() ); ?></a>
 				<?php endif; ?>
 			</p>
 		<?php endif; ?>

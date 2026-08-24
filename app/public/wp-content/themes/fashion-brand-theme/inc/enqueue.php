@@ -39,3 +39,31 @@ function fashion_brand_theme_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'fashion_brand_theme_enqueue_assets' );
+
+/**
+ * Output production favicon links when no Customizer site icon is set.
+ *
+ * @return void
+ */
+function fashion_brand_theme_brand_icons() {
+	if ( function_exists( 'has_site_icon' ) && has_site_icon() ) {
+		return;
+	}
+
+	$ico   = fashion_brand_theme_get_brand_asset_uri( 'favicon/wren-wold-favicon.ico' );
+	$png   = fashion_brand_theme_get_brand_asset_uri( 'favicon/wren-wold-favicon-32.png' );
+	$apple = fashion_brand_theme_get_brand_asset_uri( 'favicon/wren-wold-favicon-180.png' );
+
+	if ( $ico ) {
+		printf( '<link rel="icon" href="%s" sizes="any">' . "\n", esc_url( $ico ) );
+	}
+
+	if ( $png ) {
+		printf( '<link rel="icon" type="image/png" href="%s" sizes="32x32">' . "\n", esc_url( $png ) );
+	}
+
+	if ( $apple ) {
+		printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $apple ) );
+	}
+}
+add_action( 'wp_head', 'fashion_brand_theme_brand_icons', 2 );

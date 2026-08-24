@@ -50,11 +50,13 @@ $categories = fashion_brand_theme_get_homepage_categories();
 						class="category-tile"
 						href="<?php echo esc_url( fashion_brand_theme_get_product_category_url( $slug ) ); ?>"
 					>
-						<span
-							class="category-tile__media homepage-media-placeholder homepage-media-placeholder--category"
-							role="img"
-							aria-label="<?php echo esc_attr( sprintf( __( 'Placeholder photography for %s', 'fashion-brand-theme' ), $label ) ); ?>"
-						></span>
+						<span class="category-tile__media homepage-media homepage-media--category homepage-media--slot">
+							<span
+								class="homepage-media__ready"
+								role="img"
+								aria-label="<?php echo esc_attr( sprintf( __( 'Photography slot for %s', 'fashion-brand-theme' ), $label ) ); ?>"
+							></span>
+						</span>
 						<span class="category-tile__label text-label"><?php echo esc_html( $label ); ?></span>
 					</a>
 				</li>

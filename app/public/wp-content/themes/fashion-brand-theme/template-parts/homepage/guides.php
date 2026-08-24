@@ -32,11 +32,18 @@ $guides_url    = fashion_brand_theme_get_page_url( 'guides' );
 	<div class="homepage-guides__inner container container--wide">
 		<div class="homepage-guides__layout">
 			<div class="homepage-guides__visual" data-homepage-reveal="visual">
-				<div
-					class="homepage-guides__media homepage-media-placeholder homepage-media-placeholder--editorial"
-					role="img"
-					aria-label="<?php esc_attr_e( 'Placeholder: editorial guide photography', 'fashion-brand-theme' ); ?>"
-				></div>
+				<figure class="homepage-guides__figure">
+					<div
+						class="homepage-guides__media homepage-media homepage-media--editorial homepage-media--slot"
+						role="img"
+						aria-label="<?php esc_attr_e( 'Guide photography slot — production image forthcoming', 'fashion-brand-theme' ); ?>"
+					>
+						<span class="homepage-media__ready" aria-hidden="true"></span>
+					</div>
+					<figcaption class="homepage-media__caption text-caption">
+						<?php esc_html_e( 'Photography forthcoming', 'fashion-brand-theme' ); ?>
+					</figcaption>
+				</figure>
 			</div>
 
 			<div class="homepage-guides__content">

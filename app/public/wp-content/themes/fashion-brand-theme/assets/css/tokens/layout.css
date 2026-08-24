@@ -33,7 +33,7 @@
 	--touch-target-min: 2.75rem;
 
 	/* Fallback for mobile navigation height calculations */
-	--site-header-offset: 4.5rem;
+	--site-header-offset: 5rem;
 }
 
 @media (min-width: 48rem) {

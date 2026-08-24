@@ -48,12 +48,12 @@ function fashion_brand_theme_get_settings_tab_sections() {
  */
 function fashion_brand_theme_get_homepage_content_defaults() {
 	return array(
-		'homepage_hero_eyebrow'        => __( 'Curated European Fashion', 'fashion-brand-theme' ),
+		'homepage_hero_eyebrow'        => __( 'Quiet Character', 'fashion-brand-theme' ),
 		'homepage_hero_heading'        => __( 'Clothing with intention.', 'fashion-brand-theme' ),
-		'homepage_hero_text'           => __( 'Considered pieces for modern life — designed for quality, longevity and quiet confidence.', 'fashion-brand-theme' ),
+		'homepage_hero_text'           => __( 'Thoughtfully made fashion for a life well lived — considered pieces for modern European living.', 'fashion-brand-theme' ),
 		'homepage_hero_cta_label'      => __( 'Explore the Shop', 'fashion-brand-theme' ),
 		'homepage_cta_heading'         => __( 'Begin with pieces that feel considered — and stay relevant.', 'fashion-brand-theme' ),
-		'homepage_cta_text'            => __( 'Discover a calm, curated shop designed for modern European living.', 'fashion-brand-theme' ),
+		'homepage_cta_text'            => __( 'A calm, curated shop shaped by Quiet Character — quality over quantity.', 'fashion-brand-theme' ),
 		'homepage_cta_primary_label'   => __( 'Shop the Edit', 'fashion-brand-theme' ),
 		'homepage_cta_secondary_label' => __( 'View Collections', 'fashion-brand-theme' ),
 	);
@@ -318,7 +318,7 @@ function fashion_brand_theme_get_display_label() {
 		return $label;
 	}
 
-	return __( 'Logo', 'fashion-brand-theme' );
+	return __( 'WREN WOLD', 'fashion-brand-theme' );
 }
 
 /**

@@ -10,6 +10,8 @@ Horizontal lockup: **W monogram + WREN WOLD wordmark**.
 | `wren-wold-logo-primary.png` | PNG (transparent) | `#242321` | Raster fallback / CMS uploads |
 | `wren-wold-logo-white.svg` | SVG (vector paths) | `#F3F2EF` | Reversed lockup on dark / photographic backgrounds |
 | `wren-wold-logo-white.png` | PNG (transparent) | `#F3F2EF` | Raster reversed fallback |
+| `wren-wold-wordmark.svg` | SVG (vector paths) | `#242321` | Wordmark only — header lockup companion to monogram |
+| `wren-wold-wordmark-white.svg` | SVG (vector paths) | `#F3F2EF` | Reversed wordmark only |
 
 ## Primary usage
 

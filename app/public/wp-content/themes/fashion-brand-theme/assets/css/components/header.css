@@ -16,7 +16,7 @@
 	width: 100%;
 	max-width: 100%;
 	overflow-x: clip;
-	background-color: var(--color-surface);
+	background-color: var(--color-background);
 	border-bottom: var(--border-default);
 }
 
@@ -35,7 +35,7 @@
 .site-branding {
 	grid-area: branding;
 	min-width: 0;
-	max-width: 55%;
+	max-width: 70%;
 }
 
 .site-header__controls {
@@ -55,24 +55,70 @@
 
 .site-branding__logo {
 	margin: 0;
-	font: var(--font-nav);
-	font-weight: var(--font-weight-semibold);
-	letter-spacing: var(--letter-spacing-heading);
+	font: inherit;
 }
 
-.site-branding__logo a {
-	display: inline-block;
+.site-branding__link {
+	display: inline-flex;
+	align-items: center;
+	min-width: var(--touch-target-min);
+	min-height: var(--touch-target-min);
 	max-width: 100%;
-	overflow: hidden;
 	color: var(--color-text);
 	text-decoration: none;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 	vertical-align: middle;
 }
 
-.site-branding__logo a:hover {
-	color: var(--color-accent);
+.site-branding__link:hover {
+	opacity: 0.82;
+}
+
+.site-branding__link:focus {
+	outline: none;
+}
+
+.site-branding__link:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+	border-radius: var(--radius-sm);
+}
+
+.site-branding__marks {
+	display: inline-flex;
+	align-items: center;
+}
+
+.site-branding__mark,
+.site-branding .custom-logo {
+	display: block;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	object-position: left center;
+}
+
+.site-branding__mark--monogram {
+	height: 2rem;
+	width: 2rem;
+	flex-shrink: 0;
+}
+
+.site-branding__mark--lockup {
+	display: none;
+	height: 3.125rem;
+	width: auto;
+	max-width: min(14rem, 100%);
+}
+
+.site-branding .custom-logo {
+	height: 2rem;
+	max-width: min(11.5rem, 100%);
+}
+
+.site-branding .custom-logo-link {
+	display: inline-flex;
+	align-items: center;
+	max-width: 100%;
 }
 
 .primary-menu,
@@ -391,6 +437,16 @@ body.is-header-nav-open {
 	.utility-menu {
 		gap: var(--space-4);
 	}
+
+	.site-branding__mark--monogram {
+		display: none;
+	}
+
+	.site-branding__mark--lockup {
+		display: block;
+		height: 2.875rem;
+		max-width: 13rem;
+	}
 }
 
 /* Standard desktop layout */
@@ -405,6 +461,21 @@ body.is-header-nav-open {
 	.site-branding {
 		max-width: none;
 		flex-shrink: 0;
+	}
+
+	.site-branding__mark--monogram {
+		display: none;
+	}
+
+	.site-branding__mark--lockup {
+		display: block;
+		height: 3.125rem;
+		max-width: 14rem;
+	}
+
+	.site-branding .custom-logo {
+		height: 2.5rem;
+		max-width: 15rem;
 	}
 
 	.site-header__controls {
@@ -460,10 +531,20 @@ body.is-header-nav-open {
 	}
 }
 
-/* Large desktop — additional breathing room */
 @media (min-width: 80rem) {
 	.site-header__inner {
 		gap: var(--space-6);
+		padding-block: var(--space-6);
+	}
+
+	.site-branding__mark--lockup {
+		height: 3.25rem;
+		max-width: 15rem;
+	}
+
+	.site-branding .custom-logo {
+		height: 2.75rem;
+		max-width: 16rem;
 	}
 
 	.primary-menu {

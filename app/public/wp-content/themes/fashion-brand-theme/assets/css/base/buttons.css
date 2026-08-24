@@ -17,7 +17,7 @@ input[type="submit"],
 	min-height: 2.75rem;
 	padding: var(--space-3) var(--space-5);
 	border: var(--border-default);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius-sm);
 	background-color: var(--color-surface);
 	color: var(--color-text);
 	font: var(--font-button);

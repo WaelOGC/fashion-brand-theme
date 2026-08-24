@@ -26,11 +26,15 @@ $shop_url         = fashion_brand_theme_get_shop_url();
 		data-mode="editorial"
 	>
 		<div class="homepage-collection__environment" data-homepage-reveal="environment">
-			<div
-				class="homepage-collection__scene homepage-media-placeholder homepage-media-placeholder--scene"
-				role="img"
-				aria-label="<?php esc_attr_e( 'Placeholder: seasonal collection environment photography', 'fashion-brand-theme' ); ?>"
-			></div>
+			<figure class="homepage-collection__scene-wrap">
+				<div
+					class="homepage-collection__scene homepage-media homepage-media--scene homepage-media--slot homepage-media--inverse"
+					role="img"
+					aria-label="<?php esc_attr_e( 'Collection environment photography slot — production image forthcoming', 'fashion-brand-theme' ); ?>"
+				>
+					<span class="homepage-media__ready" aria-hidden="true"></span>
+				</div>
+			</figure>
 
 			<div class="homepage-collection__intro container">
 				<p class="homepage-collection__index text-label" aria-hidden="true">04</p>
@@ -81,10 +85,12 @@ $shop_url         = fashion_brand_theme_get_shop_url();
 					<li class="homepage-collection__item <?php echo esc_attr( $item_class ); ?>">
 						<article class="collection-piece">
 							<div
-								class="collection-piece__media homepage-media-placeholder homepage-media-placeholder--product"
+								class="collection-piece__media homepage-media homepage-media--product homepage-media--slot homepage-media--inverse"
 								role="img"
 								aria-label="<?php echo esc_attr( $item['note'] ); ?>"
-							></div>
+							>
+								<span class="homepage-media__ready" aria-hidden="true"></span>
+							</div>
 
 							<div class="collection-piece__editorial" data-progressive-commit-editorial aria-hidden="false">
 								<p class="collection-piece__look text-label">
