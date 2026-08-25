@@ -109,7 +109,7 @@ function fashion_brand_theme_get_default_settings() {
 		'homepage_cta_secondary_label' => '',
 		'homepage_cta_secondary_url' => '',
 		// Shop presentation (used when WooCommerce is available).
-		'shop_grid_columns'          => 3,
+		'shop_grid_columns'          => 4,
 		'shop_products_per_page'     => 12,
 		'shop_show_price'            => true,
 		'shop_show_excerpt'          => false,

@@ -1,0 +1,231 @@
+/**
+ * Shop / category archive — product grid.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+.site-main--shop {
+	background: var(--color-background);
+}
+
+.shop-archive-header {
+	padding: 40px 48px 0;
+}
+
+.shop-archive-header__title {
+	font-family: var(--font-display);
+	font-weight: 300;
+	font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+	letter-spacing: -0.02em;
+	color: var(--color-text);
+	margin: 0;
+}
+
+.shop-category-filter {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 20px;
+	padding: 28px 48px 0;
+	border-bottom: 1px solid var(--color-border);
+	padding-bottom: 20px;
+}
+
+.shop-category-filter__link {
+	font-family: var(--font-body);
+	font-size: 13px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--color-text-muted);
+	transition: color 0.25s ease;
+}
+
+.shop-category-filter__link:hover,
+.shop-category-filter__link:focus-visible,
+.shop-category-filter__link.is-active {
+	color: var(--color-accent);
+}
+
+.woocommerce-result-count,
+.woocommerce-ordering {
+	font-size: 13px;
+	color: var(--color-text-muted);
+}
+
+.woocommerce .woocommerce-ordering {
+	margin: 0;
+}
+
+.woocommerce .shop-grid + .woocommerce-pagination,
+.woocommerce nav.woocommerce-pagination {
+	padding: 0 48px 80px;
+}
+
+/* WooCommerce wraps count + ordering before the loop */
+.woocommerce-page .woocommerce-result-count,
+.woocommerce-page .woocommerce-ordering {
+	padding-left: 48px;
+	padding-right: 48px;
+	margin-top: 28px;
+}
+
+.woocommerce ul.products.shop-grid,
+ul.products.shop-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2px 24px;
+	padding: 40px 48px 100px;
+	margin: 0;
+	list-style: none;
+	background: var(--color-background);
+	width: 100%;
+	max-width: none;
+}
+
+.woocommerce ul.products.shop-grid::before,
+.woocommerce ul.products.shop-grid::after,
+ul.products.shop-grid::before,
+ul.products.shop-grid::after {
+	display: none;
+	content: none;
+}
+
+.woocommerce ul.products.shop-grid li.product,
+ul.products.shop-grid li.product {
+	width: auto;
+	margin: 0;
+	padding: 0;
+	float: none;
+	clear: none;
+}
+
+.product-card {
+	display: block;
+	text-decoration: none;
+	color: var(--color-text);
+	outline: none;
+}
+
+.product-card:focus-visible {
+	outline: 2px solid var(--color-focus);
+	outline-offset: 4px;
+}
+
+.product-card-img-wrap {
+	display: block;
+	position: relative;
+	aspect-ratio: 4 / 5;
+	overflow: hidden;
+	background: var(--color-surface);
+	width: 100%;
+}
+
+.product-card-img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: opacity 0.4s ease;
+}
+
+.product-card-img.hover-img {
+	opacity: 0;
+}
+
+.product-card:hover .product-card-img.hover-img,
+.product-card:focus-visible .product-card-img.hover-img,
+.product-card:focus-within .product-card-img.hover-img {
+	opacity: 1;
+}
+
+.product-card-info {
+	display: flex;
+	padding-top: 14px;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.product-card-name {
+	font-family: var(--font-display);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.35;
+	transition: color 0.25s ease;
+}
+
+.product-card:hover .product-card-name,
+.product-card:focus-visible .product-card-name {
+	color: var(--color-accent);
+}
+
+.product-card-price {
+	font-family: var(--font-body);
+	font-size: 14px;
+	color: var(--color-text-muted);
+	white-space: nowrap;
+}
+
+.product-card-price del {
+	opacity: 0.55;
+	margin-right: 0.35em;
+}
+
+/* Related products reuse the same grid */
+.related.products > h2,
+.upsells.products > h2 {
+	font-family: var(--font-display);
+	font-weight: 300;
+	font-size: 1.5rem;
+	padding: 0;
+	margin: 48px 0 0;
+	color: var(--color-text);
+}
+
+.product-page .related.products > h2,
+.product-page .upsells.products > h2 {
+	padding: 0;
+}
+
+.related.products ul.products.shop-grid,
+.upsells.products ul.products.shop-grid {
+	padding-top: 28px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+@media (max-width: 1100px) {
+	.woocommerce ul.products.shop-grid,
+	ul.products.shop-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 900px) {
+	.shop-archive-header,
+	.shop-category-filter,
+	.woocommerce-page .woocommerce-result-count,
+	.woocommerce-page .woocommerce-ordering,
+	.related.products > h2,
+	.upsells.products > h2,
+	.woocommerce nav.woocommerce-pagination {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.woocommerce ul.products.shop-grid,
+	ul.products.shop-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2px 16px;
+		padding: 32px 20px 70px;
+	}
+
+	.product-card-name {
+		font-size: 14px;
+	}
+
+	.product-card-price {
+		font-size: 13px;
+	}
+}

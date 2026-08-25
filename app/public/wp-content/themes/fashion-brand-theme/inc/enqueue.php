@@ -45,6 +45,16 @@ function fashion_brand_theme_enqueue_assets() {
 			true
 		);
 	}
+
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_script(
+			'fashion-brand-theme-product-gallery',
+			FASHION_BRAND_THEME_URI . '/assets/js/product-gallery.js',
+			array(),
+			FASHION_BRAND_THEME_VERSION,
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'fashion_brand_theme_enqueue_assets' );
 
