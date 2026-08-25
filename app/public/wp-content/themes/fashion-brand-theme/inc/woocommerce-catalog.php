@@ -236,11 +236,11 @@ function fashion_brand_theme_get_shipping_returns_copy() {
 	$returns  = fashion_brand_theme_get_setting( 'shop_returns_info' );
 
 	if ( ! is_string( $shipping ) || '' === trim( $shipping ) ) {
-		$shipping = __( 'Free shipping on orders over €150 — threshold TBD with client before launch.', 'fashion-brand-theme' );
+		$shipping = __( 'Free shipping on orders over €150.', 'fashion-brand-theme' );
 	}
 
 	if ( ! is_string( $returns ) || '' === trim( $returns ) ) {
-		$returns = __( 'Returns within 14 days — window TBD with client before launch.', 'fashion-brand-theme' );
+		$returns = __( 'Returns within 14 days.', 'fashion-brand-theme' );
 	}
 
 	return array(
