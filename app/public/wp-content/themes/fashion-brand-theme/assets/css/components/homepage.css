@@ -45,20 +45,98 @@ body.home .site-content {
 }
 
 /* -------------------------------------------------------------------------
-   Fixed chrome — signature mark, counter, menu
+   Fixed chrome — brand mark, utilities, counter, menu
    ------------------------------------------------------------------------- */
 
-.cinematic-mark {
+.cinematic-brand-mark {
 	position: fixed;
-	top: 44px;
+	top: 40px;
 	left: 32px;
 	z-index: 60;
-	font-family: var(--font-family-display);
-	font-size: 15px;
-	letter-spacing: 0.1em;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
 	color: var(--color-text-inverse);
 	mix-blend-mode: difference;
-	pointer-events: none;
+}
+
+.cinematic-brand-mark:focus-visible {
+	outline: 2px solid var(--color-text-inverse);
+	outline-offset: 4px;
+}
+
+.cinematic-brand-mark__glyph {
+	display: block;
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+}
+
+.cinematic-brand-mark__wordmark {
+	font-family: var(--font-family-base);
+	font-size: 11px;
+	font-weight: var(--font-weight-medium);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	line-height: 1;
+	white-space: nowrap;
+}
+
+.cinematic-utility {
+	position: fixed;
+	top: 36px;
+	right: 32px;
+	z-index: 70;
+	display: flex;
+	align-items: center;
+	gap: 18px;
+}
+
+.cinematic-utility__link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	color: var(--color-text-inverse);
+	text-decoration: none;
+	mix-blend-mode: difference;
+}
+
+.cinematic-utility__link:focus-visible {
+	outline: 2px solid var(--color-text-inverse);
+	outline-offset: 3px;
+}
+
+.cinematic-utility__icon {
+	display: block;
+	width: 19px;
+	height: 19px;
+}
+
+.cinematic-cart-count {
+	position: absolute;
+	top: 2px;
+	right: 0;
+	min-width: 14px;
+	height: 14px;
+	padding: 0 3px;
+	border-radius: 999px;
+	background: var(--color-text-inverse);
+	color: var(--color-ink);
+	font-family: var(--font-family-base);
+	font-size: 9px;
+	font-weight: var(--font-weight-semibold);
+	line-height: 14px;
+	text-align: center;
+	mix-blend-mode: normal;
+}
+
+.cinematic-cart-count.is-empty,
+.cinematic-cart-count[hidden] {
+	display: none;
 }
 
 .cinematic-counter {
@@ -84,10 +162,6 @@ body.home .site-content {
 }
 
 .cinematic-menu-btn {
-	position: fixed;
-	top: 40px;
-	right: 32px;
-	z-index: 70;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
@@ -96,6 +170,12 @@ body.home .site-content {
 	background: none;
 	border: none;
 	cursor: pointer;
+	mix-blend-mode: difference;
+}
+
+.cinematic-menu-btn:focus-visible {
+	outline: 2px solid var(--color-text-inverse);
+	outline-offset: 3px;
 }
 
 .cinematic-menu-btn span {
@@ -103,7 +183,6 @@ body.home .site-content {
 	width: 26px;
 	height: 1px;
 	background: var(--color-text-inverse);
-	mix-blend-mode: difference;
 	transition: 0.3s ease;
 }
 
@@ -179,6 +258,45 @@ body.home .site-content {
 	font-size: 12px;
 	letter-spacing: 0.06em;
 	color: color-mix(in srgb, var(--color-text-inverse) 45%, transparent);
+}
+
+.cinematic-overlay-preview {
+	position: absolute;
+	top: 50%;
+	right: 80px;
+	width: 320px;
+	transform: translateY(-50%);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.cinematic-overlay-preview.is-active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.cinematic-overlay-preview img {
+	display: block;
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+}
+
+.cinematic-overlay-preview__caption {
+	margin: 14px 0 0;
+	font-family: var(--font-family-base);
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--color-text-inverse) 70%, transparent);
+}
+
+@media (max-width: 1100px) {
+	.cinematic-overlay-preview {
+		display: none;
+	}
 }
 
 /* -------------------------------------------------------------------------
@@ -502,6 +620,7 @@ body.home .site-content {
 	.cinematic-overlay-nav,
 	.cinematic-menu-btn span,
 	.cinematic-overlay-nav a,
+	.cinematic-overlay-preview,
 	.cinematic-link {
 		animation-duration: 0.01ms !important;
 		transition-duration: 0.01ms !important;
@@ -518,14 +637,35 @@ body.home .site-content {
 		padding: 0 28px 70px;
 	}
 
-	.cinematic-mark {
-		top: 26px;
+	.cinematic-brand-mark {
+		top: 24px;
 		left: 20px;
+		gap: 8px;
+	}
+
+	.cinematic-brand-mark__glyph {
+		width: 16px;
+		height: 16px;
+	}
+
+	.cinematic-brand-mark__wordmark {
+		font-size: 10px;
+		letter-spacing: 0.14em;
+	}
+
+	.cinematic-utility {
+		top: 20px;
+		right: 20px;
+		gap: 12px;
+	}
+
+	.cinematic-utility__link {
+		width: 28px;
+		height: 28px;
 	}
 
 	.cinematic-menu-btn {
-		top: 24px;
-		right: 20px;
+		padding: 6px;
 	}
 
 	.cinematic-overlay-nav {

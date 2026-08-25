@@ -51,3 +51,52 @@ function fashion_brand_theme_get_homepage_guide_teasers() {
 		),
 	);
 }
+
+/**
+ * Live WooCommerce cart item count.
+ *
+ * @return int
+ */
+function fashion_brand_theme_get_cart_count() {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+		return 0;
+	}
+
+	return (int) WC()->cart->get_cart_contents_count();
+}
+
+/**
+ * Render cinematic cart count badge markup (fragment target).
+ *
+ * @param int|null $count Optional count override.
+ * @return void
+ */
+function fashion_brand_theme_render_cinematic_cart_count( $count = null ) {
+	if ( null === $count ) {
+		$count = fashion_brand_theme_get_cart_count();
+	}
+
+	$count = (int) $count;
+	?>
+	<span
+		class="cinematic-cart-count<?php echo $count > 0 ? '' : ' is-empty'; ?>"
+		data-cart-count="<?php echo esc_attr( (string) $count ); ?>"
+		<?php echo $count > 0 ? '' : ' hidden'; ?>
+	><?php echo esc_html( (string) $count ); ?></span>
+	<?php
+}
+
+/**
+ * Refresh cinematic cart badge via WooCommerce cart fragments.
+ *
+ * @param array<string, string> $fragments Fragments HTML.
+ * @return array<string, string>
+ */
+function fashion_brand_theme_cinematic_cart_fragments( $fragments ) {
+	ob_start();
+	fashion_brand_theme_render_cinematic_cart_count();
+	$fragments['span.cinematic-cart-count'] = ob_get_clean();
+
+	return $fragments;
+}
+add_filter( 'woocommerce_add_to_cart_fragments', 'fashion_brand_theme_cinematic_cart_fragments' );

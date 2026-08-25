@@ -124,4 +124,46 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			closeOverlay();
 		}
 	} );
+
+	// Desktop-only overlay hover previews (CSS hides panel below 1100px).
+	var preview = document.querySelector( '.cinematic-overlay-preview' );
+	var previewImg = preview ? preview.querySelector( 'img' ) : null;
+	var previewCaption = preview ? preview.querySelector( '.cinematic-overlay-preview__caption' ) : null;
+	var previewLinks = document.querySelectorAll( '.cinematic-overlay-nav a[data-preview-img]' );
+	var finePointer = window.matchMedia( '(hover: hover) and (pointer: fine)' );
+
+	function showPreview( link ) {
+		if ( ! preview || ! previewImg || ! previewCaption || ! finePointer.matches ) {
+			return;
+		}
+
+		previewImg.src = link.getAttribute( 'data-preview-img' ) || '';
+		previewCaption.textContent = link.getAttribute( 'data-preview-caption' ) || '';
+		preview.classList.add( 'is-active' );
+	}
+
+	function hidePreview() {
+		if ( preview ) {
+			preview.classList.remove( 'is-active' );
+		}
+	}
+
+	previewLinks.forEach( function ( link ) {
+		link.addEventListener( 'mouseenter', function () {
+			showPreview( link );
+		} );
+		link.addEventListener( 'mouseleave', hidePreview );
+		link.addEventListener( 'focus', function () {
+			showPreview( link );
+		} );
+		link.addEventListener( 'blur', hidePreview );
+	} );
+
+	if ( overlayNav ) {
+		overlayNav.addEventListener( 'transitionend', function () {
+			if ( ! overlayNav.classList.contains( 'is-open' ) ) {
+				hidePreview();
+			}
+		} );
+	}
 } );
