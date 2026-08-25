@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage curated categories — editorial commerce chapter.
+ * Homepage categories — editorial index list.
  *
  * @package Fashion_Brand_Theme
  */
@@ -9,58 +9,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$categories = fashion_brand_theme_get_homepage_categories();
+$categories      = fashion_brand_theme_get_homepage_categories();
+$category_image  = fashion_brand_theme_homepage_image_uri( 'categories/categories-motion-01.jpg' );
 ?>
 <section
-	class="homepage-chapter homepage-chapter--commerce homepage-categories"
+	class="homepage-categories"
 	aria-labelledby="homepage-categories-heading"
-	data-homepage-chapter="categories"
 >
-	<?php
-	get_template_part(
-		'template-parts/homepage/threshold',
-		'strip',
-		array(
-			'number' => '03',
-			'label'  => __( 'Curated Categories', 'fashion-brand-theme' ),
-			'text'   => __( 'A focused edit — intentionally selected, never overcrowded.', 'fashion-brand-theme' ),
-		)
-	);
-	?>
+	<div class="homepage-categories__media reveal-img">
+		<img
+			src="<?php echo esc_url( $category_image ); ?>"
+			alt=""
+			width="1200"
+			height="1600"
+			loading="lazy"
+			decoding="async"
+		>
+	</div>
 
-	<div class="homepage-categories__inner container container--wide">
-		<header class="homepage-categories__header" data-homepage-reveal="content">
-			<h2 id="homepage-categories-heading" class="homepage-categories__title">
-				<?php esc_html_e( 'Shop by category', 'fashion-brand-theme' ); ?>
-			</h2>
-		</header>
+	<div class="homepage-categories__index reveal">
+		<h2 id="homepage-categories-heading" class="screen-reader-text">
+			<?php esc_html_e( 'Shop by category', 'fashion-brand-theme' ); ?>
+		</h2>
 
-		<ul class="homepage-categories__mosaic">
-			<?php
-			$category_index = 0;
-			foreach ( $categories as $slug => $label ) :
-				$modifier = fashion_brand_theme_get_homepage_category_layout_modifier( $category_index );
-				++$category_index;
-				?>
-				<li
-					class="homepage-categories__item homepage-categories__item--<?php echo esc_attr( $modifier ); ?>"
-					data-homepage-reveal="tile"
+		<div class="homepage-categories__list">
+			<?php foreach ( $categories as $slug => $label ) : ?>
+				<a
+					class="homepage-categories__item"
+					href="<?php echo esc_url( fashion_brand_theme_get_product_category_url( $slug ) ); ?>"
 				>
-					<a
-						class="category-tile"
-						href="<?php echo esc_url( fashion_brand_theme_get_product_category_url( $slug ) ); ?>"
-					>
-						<span class="category-tile__media homepage-media homepage-media--category homepage-media--slot">
-							<span
-								class="homepage-media__ready"
-								role="img"
-								aria-label="<?php echo esc_attr( sprintf( __( 'Photography slot for %s', 'fashion-brand-theme' ), $label ) ); ?>"
-							></span>
-						</span>
-						<span class="category-tile__label text-label"><?php echo esc_html( $label ); ?></span>
-					</a>
-				</li>
+					<span class="homepage-categories__name"><?php echo esc_html( $label ); ?></span>
+				</a>
 			<?php endforeach; ?>
-		</ul>
+		</div>
 	</div>
 </section>
