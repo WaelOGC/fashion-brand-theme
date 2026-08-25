@@ -63,7 +63,6 @@ function fashion_brand_theme_woocommerce_hooks() {
 	add_action( 'woocommerce_before_main_content', 'fashion_brand_theme_wc_wrapper_start', 10 );
 	add_action( 'woocommerce_after_main_content', 'fashion_brand_theme_wc_wrapper_end', 10 );
 
-	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
 	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
 	remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
 	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
@@ -77,7 +76,6 @@ function fashion_brand_theme_woocommerce_hooks() {
 	// Custom breadcrumbs on product + archive templates.
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 
-	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
@@ -220,3 +218,56 @@ function fashion_brand_theme_render_product_img( $attachment_id, $size, $class, 
 		)
 	);
 }
+
+/**
+ * Branded sale flash markup — shared by loop, single, and custom gallery output.
+ *
+ * @param string     $html    Default sale flash HTML.
+ * @param WP_Post    $post    Product post.
+ * @param WC_Product $product Product.
+ * @return string
+ */
+function fashion_brand_theme_sale_flash_html( $html, $post, $product ) {
+	if ( ! $product instanceof WC_Product || ! $product->is_on_sale() ) {
+		return '';
+	}
+
+	return sprintf(
+		'<span class="product-badge product-badge--sale onsale">%s</span>',
+		esc_html__( 'Sale', 'fashion-brand-theme' )
+	);
+}
+add_filter( 'woocommerce_sale_flash', 'fashion_brand_theme_sale_flash_html', 10, 3 );
+
+/**
+ * Output sale badge on the custom single-product main gallery image.
+ *
+ * Theme templates skip woocommerce_before_single_product_summary; inject here instead.
+ *
+ * @param string       $html              Image HTML.
+ * @param int          $attachment_id     Attachment ID.
+ * @param string|int[] $size              Image size.
+ * @param bool         $icon              Whether icon.
+ * @param string[]     $attr              Attributes.
+ * @return string
+ */
+function fashion_brand_theme_single_gallery_sale_flash( $html, $attachment_id, $size, $icon, $attr ) {
+	if ( is_admin() || ! is_product() || empty( $attr['data-gallery-main'] ) ) {
+		return $html;
+	}
+
+	global $product;
+
+	if ( ! $product instanceof WC_Product || ! $product->is_on_sale() ) {
+		return $html;
+	}
+
+	$badge = apply_filters( 'woocommerce_sale_flash', '', get_post( $product->get_id() ), $product );
+
+	if ( '' === $badge ) {
+		return $html;
+	}
+
+	return $badge . $html;
+}
+add_filter( 'wp_get_attachment_image', 'fashion_brand_theme_single_gallery_sale_flash', 10, 5 );

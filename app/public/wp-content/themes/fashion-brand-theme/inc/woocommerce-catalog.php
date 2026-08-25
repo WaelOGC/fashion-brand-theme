@@ -579,6 +579,10 @@ function fashion_brand_theme_attribute_label_size_guide( $label, $name ) {
 		return $label;
 	}
 
+	if ( is_admin() ) {
+		return $label;
+	}
+
 	$label .= ' <button type="button" class="size-guide-link" data-size-guide-open>' . esc_html__( 'Size guide', 'fashion-brand-theme' ) . '</button>';
 
 	return $label;

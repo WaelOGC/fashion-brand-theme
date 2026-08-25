@@ -335,21 +335,38 @@ ul.products.shop-grid li.product {
 	right: 44px;
 	display: flex;
 	flex-direction: column;
+	align-items: flex-end;
 	gap: 4px;
 	z-index: 2;
 }
 
-.product-card__badge {
+/* Shared status badge — shop cards, WC sale flash, single gallery */
+.product-badge,
+.product-card__badge,
+.woocommerce span.onsale,
+.woocommerce .onsale {
+	display: inline-block;
+	width: auto !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	height: auto !important;
 	font-size: 10px;
+	font-weight: 400;
 	letter-spacing: 0.08em;
+	line-height: 1.2;
 	text-transform: uppercase;
 	padding: 4px 8px;
-	background: var(--color-ink);
-	color: var(--color-bg);
+	background: var(--color-ink) !important;
+	color: var(--color-bg) !important;
+	border: 0;
+	border-radius: 0 !important;
+	text-align: center;
 }
 
-.product-card__badge--sale {
-	background: var(--color-accent);
+.product-card__badge--sale,
+.product-badge--sale {
+	background: var(--color-ink);
+	color: var(--color-bg);
 }
 
 .product-card__badge--low-stock {
@@ -359,6 +376,18 @@ ul.products.shop-grid li.product {
 
 .product-card__badge--new {
 	background: var(--color-ink);
+}
+
+/* Reset default WooCommerce sale flash positioning in cards */
+.product-card__media > .onsale,
+.product-card__media > .product-badge {
+	position: absolute;
+	top: 12px;
+	right: 44px;
+	z-index: 2;
+	margin: 0;
+	min-height: 0;
+	min-width: 0;
 }
 
 .product-card__wishlist {
@@ -437,8 +466,21 @@ ul.products.shop-grid li.product {
 .product-card-price {
 	grid-column: 2;
 	font-size: 13px;
+	line-height: 1.45;
 	color: var(--color-muted);
 	white-space: nowrap;
+}
+
+.product-card-price del {
+	color: var(--color-muted);
+	opacity: 0.65;
+	text-decoration: line-through;
+	margin-right: 0.35rem;
+}
+
+.product-card-price ins {
+	text-decoration: none;
+	color: var(--color-text);
 }
 
 .product-card__swatches {
