@@ -1,11 +1,8 @@
 /**
- * Site header component styles.
+ * Site header — single horizontal band.
  *
- * Responsive strategy:
- * - Mobile-first layout with collapsible primary navigation
- * - Desktop horizontal layout from 64rem
- * - Hover dropdowns only when fine pointer + hover is available
- * - Touch/coarse pointer always uses explicit submenu toggles
+ * Desktop / tablet landscape (≥900px): logo | nav | utilities on one row.
+ * Below 900px: logo | utilities + hamburger; primary nav opens as a panel.
  *
  * @package Fashion_Brand_Theme
  */
@@ -27,7 +24,8 @@
 		"branding controls"
 		"navigation navigation";
 	align-items: center;
-	gap: var(--space-3);
+	column-gap: var(--space-4);
+	row-gap: 0;
 	padding-block: var(--space-3);
 	min-width: 0;
 }
@@ -35,7 +33,13 @@
 .site-branding {
 	grid-area: branding;
 	min-width: 0;
-	max-width: 70%;
+	display: flex;
+	align-items: center;
+}
+
+.site-header__navigation {
+	grid-area: navigation;
+	min-width: 0;
 }
 
 .site-header__controls {
@@ -48,30 +52,22 @@
 	min-width: 0;
 }
 
-.site-header__navigation {
-	grid-area: navigation;
-	min-width: 0;
-}
-
 .site-branding__logo {
 	margin: 0;
 	font: inherit;
+	line-height: 0;
 }
 
 .site-branding__link {
 	display: inline-flex;
 	align-items: center;
-	min-width: var(--touch-target-min);
-	min-height: var(--touch-target-min);
 	max-width: 100%;
 	color: var(--color-text);
 	text-decoration: none;
-	vertical-align: middle;
 }
 
 .site-branding__link:hover,
 .site-branding__link:focus-visible {
-	opacity: 1;
 	color: var(--color-accent);
 }
 
@@ -88,39 +84,31 @@
 .site-branding__marks {
 	display: inline-flex;
 	align-items: center;
+	line-height: 0;
 }
 
-.site-branding__mark,
-.site-branding .custom-logo {
+/*
+ * Logo sizing must beat WooCommerce `.woocommerce img { height: auto; max-width: 100% }`
+ * (specificity 0,1,1). Header uses lockup wordmark only.
+ */
+.site-header .site-branding img.site-branding__mark,
+.site-header .site-branding img.custom-logo,
+.woocommerce .site-header .site-branding img.site-branding__mark,
+.woocommerce-page .site-header .site-branding img.site-branding__mark {
 	display: block;
 	width: auto;
-	height: auto;
+	height: 2rem; /* 32px */
+	max-height: 2rem;
+	max-width: 10rem;
 	object-fit: contain;
 	object-position: left center;
-}
-
-.site-branding__mark--monogram {
-	height: 2rem;
-	width: 2rem;
-	flex-shrink: 0;
-}
-
-.site-branding__mark--lockup {
-	display: none;
-	height: 3.125rem;
-	width: auto;
-	max-width: min(14rem, 100%);
-}
-
-.site-branding .custom-logo {
-	height: 2rem;
-	max-width: min(11.5rem, 100%);
 }
 
 .site-branding .custom-logo-link {
 	display: inline-flex;
 	align-items: center;
 	max-width: 100%;
+	line-height: 0;
 }
 
 .primary-menu,
@@ -154,7 +142,7 @@
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
-	gap: var(--space-2);
+	gap: var(--space-1);
 }
 
 .utility-menu .menu-item {
@@ -170,15 +158,19 @@
 	justify-content: center;
 	min-width: var(--touch-target-min);
 	min-height: var(--touch-target-min);
-	padding: var(--space-2) var(--space-3);
+	padding: var(--space-2);
 	border: 0;
 	background: transparent;
 	touch-action: manipulation;
 	cursor: pointer;
 }
 
-.utility-menu a {
-	padding-inline: var(--space-3);
+.utility-menu__icon {
+	display: block;
+	width: 1.1875rem;
+	height: 1.1875rem;
+	flex-shrink: 0;
+	color: currentColor;
 }
 
 .utility-menu a:hover,
@@ -258,6 +250,7 @@
 	transform: rotate(-45deg);
 }
 
+/* Mobile / tablet portrait: nav collapsed until hamburger opens it */
 .site-header__navigation {
 	display: none;
 	padding-block: var(--space-3);
@@ -266,7 +259,7 @@
 
 .site-header__navigation.is-open {
 	display: block;
-	max-height: calc(100dvh - var(--site-header-offset));
+	max-height: calc(100dvh - var(--site-header-offset, 4.5rem));
 	overflow-y: auto;
 	overscroll-behavior: contain;
 	-webkit-overflow-scrolling: touch;
@@ -424,70 +417,41 @@ body.is-header-nav-open {
 	overflow: hidden;
 }
 
-/* Small smartphones — preserve utility usability in narrow viewports */
-@media (min-width: 25rem) {
+/* Show lockup wordmark from small tablets up (still hamburger until 900px) */
+@media (min-width: 40rem) {
 	.site-header__inner {
-		gap: var(--space-4);
 		padding-block: var(--space-4);
 	}
 
 	.utility-menu {
-		gap: var(--space-3);
+		gap: var(--space-2);
 	}
 }
 
-/* Small tablets and large phones in landscape */
-@media (min-width: 40rem) and (max-width: 63.99rem) {
-	.site-header__inner {
-		gap: var(--space-4);
-	}
-
-	.utility-menu {
-		gap: var(--space-4);
-	}
-
-	.site-branding__mark--monogram {
-		display: none;
-	}
-
-	.site-branding__mark--lockup {
-		display: block;
-		height: 2.875rem;
-		max-width: 13rem;
-	}
-}
-
-/* Standard desktop layout */
-@media (min-width: 64rem) {
+/*
+ * Single-row header — tablet landscape & desktop (≥900px).
+ * Logo left · primary nav center (nowrap) · utilities right.
+ */
+@media (min-width: 56.25rem) {
 	.site-header__inner {
 		grid-template-columns: auto minmax(0, 1fr) auto;
 		grid-template-areas: "branding navigation controls";
-		gap: var(--space-4);
-		padding-block: var(--space-5);
+		align-items: center;
+		gap: var(--space-5);
+		padding-block: var(--space-4);
 	}
 
 	.site-branding {
-		max-width: none;
 		flex-shrink: 0;
 	}
 
-	.site-branding__mark--monogram {
-		display: none;
-	}
-
-	.site-branding__mark--lockup {
-		display: block;
-		height: 3.125rem;
-		max-width: 14rem;
-	}
-
-	.site-branding .custom-logo {
-		height: 2.5rem;
-		max-width: 15rem;
-	}
-
-	.site-header__controls {
-		gap: var(--space-3);
+	.site-header .site-branding img.site-branding__mark,
+	.site-header .site-branding img.custom-logo,
+	.woocommerce .site-header .site-branding img.site-branding__mark,
+	.woocommerce-page .site-header .site-branding img.site-branding__mark {
+		height: 2.5rem; /* 40px */
+		max-height: 2.5rem;
+		max-width: 12rem;
 	}
 
 	.menu-toggle {
@@ -495,7 +459,9 @@ body.is-header-nav-open {
 	}
 
 	.site-header__navigation {
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		max-height: none;
 		overflow: visible;
 		padding-block: 0;
@@ -507,10 +473,18 @@ body.is-header-nav-open {
 		overflow: visible;
 	}
 
-	.primary-menu {
-		flex-flow: row wrap;
+	.primary-navigation {
+		width: 100%;
+		display: flex;
 		justify-content: center;
-		gap: var(--space-4);
+	}
+
+	.primary-menu {
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+		gap: var(--space-1) var(--space-4);
 	}
 
 	.primary-menu > .menu-item > a {
@@ -518,6 +492,10 @@ body.is-header-nav-open {
 		padding-block: var(--space-2);
 		padding-inline: var(--space-2);
 		white-space: nowrap;
+	}
+
+	.menu-item-has-children {
+		display: block;
 	}
 
 	body.is-header-nav-open {
@@ -539,37 +517,33 @@ body.is-header-nav-open {
 	}
 }
 
+@media (min-width: 64rem) {
+	.site-header__inner {
+		gap: var(--space-6);
+		padding-block: var(--space-5);
+	}
+
+	.primary-menu {
+		gap: var(--space-5);
+	}
+
+	.utility-menu {
+		gap: var(--space-3);
+	}
+}
+
 @media (min-width: 80rem) {
 	.site-header__inner {
 		gap: var(--space-6);
-		padding-block: var(--space-6);
-	}
-
-	.site-branding__mark--lockup {
-		height: 3.25rem;
-		max-width: 15rem;
-	}
-
-	.site-branding .custom-logo {
-		height: 2.75rem;
-		max-width: 16rem;
 	}
 
 	.primary-menu {
 		gap: var(--space-6);
 	}
-
-	.site-header__controls {
-		gap: var(--space-4);
-	}
 }
 
-/* Fine pointer + hover: desktop dropdown behavior */
-@media (min-width: 64rem) and (hover: hover) and (pointer: fine) {
-	.menu-item-has-children {
-		display: block;
-	}
-
+/* Fine pointer + hover: desktop dropdowns */
+@media (min-width: 56.25rem) and (hover: hover) and (pointer: fine) {
 	.submenu-toggle {
 		display: none;
 	}
@@ -581,7 +555,7 @@ body.is-header-nav-open {
 		z-index: 30;
 		min-width: 14rem;
 		max-width: min(18rem, calc(100vw - (var(--container-padding) * 2)));
-		max-height: min(24rem, calc(100dvh - var(--site-header-offset) - var(--space-6)));
+		max-height: min(24rem, calc(100dvh - var(--site-header-offset, 4.5rem) - var(--space-6)));
 		padding: var(--space-3);
 		border: var(--border-default);
 		border-radius: var(--radius-md);
@@ -616,14 +590,31 @@ body.is-header-nav-open {
 	}
 }
 
-/* Touch / coarse pointer at desktop widths — keep explicit submenu toggles */
-@media (min-width: 64rem) and (hover: none), (min-width: 64rem) and (pointer: coarse) {
+/* Touch desktops: keep submenu toggles, still one horizontal nav row */
+@media (min-width: 56.25rem) and (hover: none),
+	(min-width: 56.25rem) and (pointer: coarse) {
 	.primary-menu {
+		flex-wrap: nowrap;
+	}
+
+	.menu-item-has-children {
+		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
+		column-gap: var(--space-1);
+	}
+
+	.menu-item-has-children > a {
+		grid-area: unset;
+	}
+
+	.menu-item-has-children > .submenu-toggle {
+		grid-area: unset;
 	}
 
 	.menu-item-has-children > .sub-menu {
 		position: static;
+		flex: 1 0 100%;
 		min-width: 0;
 		max-width: none;
 		max-height: none;
@@ -635,7 +626,7 @@ body.is-header-nav-open {
 	}
 }
 
-/* Settings-driven header behavior (disabled by default) */
+/* Settings-driven header behavior */
 .site-header--sticky {
 	position: sticky;
 	top: 0;
@@ -646,8 +637,12 @@ body.is-header-nav-open {
 	box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 63.99rem) {
+@media (max-width: 56.24rem) {
 	.site-header--no-mobile-menu .site-header__navigation {
 		display: block;
+	}
+
+	.site-header--no-mobile-menu .menu-toggle {
+		display: none;
 	}
 }

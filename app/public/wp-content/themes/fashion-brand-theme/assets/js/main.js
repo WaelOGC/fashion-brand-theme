@@ -12,8 +12,8 @@
 	const menuToggle = document.querySelector( '[data-menu-toggle]' );
 	const searchPanel = document.querySelector( '[data-header-search-panel]' );
 	const searchToggles = document.querySelectorAll( '[data-search-toggle]' );
-	const desktopHoverQuery = window.matchMedia( '(min-width: 64rem) and (hover: hover) and (pointer: fine)' );
-	const compactNavQuery = window.matchMedia( '(max-width: 63.99rem)' );
+	const desktopHoverQuery = window.matchMedia( '(min-width: 56.25rem) and (hover: hover) and (pointer: fine)' );
+	const compactNavQuery = window.matchMedia( '(max-width: 56.24rem)' );
 
 	function setExpanded( element, isExpanded ) {
 		if ( ! element ) {

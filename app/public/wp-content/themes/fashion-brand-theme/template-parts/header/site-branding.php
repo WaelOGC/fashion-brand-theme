@@ -19,7 +19,7 @@ $home_url = home_url( '/' );
 	<?php else : ?>
 		<p class="site-branding__logo">
 			<a class="site-branding__link" href="<?php echo esc_url( $home_url ); ?>" rel="home">
-				<?php fashion_brand_theme_render_logo( array( 'variant' => 'primary', 'mode' => 'responsive' ) ); ?>
+				<?php fashion_brand_theme_render_logo( array( 'variant' => 'primary', 'mode' => 'lockup' ) ); ?>
 				<span class="screen-reader-text"><?php echo esc_html( fashion_brand_theme_get_display_label() ); ?></span>
 			</a>
 		</p>

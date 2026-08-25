@@ -45,24 +45,6 @@ $detail_meta = fashion_brand_theme_get_product_detail_meta( $product->get_id() )
 
 	<div class="product-split">
 		<div class="product-gallery" data-product-gallery>
-			<div class="product-gallery-main" data-zoom-root>
-				<?php
-				if ( $main_id ) {
-					echo wp_get_attachment_image(
-						$main_id,
-						'woocommerce_single',
-						false,
-						array(
-							'class'             => 'product-gallery-main__img',
-							'data-gallery-main' => 'true',
-							'alt'               => esc_attr( $product->get_name() ),
-						)
-					);
-				}
-				?>
-				<div class="product-gallery-zoom" data-zoom-lens hidden></div>
-			</div>
-
 			<?php if ( count( $gallery_ids ) > 1 ) : ?>
 				<div class="product-gallery-thumbs" role="tablist" aria-label="<?php esc_attr_e( 'Product images', 'fashion-brand-theme' ); ?>">
 					<?php foreach ( $gallery_ids as $index => $attachment_id ) : ?>
@@ -80,6 +62,24 @@ $detail_meta = fashion_brand_theme_get_product_detail_meta( $product->get_id() )
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
+
+			<div class="product-gallery-main" data-zoom-root>
+				<?php
+				if ( $main_id ) {
+					echo wp_get_attachment_image(
+						$main_id,
+						'woocommerce_single',
+						false,
+						array(
+							'class'             => 'product-gallery-main__img',
+							'data-gallery-main' => 'true',
+							'alt'               => esc_attr( $product->get_name() ),
+						)
+					);
+				}
+				?>
+				<div class="product-gallery-zoom" data-zoom-lens hidden></div>
+			</div>
 		</div>
 
 		<div class="product-info summary entry-summary">

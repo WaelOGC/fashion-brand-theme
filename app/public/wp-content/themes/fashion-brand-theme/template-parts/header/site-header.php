@@ -2,6 +2,8 @@
 /**
  * Site header.
  *
+ * Single horizontal band: branding | primary nav | utilities.
+ *
  * @package Fashion_Brand_Theme
  */
 
@@ -15,19 +17,19 @@ $header_classes = array_merge( array( 'site-header' ), fashion_brand_theme_get_h
 	<div class="site-header__inner container">
 		<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
 
-		<div class="site-header__controls">
-			<?php get_template_part( 'template-parts/header/utility', 'navigation' ); ?>
-			<?php if ( fashion_brand_theme_is_setting_enabled( 'header_mobile_menu_enabled' ) ) : ?>
-				<?php get_template_part( 'template-parts/header/menu', 'toggle' ); ?>
-			<?php endif; ?>
-		</div>
-
 		<div
 			id="site-navigation"
 			class="site-header__navigation"
 			data-header-navigation
 		>
 			<?php get_template_part( 'template-parts/header/primary', 'navigation' ); ?>
+		</div>
+
+		<div class="site-header__controls">
+			<?php get_template_part( 'template-parts/header/utility', 'navigation' ); ?>
+			<?php if ( fashion_brand_theme_is_setting_enabled( 'header_mobile_menu_enabled' ) ) : ?>
+				<?php get_template_part( 'template-parts/header/menu', 'toggle' ); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 
