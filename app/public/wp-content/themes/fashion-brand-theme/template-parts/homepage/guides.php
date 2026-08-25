@@ -27,6 +27,7 @@ $guides_image  = fashion_brand_theme_homepage_image_uri( 'guides/guides-flatlay-
 		loading="lazy"
 		decoding="async"
 	>
+	<div class="scene-top-scrim" aria-hidden="true"></div>
 	<div class="scene-scrim scrim-side" aria-hidden="true"></div>
 	<div class="scene-copy">
 		<p class="scene-eyebrow"><?php esc_html_e( 'Make Better Decisions', 'fashion-brand-theme' ); ?></p>
@@ -34,7 +35,7 @@ $guides_image  = fashion_brand_theme_homepage_image_uri( 'guides/guides-flatlay-
 			<?php esc_html_e( 'Make better clothing decisions', 'fashion-brand-theme' ); ?>
 		</h2>
 		<?php foreach ( $guide_teasers as $guide ) : ?>
-			<a class="guide-entry" href="<?php echo esc_url( $guides_url ); ?>">
+			<a class="guide-entry" href="<?php echo esc_url( $guides_url ); ?>" data-cursor-label="<?php esc_attr_e( 'Read', 'fashion-brand-theme' ); ?>">
 				<span class="guide-title"><?php echo esc_html( $guide['title'] ); ?></span>
 				<span class="guide-desc"><?php echo esc_html( $guide['excerpt'] ); ?></span>
 			</a>

@@ -44,6 +44,7 @@
 	--color-accent: #3f5348;
 	--color-accent-hover: #33443b;
 	--color-accent-muted: #5a6e62;
+	--color-accent-light: #b9cbaf; /* sage tint for interactive states on dark surfaces */
 
 	/* Ink — near-black contrast beat (overlay nav + cinematic scrims) */
 	--color-ink: #15181a;

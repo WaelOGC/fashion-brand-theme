@@ -12,7 +12,9 @@ get_header();
 	<?php get_template_part( 'template-parts/homepage/cinematic', 'chrome' ); ?>
 
 	<div class="scroll-wrap">
-		<?php fashion_brand_theme_render_homepage_sections(); ?>
+		<div class="scene-track">
+			<?php fashion_brand_theme_render_homepage_sections(); ?>
+		</div>
 	</div>
 </main>
 

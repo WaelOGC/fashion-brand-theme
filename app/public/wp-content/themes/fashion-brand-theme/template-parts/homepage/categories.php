@@ -26,6 +26,7 @@ $category_image = fashion_brand_theme_homepage_image_uri( 'categories/categories
 		loading="lazy"
 		decoding="async"
 	>
+	<div class="scene-top-scrim" aria-hidden="true"></div>
 	<div class="scene-scrim scrim-full" aria-hidden="true"></div>
 	<div class="scene-copy">
 		<p class="scene-eyebrow"><?php esc_html_e( 'The Capsule', 'fashion-brand-theme' ); ?></p>
@@ -37,6 +38,7 @@ $category_image = fashion_brand_theme_homepage_image_uri( 'categories/categories
 				<a
 					class="cat-item"
 					href="<?php echo esc_url( fashion_brand_theme_get_product_category_url( $slug ) ); ?>"
+					data-cursor-label="<?php esc_attr_e( 'Shop', 'fashion-brand-theme' ); ?>"
 				>
 					<span class="cat-name"><?php echo esc_html( $label ); ?></span>
 					<span class="cat-arrow" aria-hidden="true">→</span>

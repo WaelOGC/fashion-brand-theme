@@ -36,6 +36,14 @@ function fashion_brand_theme_enqueue_assets() {
 			FASHION_BRAND_THEME_VERSION,
 			true
 		);
+
+		wp_enqueue_script(
+			'fashion-brand-theme-custom-cursor',
+			FASHION_BRAND_THEME_URI . '/assets/js/custom-cursor.js',
+			array(),
+			FASHION_BRAND_THEME_VERSION,
+			true
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'fashion_brand_theme_enqueue_assets' );

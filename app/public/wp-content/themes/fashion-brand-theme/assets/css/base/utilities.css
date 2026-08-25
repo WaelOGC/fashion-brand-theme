@@ -108,8 +108,9 @@
 	text-decoration: none;
 }
 
-.site-footer__copyright a:hover {
-	color: var(--color-text);
+.site-footer__copyright a:hover,
+.site-footer__copyright a:focus-visible {
+	color: var(--color-accent);
 }
 
 .site-footer__social-list {
@@ -127,8 +128,9 @@
 	text-decoration: none;
 }
 
-.site-footer__social-list a:hover {
-	color: var(--color-text);
+.site-footer__social-list a:hover,
+.site-footer__social-list a:focus-visible {
+	color: var(--color-accent);
 }
 
 .site-footer__menu-list {
@@ -146,6 +148,7 @@
 	text-decoration: none;
 }
 
-.site-footer__menu-list a:hover {
-	color: var(--color-text);
+.site-footer__menu-list a:hover,
+.site-footer__menu-list a:focus-visible {
+	color: var(--color-accent);
 }

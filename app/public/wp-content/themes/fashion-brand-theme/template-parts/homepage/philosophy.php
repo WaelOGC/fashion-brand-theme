@@ -26,6 +26,7 @@ $about_url        = fashion_brand_theme_get_page_url( 'about' );
 		loading="lazy"
 		decoding="async"
 	>
+	<div class="scene-top-scrim" aria-hidden="true"></div>
 	<div class="scene-scrim scrim-side" aria-hidden="true"></div>
 	<div class="scene-copy">
 		<p class="scene-eyebrow"><?php esc_html_e( 'Less, Better', 'fashion-brand-theme' ); ?></p>

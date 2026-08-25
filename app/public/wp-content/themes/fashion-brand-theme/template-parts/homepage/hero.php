@@ -25,6 +25,7 @@ $hero_image = fashion_brand_theme_homepage_image_uri( 'hero/hero-editorial-01.jp
 		decoding="async"
 		fetchpriority="high"
 	>
+	<div class="scene-top-scrim" aria-hidden="true"></div>
 	<div class="scene-scrim scrim-bottom" aria-hidden="true"></div>
 	<div class="scene-copy">
 		<p class="scene-eyebrow"><?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_eyebrow' ) ); ?></p>

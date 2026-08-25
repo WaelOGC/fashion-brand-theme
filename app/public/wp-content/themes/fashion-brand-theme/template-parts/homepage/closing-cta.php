@@ -25,6 +25,7 @@ $closing_image = fashion_brand_theme_homepage_image_uri( 'closing-cta/closing-ct
 		loading="lazy"
 		decoding="async"
 	>
+	<div class="scene-top-scrim" aria-hidden="true"></div>
 	<div class="scene-scrim scrim-bottom" aria-hidden="true"></div>
 	<div class="scene-copy">
 		<p class="scene-eyebrow"><?php esc_html_e( 'Begin', 'fashion-brand-theme' ); ?></p>

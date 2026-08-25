@@ -69,8 +69,10 @@
 	vertical-align: middle;
 }
 
-.site-branding__link:hover {
-	opacity: 0.82;
+.site-branding__link:hover,
+.site-branding__link:focus-visible {
+	opacity: 1;
+	color: var(--color-accent);
 }
 
 .site-branding__link:focus {
@@ -141,6 +143,11 @@
 	font: var(--font-nav);
 	color: var(--color-text);
 	text-decoration: none;
+}
+
+.primary-menu > .menu-item > a:hover,
+.primary-menu > .menu-item > a:focus-visible {
+	color: var(--color-accent);
 }
 
 .utility-menu {
@@ -354,8 +361,9 @@
 	color: var(--color-text-muted);
 }
 
-.sub-menu .menu-item a:hover {
-	color: var(--color-text);
+.sub-menu .menu-item a:hover,
+.sub-menu .menu-item a:focus-visible {
+	color: var(--color-accent);
 }
 
 .header-search-panel {

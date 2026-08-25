@@ -32,8 +32,8 @@ $preview_contact      = fashion_brand_theme_homepage_image_uri( 'closing-cta/clo
 			class="cinematic-brand-mark__glyph"
 			src="<?php echo esc_url( $monogram_uri ); ?>"
 			alt=""
-			width="20"
-			height="20"
+			width="30"
+			height="30"
 			decoding="async"
 		>
 	<?php endif; ?>

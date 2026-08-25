@@ -26,6 +26,7 @@ $collections_url  = fashion_brand_theme_get_page_url( 'collections' );
 		loading="lazy"
 		decoding="async"
 	>
+	<div class="scene-top-scrim" aria-hidden="true"></div>
 	<div class="scene-scrim scrim-side" aria-hidden="true"></div>
 	<div class="scene-copy">
 		<p class="scene-eyebrow"><?php esc_html_e( 'The Seasonal Edit', 'fashion-brand-theme' ); ?></p>

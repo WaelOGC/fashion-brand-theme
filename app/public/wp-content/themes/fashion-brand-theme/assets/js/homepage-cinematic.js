@@ -1,5 +1,5 @@
 /**
- * Homepage cinematic scroll — scene snap, parallax, overlay nav.
+ * Homepage cinematic scroll — paged scenes, overlay nav, previews.
  *
  * Enqueued only on the front page.
  *
@@ -10,12 +10,17 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	'use strict';
 
 	var scrollWrap = document.querySelector( '.scroll-wrap' );
+	var track = document.querySelector( '.scene-track' );
 	var scenes = Array.prototype.slice.call( document.querySelectorAll( '.scene' ) );
 	var counter = document.querySelector( '.cinematic-counter' );
 	var overlayNav = document.querySelector( '.cinematic-overlay-nav' );
 	var menuBtn = document.querySelector( '.cinematic-menu-btn' );
 	var closeBtn = document.querySelector( '.cinematic-overlay-close' );
-	var reducedMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	var isFinePointer = window.matchMedia( '(pointer: fine)' ).matches;
+	var reduceMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+	var current = 0;
+	var animating = false;
+	var ANIMATION_MS = reduceMotion ? 0 : 1050;
 
 	if ( ! scrollWrap || ! scenes.length ) {
 		return;
@@ -39,49 +44,107 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			titles[ index ];
 	}
 
-	function setActiveScene( scene ) {
-		scenes.forEach( function ( item ) {
-			item.classList.remove( 'active' );
+	function setActiveByIndex( index ) {
+		scenes.forEach( function ( scene, i ) {
+			scene.classList.toggle( 'active', i === index );
 		} );
-		scene.classList.add( 'active' );
-		updateCounter( scenes.indexOf( scene ) );
+		updateCounter( index );
 	}
 
-	var io = new IntersectionObserver(
-		function ( entries ) {
-			entries.forEach( function ( entry ) {
-				if ( entry.isIntersecting && entry.intersectionRatio > 0.55 ) {
-					setActiveScene( entry.target );
-				}
-			} );
-		},
-		{ threshold: [ 0.55 ] }
-	);
+	function goTo( index ) {
+		if ( ! track ) {
+			return;
+		}
 
-	scenes.forEach( function ( scene ) {
-		io.observe( scene );
-	} );
+		index = Math.max( 0, Math.min( scenes.length - 1, index ) );
 
-	setActiveScene( scenes[ 0 ] );
+		if ( index === current || animating ) {
+			return;
+		}
 
-	if ( ! reducedMotion ) {
+		animating = true;
+		current = index;
+		track.style.transform = 'translateY(-' + index * 100 + 'vh)';
+		setActiveByIndex( index );
+
+		window.setTimeout( function () {
+			animating = false;
+		}, ANIMATION_MS );
+	}
+
+	function overlayIsOpen() {
+		return overlayNav && overlayNav.classList.contains( 'is-open' );
+	}
+
+	if ( isFinePointer && track ) {
+		var wheelCooldown = false;
+
 		scrollWrap.addEventListener(
-			'scroll',
-			function () {
-				scenes.forEach( function ( scene ) {
-					var rect = scene.getBoundingClientRect();
-					var img = scene.querySelector( '.scene-img' );
-					var progress = rect.top / window.innerHeight;
+			'wheel',
+			function ( event ) {
+				if ( overlayIsOpen() ) {
+					return;
+				}
 
-					if ( img ) {
-						img.style.transform =
-							'translateY(' + progress * 40 + 'px) scale(1.08)';
+				event.preventDefault();
+
+				if ( animating || wheelCooldown ) {
+					return;
+				}
+
+				if ( Math.abs( event.deltaY ) < 8 ) {
+					return;
+				}
+
+				wheelCooldown = true;
+				window.setTimeout( function () {
+					wheelCooldown = false;
+				}, 60 );
+
+				goTo( current + ( event.deltaY > 0 ? 1 : -1 ) );
+			},
+			{ passive: false }
+		);
+
+		document.addEventListener( 'keydown', function ( event ) {
+			if ( overlayIsOpen() ) {
+				return;
+			}
+
+			if ( 'ArrowDown' === event.key || 'PageDown' === event.key ) {
+				event.preventDefault();
+				goTo( current + 1 );
+			}
+
+			if ( 'ArrowUp' === event.key || 'PageUp' === event.key ) {
+				event.preventDefault();
+				goTo( current - 1 );
+			}
+		} );
+	} else {
+		// Touch / coarse: native proximity snap — keep counter in sync via IO.
+		var io = new IntersectionObserver(
+			function ( entries ) {
+				entries.forEach( function ( entry ) {
+					if ( entry.isIntersecting && entry.intersectionRatio > 0.55 ) {
+						var index = scenes.indexOf( entry.target );
+
+						if ( index > -1 ) {
+							current = index;
+							setActiveByIndex( index );
+						}
 					}
 				} );
 			},
-			{ passive: true }
+			{ threshold: [ 0.55 ] }
 		);
+
+		scenes.forEach( function ( scene ) {
+			io.observe( scene );
+		} );
 	}
+
+	setActiveByIndex( 0 );
 
 	function openOverlay() {
 		if ( ! overlayNav || ! menuBtn ) {
@@ -130,10 +193,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	var previewImg = preview ? preview.querySelector( 'img' ) : null;
 	var previewCaption = preview ? preview.querySelector( '.cinematic-overlay-preview__caption' ) : null;
 	var previewLinks = document.querySelectorAll( '.cinematic-overlay-nav a[data-preview-img]' );
-	var finePointer = window.matchMedia( '(hover: hover) and (pointer: fine)' );
+	var fineHover = window.matchMedia( '(hover: hover) and (pointer: fine)' );
 
 	function showPreview( link ) {
-		if ( ! preview || ! previewImg || ! previewCaption || ! finePointer.matches ) {
+		if ( ! preview || ! previewImg || ! previewCaption || ! fineHover.matches ) {
 			return;
 		}
 
