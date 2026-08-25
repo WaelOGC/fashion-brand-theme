@@ -45,6 +45,9 @@
 	--color-accent-hover: #33443b;
 	--color-accent-muted: #5a6e62;
 
+	/* Ink — near-black contrast beat (overlay nav + cinematic scrims) */
+	--color-ink: #15181a;
+
 	/* Borders & focus */
 	--color-border: var(--color-neutral-200);
 	--color-border-strong: var(--color-neutral-300);

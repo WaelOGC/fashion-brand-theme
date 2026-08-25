@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage hero — asymmetric editorial opening.
+ * Homepage scene 01 — Hero / Quiet Character.
  *
  * @package Fashion_Brand_Theme
  */
@@ -12,11 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $hero_image = fashion_brand_theme_homepage_image_uri( 'hero/hero-editorial-01.jpg' );
 ?>
 <section
-	class="homepage-hero"
+	class="scene"
+	data-title="<?php echo esc_attr( fashion_brand_theme_get_homepage_text( 'homepage_hero_eyebrow' ) ); ?>"
 	aria-labelledby="homepage-hero-heading"
 >
 	<img
-		class="homepage-hero__img"
+		class="scene-img"
 		src="<?php echo esc_url( $hero_image ); ?>"
 		alt=""
 		width="1600"
@@ -24,21 +25,17 @@ $hero_image = fashion_brand_theme_homepage_image_uri( 'hero/hero-editorial-01.jp
 		decoding="async"
 		fetchpriority="high"
 	>
-
-	<div class="homepage-hero__scrim" aria-hidden="true"></div>
-
-	<div class="homepage-hero__copy">
-		<p class="homepage-hero__kicker">
-			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_eyebrow' ) ); ?>
-		</p>
-		<h1 id="homepage-hero-heading" class="homepage-hero__headline">
+	<div class="scene-scrim scrim-bottom" aria-hidden="true"></div>
+	<div class="scene-copy">
+		<p class="scene-eyebrow"><?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_eyebrow' ) ); ?></p>
+		<h1 id="homepage-hero-heading" class="scene-headline">
 			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_heading' ) ); ?>
 		</h1>
-		<p class="homepage-hero__sub">
+		<p class="scene-sub">
 			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_text' ) ); ?>
 		</p>
 		<a
-			class="cta-link"
+			class="cinematic-link"
 			href="<?php echo esc_url( fashion_brand_theme_get_homepage_url( 'homepage_hero_cta_url', fashion_brand_theme_get_shop_url() ) ); ?>"
 		>
 			<?php echo esc_html( fashion_brand_theme_get_homepage_text( 'homepage_hero_cta_label' ) ); ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage featured collection — full-bleed image field.
+ * Homepage scene 04 — Featured collection / The Seasonal Edit.
  *
  * @package Fashion_Brand_Theme
  */
@@ -13,11 +13,12 @@ $collection_image = fashion_brand_theme_homepage_image_uri( 'featured-collection
 $collections_url  = fashion_brand_theme_get_page_url( 'collections' );
 ?>
 <section
-	class="homepage-featured"
+	class="scene"
+	data-title="<?php echo esc_attr__( 'The Seasonal Edit', 'fashion-brand-theme' ); ?>"
 	aria-labelledby="homepage-collection-heading"
 >
 	<img
-		class="homepage-featured__img"
+		class="scene-img"
 		src="<?php echo esc_url( $collection_image ); ?>"
 		alt=""
 		width="1920"
@@ -25,17 +26,16 @@ $collections_url  = fashion_brand_theme_get_page_url( 'collections' );
 		loading="lazy"
 		decoding="async"
 	>
-
-	<div class="homepage-featured__scrim" aria-hidden="true"></div>
-
-	<div class="homepage-featured__copy reveal">
-		<h2 id="homepage-collection-heading" class="homepage-featured__headline">
-			<?php esc_html_e( 'The Seasonal Edit', 'fashion-brand-theme' ); ?>
+	<div class="scene-scrim scrim-side" aria-hidden="true"></div>
+	<div class="scene-copy">
+		<p class="scene-eyebrow"><?php esc_html_e( 'The Seasonal Edit', 'fashion-brand-theme' ); ?></p>
+		<h2 id="homepage-collection-heading" class="scene-headline">
+			<?php esc_html_e( 'The seasonal edit.', 'fashion-brand-theme' ); ?>
 		</h2>
-		<p class="homepage-featured__sub">
+		<p class="scene-sub">
 			<?php esc_html_e( 'A curated selection of versatile pieces — composed for work, everyday and evening.', 'fashion-brand-theme' ); ?>
 		</p>
-		<a class="cta-link cta-link--light" href="<?php echo esc_url( $collections_url ); ?>">
+		<a class="cinematic-link" href="<?php echo esc_url( $collections_url ); ?>">
 			<?php esc_html_e( 'View all collections', 'fashion-brand-theme' ); ?>
 		</a>
 	</div>

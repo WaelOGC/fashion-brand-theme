@@ -22,15 +22,12 @@ function fashion_brand_theme_homepage_image_uri( $relative ) {
 }
 
 /**
- * Featured homepage categories (excluding All Products).
+ * Featured homepage categories (canonical capsule set).
  *
  * @return array<string, string> Category slug => label.
  */
 function fashion_brand_theme_get_homepage_categories() {
-	$categories = fashion_brand_theme_get_shop_categories();
-	unset( $categories['all-products'] );
-
-	return $categories;
+	return fashion_brand_theme_get_product_category_slugs();
 }
 
 /**

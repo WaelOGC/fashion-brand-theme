@@ -30,8 +30,8 @@ function fashion_brand_theme_enqueue_assets() {
 
 	if ( is_front_page() ) {
 		wp_enqueue_script(
-			'fashion-brand-theme-homepage-motion',
-			FASHION_BRAND_THEME_URI . '/assets/js/homepage-motion.js',
+			'fashion-brand-theme-homepage-cinematic',
+			FASHION_BRAND_THEME_URI . '/assets/js/homepage-cinematic.js',
 			array(),
 			FASHION_BRAND_THEME_VERSION,
 			true

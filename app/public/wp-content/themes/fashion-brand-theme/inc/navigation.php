@@ -29,17 +29,18 @@ function fashion_brand_theme_get_theme_page_slugs() {
 /**
  * Approved WooCommerce product category slugs.
  *
+ * Canonical shop category set (order matters for homepage index + nav).
+ *
  * @return array<string, string> Category slug => label.
  */
 function fashion_brand_theme_get_product_category_slugs() {
 	return array(
-		't-shirts'              => __( 'T-Shirts', 'fashion-brand-theme' ),
-		'hoodies'               => __( 'Hoodies', 'fashion-brand-theme' ),
-		'tops'                  => __( 'Tops', 'fashion-brand-theme' ),
-		'dresses'               => __( 'Dresses', 'fashion-brand-theme' ),
-		'pants'                 => __( 'Pants', 'fashion-brand-theme' ),
-		'everyday-essentials'   => __( 'Everyday Essentials', 'fashion-brand-theme' ),
-		'occasion-evening-wear' => __( 'Occasion / Evening Wear', 'fashion-brand-theme' ),
+		't-shirts' => __( 'T-Shirts', 'fashion-brand-theme' ),
+		'hoodies'  => __( 'Hoodies', 'fashion-brand-theme' ),
+		'knitwear' => __( 'Knitwear', 'fashion-brand-theme' ),
+		'shirts'   => __( 'Shirts', 'fashion-brand-theme' ),
+		'pants'    => __( 'Pants', 'fashion-brand-theme' ),
+		'dresses'  => __( 'Dresses', 'fashion-brand-theme' ),
 	);
 }
 
