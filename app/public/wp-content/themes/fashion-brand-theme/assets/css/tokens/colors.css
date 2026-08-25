@@ -22,6 +22,7 @@
 
 	/* Semantic surfaces */
 	--color-background: var(--color-neutral-50);
+	--color-bg: var(--color-background); /* alias used by shop/product reference */
 	--color-surface: #fafaf8;
 	--color-surface-muted: var(--color-neutral-100);
 	--color-surface-chapter: var(--color-neutral-100);
@@ -37,6 +38,7 @@
 	/* Text */
 	--color-text: var(--color-neutral-800);
 	--color-text-muted: var(--color-neutral-500);
+	--color-muted: var(--color-text-muted); /* alias used by shop/product reference */
 	--color-text-subtle: var(--color-neutral-400);
 	--color-text-inverse: var(--color-neutral-50);
 

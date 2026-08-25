@@ -70,6 +70,13 @@ function fashion_brand_theme_woocommerce_hooks() {
 	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
 
+	// Custom toolbar renders count + ordering.
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
+	// Custom breadcrumbs on product + archive templates.
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+
 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
@@ -78,6 +85,11 @@ function fashion_brand_theme_woocommerce_hooks() {
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+
+	// Tabs + related are placed manually in content-single-product.php.
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 }
 add_action( 'wp', 'fashion_brand_theme_woocommerce_hooks' );
 
@@ -107,52 +119,43 @@ function fashion_brand_theme_woocommerce_body_class( $classes ) {
 add_filter( 'body_class', 'fashion_brand_theme_woocommerce_body_class' );
 
 /**
- * Related products args — keep using shop-grid card styling.
- *
- * With one demo product per category, widen the pool so the section still renders.
+ * Related products args — 3-up grid matching the approved reference.
  *
  * @param array $args Related products args.
  * @return array
  */
 function fashion_brand_theme_related_products_args( $args ) {
-	$args['posts_per_page'] = 4;
-	$args['columns']        = 4;
+	$args['posts_per_page'] = 3;
+	$args['columns']        = 3;
 
 	return $args;
 }
 add_filter( 'woocommerce_output_related_products_args', 'fashion_brand_theme_related_products_args' );
 
 /**
- * Prefer same-category related IDs; fall back to other published products for demos.
+ * Keep related products within WooCommerce’s real related set (same category/tags).
  *
- * @param int[]        $related_ids Related product IDs.
- * @param int          $product_id  Current product ID.
- * @param array        $args        Query args.
- * @param WC_Product   $product     Product object.
+ * IMPORTANT: WooCommerce calls this filter with 3 arguments only. Accepting a 4th
+ * required parameter caused ArgumentCountError on single product pages.
+ *
+ * @param int[] $related_ids Related product IDs.
+ * @param int   $product_id  Current product ID.
+ * @param array $args        Query args (limit, etc.).
  * @return int[]
  */
-function fashion_brand_theme_related_products( $related_ids, $product_id, $args, $product ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
-	$limit = isset( $args['limit'] ) ? (int) $args['limit'] : 4;
+function fashion_brand_theme_related_products( $related_ids, $product_id, $args = array() ) {
+	$limit = isset( $args['posts_per_page'] ) ? (int) $args['posts_per_page'] : ( isset( $args['limit'] ) ? (int) $args['limit'] : 3 );
 
-	if ( count( $related_ids ) >= $limit ) {
-		return $related_ids;
+	if ( ! is_array( $related_ids ) ) {
+		$related_ids = array();
 	}
 
-	$fallback = wc_get_products(
-		array(
-			'status'  => 'publish',
-			'limit'   => $limit + 1,
-			'exclude' => array( $product_id ),
-			'return'  => 'ids',
-			'orderby' => 'rand',
-		)
-	);
+	$related_ids = array_values( array_filter( array_map( 'absint', $related_ids ) ) );
+	$related_ids = array_diff( $related_ids, array( absint( $product_id ) ) );
 
-	$merged = array_values( array_unique( array_merge( $related_ids, $fallback ) ) );
-
-	return array_slice( $merged, 0, $limit );
+	return array_slice( $related_ids, 0, max( 1, $limit ) );
 }
-add_filter( 'woocommerce_related_products', 'fashion_brand_theme_related_products', 10, 4 );
+add_filter( 'woocommerce_related_products', 'fashion_brand_theme_related_products', 10, 3 );
 
 /**
  * Primary + hover image IDs for a product card.

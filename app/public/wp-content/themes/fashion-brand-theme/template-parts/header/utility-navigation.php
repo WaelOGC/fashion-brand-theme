@@ -49,9 +49,10 @@ if ( ! $show_search && ! $show_account && ! $show_cart ) {
 		<?php endif; ?>
 
 		<?php if ( $show_cart ) : ?>
-			<li class="menu-item">
-				<a href="<?php echo esc_url( fashion_brand_theme_get_cart_url() ); ?>">
+			<li class="menu-item menu-item-cart">
+				<a class="utility-menu__cart" href="<?php echo esc_url( fashion_brand_theme_get_cart_url() ); ?>">
 					<?php esc_html_e( 'Cart', 'fashion-brand-theme' ); ?>
+					<?php fashion_brand_theme_render_header_cart_count(); ?>
 				</a>
 			</li>
 		<?php endif; ?>

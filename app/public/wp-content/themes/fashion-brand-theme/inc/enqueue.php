@@ -46,13 +46,43 @@ function fashion_brand_theme_enqueue_assets() {
 		);
 	}
 
-	if ( function_exists( 'is_product' ) && is_product() ) {
+	$is_shop = function_exists( 'is_shop' ) && ( is_shop() || is_product_taxonomy() || is_product() );
+
+	if ( $is_shop ) {
 		wp_enqueue_script(
-			'fashion-brand-theme-product-gallery',
-			FASHION_BRAND_THEME_URI . '/assets/js/product-gallery.js',
+			'fashion-brand-theme-shop',
+			FASHION_BRAND_THEME_URI . '/assets/js/shop.js',
 			array(),
 			FASHION_BRAND_THEME_VERSION,
 			true
+		);
+
+		wp_localize_script(
+			'fashion-brand-theme-shop',
+			'fashionBrandThemeShop',
+			array(
+				'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+				'nonce'          => wp_create_nonce( 'fashion_brand_theme_shop' ),
+				'currencySymbol' => function_exists( 'get_woocommerce_currency_symbol' ) ? html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' ) : '€',
+			)
+		);
+	}
+
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_script(
+			'fashion-brand-theme-product',
+			FASHION_BRAND_THEME_URI . '/assets/js/product.js',
+			array( 'jquery', 'wc-add-to-cart-variation' ),
+			FASHION_BRAND_THEME_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'fashion-brand-theme-product',
+			'fashionBrandThemeProduct',
+			array(
+				'colorMap' => fashion_brand_theme_color_swatch_map(),
+			)
 		);
 	}
 }

@@ -115,6 +115,9 @@ function fashion_brand_theme_get_default_settings() {
 		'shop_show_excerpt'          => false,
 		'shop_show_category'         => true,
 		'shop_show_badges'           => true,
+		'shop_shipping_info'         => '',
+		'shop_returns_info'          => '',
+		'shop_footer_tagline'        => 'Clothing with intention.',
 		// Social.
 		'social_enabled'             => true,
 		'social_open_new_tab'        => true,
@@ -250,6 +253,13 @@ function fashion_brand_theme_sanitize_setting_value( $key, $value ) {
 	}
 
 	switch ( $key ) {
+		case 'announcement_text':
+		case 'homepage_hero_text':
+		case 'homepage_cta_text':
+		case 'shop_shipping_info':
+		case 'shop_returns_info':
+			return sanitize_textarea_field( wp_unslash( (string) $value ) );
+
 		case 'display_label':
 		case 'announcement_link_label':
 		case 'footer_copyright_text':
@@ -259,12 +269,8 @@ function fashion_brand_theme_sanitize_setting_value( $key, $value ) {
 		case 'homepage_cta_heading':
 		case 'homepage_cta_primary_label':
 		case 'homepage_cta_secondary_label':
+		case 'shop_footer_tagline':
 			return sanitize_text_field( wp_unslash( (string) $value ) );
-
-		case 'announcement_text':
-		case 'homepage_hero_text':
-		case 'homepage_cta_text':
-			return sanitize_textarea_field( wp_unslash( (string) $value ) );
 
 		case 'announcement_link_url':
 		case 'homepage_hero_cta_url':
