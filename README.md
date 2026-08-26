@@ -1,4 +1,4 @@
-# Fashion Brand Theme
+# WREN WOLD Fashion Brand WordPress Theme
 
 Custom WordPress + WooCommerce theme for a European fashion brand (pre-launch).
 
