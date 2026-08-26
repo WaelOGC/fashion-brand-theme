@@ -340,7 +340,7 @@ ul.products.shop-grid li.product {
 	z-index: 2;
 }
 
-/* Shared status badge — shop cards, WC sale flash, single gallery */
+/* Shared status badge — typography + WC dimension reset */
 .product-badge,
 .product-card__badge,
 .woocommerce span.onsale,
@@ -356,26 +356,56 @@ ul.products.shop-grid li.product {
 	line-height: 1.2;
 	text-transform: uppercase;
 	padding: 4px 8px;
-	background: var(--color-ink) !important;
 	color: var(--color-bg) !important;
 	border: 0;
-	border-radius: 0 !important;
 	text-align: center;
-}
-
-.product-card__badge--sale,
-.product-badge--sale {
-	background: var(--color-ink);
-	color: var(--color-bg);
 }
 
 .product-card__badge--low-stock {
 	background: var(--color-muted);
 	color: var(--color-bg);
+	border-radius: 0;
 }
 
 .product-card__badge--new {
 	background: var(--color-ink);
+	color: var(--color-bg);
+	border-radius: 0;
+}
+
+@keyframes sale-badge-enter {
+	from {
+		opacity: 0;
+		transform: scale(0.88);
+	}
+
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+/* Glass pill — sale badges only */
+.product-card__badge--sale,
+.product-badge--sale,
+.woocommerce span.onsale,
+.woocommerce .onsale {
+	background: color-mix(in srgb, var(--color-ink) 75%, transparent) !important;
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	border: 1px solid color-mix(in srgb, var(--color-accent-light) 35%, transparent);
+	border-radius: 999px !important;
+	color: var(--color-bg);
+	animation: sale-badge-enter 0.3s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.product-card__badge--sale,
+	.product-badge--sale,
+	.woocommerce span.onsale,
+	.woocommerce .onsale {
+		animation: none;
+	}
 }
 
 /* Reset default WooCommerce sale flash positioning in cards */

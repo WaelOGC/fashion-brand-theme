@@ -24,8 +24,19 @@ $cat_terms   = get_the_terms( $product->get_id(), 'product_cat' );
 $primary_cat = ( $cat_terms && ! is_wp_error( $cat_terms ) ) ? $cat_terms[0] : null;
 $rating      = (float) $product->get_average_rating();
 $review_count = (int) $product->get_review_count();
-$shipping    = fashion_brand_theme_get_shipping_returns_copy();
-$detail_meta = fashion_brand_theme_get_product_detail_meta( $product->get_id() );
+$shipping     = fashion_brand_theme_get_shipping_returns_copy();
+$detail_meta  = fashion_brand_theme_get_product_detail_meta( $product->get_id() );
+$product_tags = wc_get_product_tag_list( $product->get_id(), ', ' );
+$trust_line   = array_filter(
+	array_map(
+		'trim',
+		array(
+			fashion_brand_theme_get_stock_message( $product ),
+			$shipping['shipping'],
+			$shipping['returns'],
+		)
+	)
+);
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class( 'product-page', $product ); ?>>
 
@@ -109,48 +120,82 @@ $detail_meta = fashion_brand_theme_get_product_detail_meta( $product->get_id() )
 			<?php endif; ?>
 
 			<div class="product-cart-wrap" data-main-atc>
-				<?php
-				/**
-				 * Hook: woocommerce_single_product_summary — add to cart / variations.
-				 */
-				do_action( 'woocommerce_single_product_summary' );
-				?>
-			</div>
+				<div class="product-atc-row">
+					<div class="product-atc-row__form">
+						<?php
+						if ( ! empty( $trust_line ) ) {
+							add_action(
+								'woocommerce_before_add_to_cart_quantity',
+								static function () use ( $trust_line ) {
+									static $rendered = false;
+									if ( $rendered ) {
+										return;
+									}
+									$rendered = true;
+									$trust_markup = array();
+									foreach ( $trust_line as $trust_item ) {
+										$trust_markup[] = '<span class="product-trust-line__item">' . esc_html( $trust_item ) . '</span>';
+									}
+									echo '<p class="product-trust-line">';
+									echo wp_kses_post( implode( '<span class="product-trust-line__sep" aria-hidden="true"> · </span>', $trust_markup ) );
+									echo '</p>';
+								},
+								5
+							);
+						}
 
-			<div class="product-secondary-actions">
-				<button type="button" class="product-icon-btn" data-wishlist-toggle data-product-id="<?php echo esc_attr( (string) $product->get_id() ); ?>" aria-pressed="false" aria-label="<?php esc_attr_e( 'Add to wishlist', 'fashion-brand-theme' ); ?>">
-					<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.2-4.6-9.5-8.2C.6 9.7 2.1 6 5.5 6c1.9 0 3.2 1.1 3.9 2.2C10.1 7.1 11.4 6 13.3 6c3.4 0 4.9 3.7 3 6.8C19.2 16.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-					<?php esc_html_e( 'Wishlist', 'fashion-brand-theme' ); ?>
-				</button>
-				<button type="button" class="product-icon-btn" data-share-product aria-label="<?php esc_attr_e( 'Share', 'fashion-brand-theme' ); ?>">
-					<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8a3 3 0 1 0-2.8-4H12a3 3 0 0 0 .2 4L8.7 12.2a3 3 0 1 0 1.4 1.4L14 9.4A3 3 0 0 0 15 8zm-9 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
-					<?php esc_html_e( 'Share', 'fashion-brand-theme' ); ?>
-				</button>
-			</div>
+						/**
+						 * Hook: woocommerce_single_product_summary — add to cart / variations.
+						 */
+						do_action( 'woocommerce_single_product_summary' );
+						?>
+					</div>
 
-			<p class="product-stock"><?php echo esc_html( fashion_brand_theme_get_stock_message( $product ) ); ?></p>
-
-			<ul class="product-meta-list">
-				<?php if ( $product->get_sku() ) : ?>
-					<li><span><?php esc_html_e( 'SKU', 'fashion-brand-theme' ); ?></span> <?php echo esc_html( $product->get_sku() ); ?></li>
-				<?php endif; ?>
-				<?php if ( $categories ) : ?>
-					<li><span><?php esc_html_e( 'Category', 'fashion-brand-theme' ); ?></span> <?php echo wp_kses_post( $categories ); ?></li>
-				<?php endif; ?>
-				<?php
-				$tags = wc_get_product_tag_list( $product->get_id(), ', ' );
-				if ( $tags ) :
-					?>
-					<li><span><?php esc_html_e( 'Tags', 'fashion-brand-theme' ); ?></span> <?php echo wp_kses_post( $tags ); ?></li>
-				<?php endif; ?>
-			</ul>
-
-			<div class="product-shipping-box">
-				<p><?php echo esc_html( $shipping['shipping'] ); ?></p>
-				<p><?php echo esc_html( $shipping['returns'] ); ?></p>
+					<div class="product-atc-row__actions" aria-label="<?php esc_attr_e( 'Product actions', 'fashion-brand-theme' ); ?>">
+						<button type="button" class="product-icon-btn product-icon-btn--icon-only" data-wishlist-toggle data-product-id="<?php echo esc_attr( (string) $product->get_id() ); ?>" aria-pressed="false" aria-label="<?php esc_attr_e( 'Add to wishlist', 'fashion-brand-theme' ); ?>">
+							<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.2-4.6-9.5-8.2C.6 9.7 2.1 6 5.5 6c1.9 0 3.2 1.1 3.9 2.2C10.1 7.1 11.4 6 13.3 6c3.4 0 4.9 3.7 3 6.8C19.2 16.4 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+						</button>
+						<button type="button" class="product-icon-btn product-icon-btn--icon-only" data-share-product aria-label="<?php esc_attr_e( 'Share', 'fashion-brand-theme' ); ?>">
+							<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8a3 3 0 1 0-2.8-4H12a3 3 0 0 0 .2 4L8.7 12.2a3 3 0 1 0 1.4 1.4L14 9.4A3 3 0 0 0 15 8zm-9 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" fill="currentColor"/></svg>
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+
+	<?php
+	if ( $product->get_sku() || $categories || $product_tags ) {
+		add_action(
+			'woocommerce_product_additional_information',
+			static function () use ( $product, $categories, $product_tags ) {
+				?>
+				<table class="woocommerce-product-attributes shop_attributes product-detail-meta">
+					<?php if ( $product->get_sku() ) : ?>
+						<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--sku">
+							<th class="woocommerce-product-attributes-item__label"><?php esc_html_e( 'SKU', 'fashion-brand-theme' ); ?></th>
+							<td class="woocommerce-product-attributes-item__value"><?php echo esc_html( $product->get_sku() ); ?></td>
+						</tr>
+					<?php endif; ?>
+					<?php if ( $categories ) : ?>
+						<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--category">
+							<th class="woocommerce-product-attributes-item__label"><?php esc_html_e( 'Category', 'fashion-brand-theme' ); ?></th>
+							<td class="woocommerce-product-attributes-item__value"><?php echo wp_kses_post( $categories ); ?></td>
+						</tr>
+					<?php endif; ?>
+					<?php if ( $product_tags ) : ?>
+						<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--tags">
+							<th class="woocommerce-product-attributes-item__label"><?php esc_html_e( 'Tags', 'fashion-brand-theme' ); ?></th>
+							<td class="woocommerce-product-attributes-item__value"><?php echo wp_kses_post( $product_tags ); ?></td>
+						</tr>
+					<?php endif; ?>
+				</table>
+				<?php
+			},
+			5
+		);
+	}
+	?>
 
 	<div class="product-tabs-wrap woocommerce-tabs wc-tabs-wrapper">
 		<?php woocommerce_output_product_data_tabs(); ?>
