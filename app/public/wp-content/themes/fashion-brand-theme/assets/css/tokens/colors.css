@@ -67,4 +67,12 @@
 	--color-warning-text: #f3f2ef;
 	--color-error: #8b4a42;
 	--color-error-text: #f3f2ef;
+
+	/* Product status badges — one hue per type */
+	--color-badge-sale: var(--color-error);
+	--color-badge-sale-text: var(--color-error-text);
+	--color-badge-new: var(--color-accent);
+	--color-badge-new-text: var(--color-text-inverse);
+	--color-badge-low-stock: var(--color-warning);
+	--color-badge-low-stock-text: var(--color-warning-text);
 }

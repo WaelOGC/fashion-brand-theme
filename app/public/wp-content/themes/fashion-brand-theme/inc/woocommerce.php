@@ -271,3 +271,38 @@ function fashion_brand_theme_single_gallery_sale_flash( $html, $attachment_id, $
 	return $badge . $html;
 }
 add_filter( 'wp_get_attachment_image', 'fashion_brand_theme_single_gallery_sale_flash', 10, 5 );
+
+/**
+ * Cart trust line above totals.
+ *
+ * @return void
+ */
+function fashion_brand_theme_cart_trust_line() {
+	$items = array(
+		__( 'Free shipping over €150', 'fashion-brand-theme' ),
+		__( 'Returns within 14 days', 'fashion-brand-theme' ),
+	);
+
+	$markup = array();
+	foreach ( $items as $item ) {
+		$markup[] = '<span class="product-trust-line__item">' . esc_html( $item ) . '</span>';
+	}
+
+	echo '<p class="product-trust-line cart-trust-line">';
+	echo wp_kses_post( implode( '<span class="product-trust-line__sep" aria-hidden="true"> · </span>', $markup ) );
+	echo '</p>';
+}
+add_action( 'woocommerce_before_cart_totals', 'fashion_brand_theme_cart_trust_line' );
+
+/**
+ * Checkout trust row before Place Order.
+ *
+ * @return void
+ */
+function fashion_brand_theme_checkout_trust_row() {
+	echo '<p class="checkout-trust-row">';
+	echo '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 11V8a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+	echo '<span>' . esc_html__( 'Secure checkout', 'fashion-brand-theme' ) . '</span>';
+	echo '</p>';
+}
+add_action( 'woocommerce_review_order_before_submit', 'fashion_brand_theme_checkout_trust_row' );

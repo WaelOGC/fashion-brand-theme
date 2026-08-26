@@ -332,11 +332,13 @@ ul.products.shop-grid li.product {
 .product-card__badges {
 	position: absolute;
 	top: 12px;
-	right: 44px;
+	/* 10px wishlist inset + 40px button + 6px gap */
+	right: 56px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 	gap: 4px;
+	max-width: calc(100% - 68px);
 	z-index: 2;
 }
 
@@ -356,20 +358,19 @@ ul.products.shop-grid li.product {
 	line-height: 1.2;
 	text-transform: uppercase;
 	padding: 4px 8px;
-	color: var(--color-bg) !important;
 	border: 0;
 	text-align: center;
 }
 
 .product-card__badge--low-stock {
-	background: var(--color-muted);
-	color: var(--color-bg);
+	background: var(--color-badge-low-stock);
+	color: var(--color-badge-low-stock-text) !important;
 	border-radius: 0;
 }
 
 .product-card__badge--new {
-	background: var(--color-ink);
-	color: var(--color-bg);
+	background: var(--color-badge-new);
+	color: var(--color-badge-new-text) !important;
 	border-radius: 0;
 }
 
@@ -385,17 +386,17 @@ ul.products.shop-grid li.product {
 	}
 }
 
-/* Glass pill — sale badges only */
+/* Glass pill — sale badges only (warm rust) */
 .product-card__badge--sale,
 .product-badge--sale,
 .woocommerce span.onsale,
 .woocommerce .onsale {
-	background: color-mix(in srgb, var(--color-ink) 75%, transparent) !important;
+	background: color-mix(in srgb, var(--color-badge-sale) 78%, transparent) !important;
 	-webkit-backdrop-filter: blur(6px);
 	backdrop-filter: blur(6px);
-	border: 1px solid color-mix(in srgb, var(--color-accent-light) 35%, transparent);
+	border: 1px solid color-mix(in srgb, var(--color-badge-sale) 45%, transparent);
 	border-radius: 999px !important;
-	color: var(--color-bg);
+	color: var(--color-badge-sale-text) !important;
 	animation: sale-badge-enter 0.3s ease-out both;
 }
 
@@ -408,16 +409,18 @@ ul.products.shop-grid li.product {
 	}
 }
 
-/* Reset default WooCommerce sale flash positioning in cards */
+/* Sale/status badges stack in .product-card__badges — hide WC loop duplicates */
 .product-card__media > .onsale,
 .product-card__media > .product-badge {
-	position: absolute;
-	top: 12px;
-	right: 44px;
-	z-index: 2;
+	display: none;
+}
+
+.product-card__badges .product-card__badge,
+.product-card__badges .onsale,
+.product-card__badges .product-badge {
+	position: static;
 	margin: 0;
-	min-height: 0;
-	min-width: 0;
+	flex-shrink: 0;
 }
 
 .product-card__wishlist {

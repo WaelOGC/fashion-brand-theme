@@ -111,11 +111,11 @@
 	line-height: 1.2;
 	text-transform: uppercase;
 	padding: 4px 8px;
-	color: var(--color-bg) !important;
-	background: color-mix(in srgb, var(--color-ink) 75%, transparent) !important;
+	color: var(--color-badge-sale-text) !important;
+	background: color-mix(in srgb, var(--color-badge-sale) 78%, transparent) !important;
 	-webkit-backdrop-filter: blur(6px);
 	backdrop-filter: blur(6px);
-	border: 1px solid color-mix(in srgb, var(--color-accent-light) 35%, transparent);
+	border: 1px solid color-mix(in srgb, var(--color-badge-sale) 45%, transparent);
 	border-radius: 999px !important;
 	animation: sale-badge-enter 0.3s ease-out both;
 }
@@ -257,12 +257,18 @@
 	color: inherit;
 }
 
-.product-price ins {
+.product-price ins,
+.product-price .woocommerce-variation-price ins {
 	order: 2;
 	text-decoration: none;
-	color: var(--color-text);
+	color: #a35d4a;
 	font-size: 18px;
 	background: none;
+}
+
+.product-price ins .woocommerce-Price-amount,
+.product-price .woocommerce-variation-price ins .woocommerce-Price-amount {
+	color: inherit;
 }
 
 .product-price > .woocommerce-Price-amount {
@@ -583,9 +589,16 @@
 .woocommerce div.product .product-info .woocommerce-variation-price ins,
 .woocommerce div.product .product-info .single_variation_wrap .price ins {
 	text-decoration: none;
-	color: var(--color-text);
+	color: #a35d4a;
 	font-size: 15px;
 	background: none;
+}
+
+.product-info .woocommerce-variation-price ins .woocommerce-Price-amount,
+.product-info .single_variation_wrap .price ins .woocommerce-Price-amount,
+.woocommerce div.product .product-info .woocommerce-variation-price ins .woocommerce-Price-amount,
+.woocommerce div.product .product-info .single_variation_wrap .price ins .woocommerce-Price-amount {
+	color: inherit;
 }
 
 .product-info .woocommerce-variation-price .from,
