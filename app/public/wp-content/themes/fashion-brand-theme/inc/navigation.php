@@ -45,6 +45,20 @@ function fashion_brand_theme_get_product_category_slugs() {
 }
 
 /**
+ * Approved WooCommerce product tag slugs for collection groupings.
+ *
+ * Cross-category navigational groupings (not product categories).
+ *
+ * @return array<string, string> Tag slug => label.
+ */
+function fashion_brand_theme_get_collection_slugs() {
+	return array(
+		'everyday-essentials'   => __( 'Everyday Essentials', 'fashion-brand-theme' ),
+		'occasion-evening-wear' => __( 'Occasion / Evening Wear', 'fashion-brand-theme' ),
+	);
+}
+
+/**
  * Shop submenu categories for navigation (includes All Products → shop URL).
  *
  * @return array<string, string> Category slug => label.
@@ -101,6 +115,30 @@ function fashion_brand_theme_get_product_category_url( $slug ) {
 	}
 
 	return home_url( '/product-category/' . $slug . '/' );
+}
+
+/**
+ * Resolve a collection (product tag) URL.
+ *
+ * @param string $slug Product tag slug.
+ * @return string
+ */
+function fashion_brand_theme_get_collection_url( $slug ) {
+	$slug = sanitize_title( (string) $slug );
+
+	if ( taxonomy_exists( 'product_tag' ) ) {
+		$term = get_term_by( 'slug', $slug, 'product_tag' );
+
+		if ( $term && ! is_wp_error( $term ) ) {
+			$term_link = get_term_link( $term );
+
+			if ( ! is_wp_error( $term_link ) ) {
+				return $term_link;
+			}
+		}
+	}
+
+	return home_url( '/product-tag/' . $slug . '/' );
 }
 
 /**
@@ -179,9 +217,19 @@ function fashion_brand_theme_primary_nav_fallback( $args ) {
 			'url'      => fashion_brand_theme_get_shop_url(),
 			'children' => fashion_brand_theme_get_shop_categories(),
 		),
+		array(
+			'label'     => __( 'Collections', 'fashion-brand-theme' ),
+			'url'       => fashion_brand_theme_get_page_url( 'collections' ),
+			'children'  => fashion_brand_theme_get_collection_slugs(),
+			'child_url' => 'collection',
+		),
 	);
 
 	foreach ( fashion_brand_theme_get_theme_page_slugs() as $slug => $label ) {
+		if ( 'collections' === $slug ) {
+			continue;
+		}
+
 		$primary_items[] = array(
 			'label' => $label,
 			'url'   => fashion_brand_theme_get_page_url( $slug ),
@@ -198,7 +246,7 @@ function fashion_brand_theme_primary_nav_fallback( $args ) {
 			$item_classes[] = 'menu-item-has-children';
 		}
 
-		$submenu_id = $has_children ? 'shop-submenu' : '';
+		$submenu_id = $has_children ? sanitize_title( $item['label'] ) . '-submenu' : '';
 
 		echo '<li class="' . esc_attr( implode( ' ', $item_classes ) ) . '">';
 		echo '<a href="' . esc_url( $item['url'] ) . '">' . esc_html( $item['label'] ) . '</a>';
@@ -207,9 +255,15 @@ function fashion_brand_theme_primary_nav_fallback( $args ) {
 			fashion_brand_theme_render_submenu_toggle( $submenu_id, $item['label'] );
 			echo '<ul id="' . esc_attr( $submenu_id ) . '" class="sub-menu">';
 
+			$is_collections = ! empty( $item['child_url'] ) && 'collection' === $item['child_url'];
+
 			foreach ( $item['children'] as $slug => $label ) {
+				$child_url = $is_collections
+					? fashion_brand_theme_get_collection_url( $slug )
+					: fashion_brand_theme_get_product_category_url( $slug );
+
 				echo '<li class="menu-item">';
-				echo '<a href="' . esc_url( fashion_brand_theme_get_product_category_url( $slug ) ) . '">' . esc_html( $label ) . '</a>';
+				echo '<a href="' . esc_url( $child_url ) . '">' . esc_html( $label ) . '</a>';
 				echo '</li>';
 			}
 
