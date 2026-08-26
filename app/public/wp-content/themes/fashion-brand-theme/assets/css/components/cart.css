@@ -126,8 +126,8 @@
 
 .woocommerce-cart table.cart .product-remove a:hover,
 .woocommerce-cart table.cart .product-remove a:focus-visible {
-	color: var(--color-text);
-	background: var(--color-surface-muted);
+	color: var(--color-error);
+	background: color-mix(in srgb, var(--color-error) 10%, transparent);
 }
 
 /* ——— Quantity ——— */
@@ -392,10 +392,19 @@
 	fill: currentColor;
 }
 
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:hover,
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:focus-visible,
 .wc-block-cart-item__remove-link:hover,
 .wc-block-cart-item__remove-link:focus-visible {
 	color: var(--color-error);
 	background: color-mix(in srgb, var(--color-error) 10%, transparent);
+}
+
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:hover svg,
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:focus-visible svg,
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:hover svg path,
+.wc-block-cart table.wc-block-cart-items .wc-block-cart-items__row .wc-block-cart-item__quantity .wc-block-cart-item__remove-link:focus-visible svg path {
+	fill: var(--color-error);
 }
 
 /* ——— WooCommerce Blocks coupon form ——— */
