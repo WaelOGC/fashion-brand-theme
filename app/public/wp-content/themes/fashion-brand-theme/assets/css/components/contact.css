@@ -1,70 +1,132 @@
 /**
- * Contact page — hero + two-column form layout.
- *
- * Hero reuses homepage `.scene` visual treatment (scrims, typography, reveal).
- *
- * Full-bleed note: `.site-content` is constrained in utilities.css via
- * `width: min(100% - (var(--container-padding) * 2), var(--container-max))`
- * + `margin-inline: auto`. Homepage clears that with `.home .site-content`.
- * Contact mirrors that reset and also breakout-bleeds the hero so edges touch
- * the viewport even if a parent constraint remains.
+ * Contact page — split hero + two-column content layout.
  *
  * @package Fashion_Brand_Theme
  */
 
-/* -------------------------------------------------------------------------
-   Full-bleed shell — match homepage .site-content reset
-   ------------------------------------------------------------------------- */
-
-body.page-contact .site-content,
-body.page-template-page-contact .site-content {
-	width: 100%;
-	max-width: none;
-	padding: 0;
-	margin: 0;
-	margin-inline: 0;
-}
-
 .contact-page {
 	background: var(--color-bg);
-	overflow-x: clip;
 }
 
 /* -------------------------------------------------------------------------
-   Hero — shorter band + true edge-to-edge image
+   Reveal animation — mirrors homepage .scene-copy stagger
    ------------------------------------------------------------------------- */
 
-.contact-page__hero.scene {
-	/* Break out of any remaining constrained ancestor (same intent as homepage). */
-	width: 100vw;
-	max-width: 100vw;
-	margin-inline: calc(50% - 50vw);
-	min-height: 55vh;
-	height: 55vh;
-	max-height: 620px;
+.contact-reveal > * {
+	opacity: 0;
+	transform: translateY(34px);
+	transition:
+		opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+		transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.contact-page__hero .scene-headline--contact {
-	font-size: clamp(36px, 5.5vw, 72px);
-	margin-bottom: 18px;
+.contact-reveal.is-active > * {
+	opacity: 1;
+	transform: translateY(0);
 }
 
-.contact-page__hero .scene-subheading {
+.contact-reveal > *:nth-child(1) {
+	transition-delay: 0.05s;
+}
+
+.contact-reveal > *:nth-child(2) {
+	transition-delay: 0.15s;
+}
+
+.contact-reveal > *:nth-child(3) {
+	transition-delay: 0.25s;
+}
+
+.contact-reveal > *:nth-child(4) {
+	transition-delay: 0.35s;
+}
+
+.contact-reveal > *:nth-child(5) {
+	transition-delay: 0.4s;
+}
+
+.contact-reveal > *:nth-child(6) {
+	transition-delay: 0.45s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.contact-reveal > *,
+	.contact-reveal.is-active > * {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Hero — split image / copy grid
+   ------------------------------------------------------------------------- */
+
+.contact-page__hero {
+	max-width: var(--container-wide);
+	margin: 0 auto;
+	padding: 0 48px;
+}
+
+.contact-page__hero-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: 480px;
+}
+
+.contact-page__hero-media {
+	position: relative;
+	min-height: 480px;
+	overflow: hidden;
+}
+
+.contact-page__hero-image {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 480px;
+	object-fit: cover;
+}
+
+.contact-page__hero-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 48px 56px;
+}
+
+.contact-page__hero-eyebrow {
+	margin: 0 0 16px;
+	font-family: var(--font-family-base);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--color-accent);
+}
+
+.contact-page__hero-heading {
+	margin: 0 0 18px;
+	font-family: var(--font-family-display);
+	font-weight: 500;
+	font-size: clamp(30px, 3.4vw, 44px);
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+	color: var(--color-text);
+}
+
+.contact-page__hero-subheading {
 	max-width: 42ch;
 	margin: 0;
 	font-family: var(--font-family-base);
-	font-size: clamp(15px, 1.4vw, 17px);
+	font-size: 15px;
+	font-weight: 500;
 	line-height: 1.65;
-	color: var(--color-text-inverse);
-	opacity: 0.82;
-}
-
-.contact-page__hero .scene-copy {
-	padding: 0 48px 48px;
+	color: var(--color-muted);
 }
 
 /* -------------------------------------------------------------------------
-   Two-column content
+   Content — two columns (aside left, form right)
    ------------------------------------------------------------------------- */
 
 .contact-page__content {
@@ -76,28 +138,112 @@ body.page-template-page-contact .site-content {
 .contact-page__grid {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 48px;
+	gap: 56px;
 	align-items: start;
 }
 
 /* -------------------------------------------------------------------------
-   Form column — card + heading
+   Aside column — Let's talk
+   ------------------------------------------------------------------------- */
+
+.contact-aside-column {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	max-width: 36ch;
+	min-width: 0;
+}
+
+.contact-aside-column__heading {
+	margin: 0 0 20px;
+	font-family: var(--font-family-display);
+	font-weight: 500;
+	font-size: 22px;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+	color: var(--color-text);
+}
+
+.contact-aside-column__intro {
+	margin: 0 0 28px;
+	font-family: var(--font-family-base);
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.7;
+	color: var(--color-text-muted);
+}
+
+.contact-aside-column__email {
+	margin: 0 0 16px;
+}
+
+.contact-aside-column__email a {
+	display: inline-block;
+	padding-bottom: 6px;
+	border-bottom: 1px solid var(--color-accent-light);
+	font-family: var(--font-family-display);
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.4;
+	color: var(--color-accent);
+	text-decoration: none;
+	transition:
+		color var(--transition-base),
+		border-color var(--transition-base);
+}
+
+.contact-aside-column__email a:hover,
+.contact-aside-column__email a:focus-visible {
+	color: var(--color-accent-hover);
+	border-bottom-color: var(--color-accent);
+}
+
+.contact-aside-column__email a:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.contact-aside-column__response {
+	margin: 0 0 32px;
+	font-family: var(--font-family-base);
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--color-text-subtle);
+}
+
+.contact-aside-column .social-icons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.contact-aside-column .social-icons li {
+	display: inline-flex;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* -------------------------------------------------------------------------
+   Form column — underline fields
    ------------------------------------------------------------------------- */
 
 .contact-form-column {
 	min-width: 0;
-	padding: 40px;
-	background: var(--color-surface);
-	border: 1px solid var(--color-border);
-	border-radius: var(--radius-md);
 }
 
 .contact-form-column__heading {
 	margin: 0 0 28px;
 	font-family: var(--font-family-base);
-	font-size: 12px;
-	font-weight: 500;
-	letter-spacing: 0.08em;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--color-muted);
 }
@@ -114,9 +260,9 @@ body.page-template-page-contact .site-content {
 	display: block;
 	margin-bottom: 8px;
 	font-family: var(--font-family-base);
-	font-size: 12px;
-	font-weight: 500;
-	letter-spacing: 0.08em;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--color-text-muted);
 }
@@ -128,10 +274,11 @@ body.page-template-page-contact .site-content {
 .contact-form-column .wpcf7-form textarea {
 	width: 100%;
 	min-height: 44px;
-	padding: 12px 14px;
-	border: 1px solid var(--color-border);
-	border-radius: var(--radius-md);
-	background: var(--color-bg);
+	padding: 8px 0;
+	border: 0;
+	border-bottom: 1px solid var(--color-border);
+	border-radius: 0;
+	background: transparent;
 	font-family: var(--font-family-base);
 	font-size: 15px;
 	line-height: 1.5;
@@ -140,7 +287,7 @@ body.page-template-page-contact .site-content {
 }
 
 .contact-form-column .wpcf7-form textarea {
-	min-height: 140px;
+	min-height: 120px;
 	resize: vertical;
 }
 
@@ -148,7 +295,7 @@ body.page-template-page-contact .site-content {
 .contact-form-column .wpcf7-form textarea:focus-visible {
 	outline: var(--focus-outline-width) solid var(--color-focus);
 	outline-offset: var(--focus-outline-offset);
-	border-color: var(--color-border-strong);
+	border-bottom-color: var(--color-accent);
 }
 
 .contact-form-column .wpcf7-form input[type="submit"],
@@ -186,98 +333,17 @@ body.page-template-page-contact .site-content {
 }
 
 /* -------------------------------------------------------------------------
-   Aside column — structured contact info
-   ------------------------------------------------------------------------- */
-
-.contact-aside-column {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	max-width: 36ch;
-	min-width: 0;
-	padding-top: 8px;
-}
-
-.contact-aside-column__eyebrow {
-	margin: 0 0 16px;
-	font-family: var(--font-family-base);
-	font-size: 12px;
-	font-weight: 500;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--color-muted);
-}
-
-.contact-aside-column__intro {
-	margin: 0 0 24px;
-	font-family: var(--font-family-base);
-	font-size: 16px;
-	line-height: 1.7;
-	color: var(--color-text-muted);
-}
-
-.contact-aside-column__email {
-	margin: 0 0 12px;
-}
-
-.contact-aside-column__email a {
-	font-family: var(--font-family-base);
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 1.4;
-	color: var(--color-accent);
-	text-decoration: none;
-	transition: color var(--transition-base);
-}
-
-.contact-aside-column__email a:hover,
-.contact-aside-column__email a:focus-visible {
-	color: var(--color-accent-hover);
-}
-
-.contact-aside-column__email a:focus-visible {
-	outline: var(--focus-outline-width) solid var(--color-focus);
-	outline-offset: var(--focus-outline-offset);
-}
-
-.contact-aside-column__response {
-	margin: 0 0 32px;
-	font-family: var(--font-family-base);
-	font-size: 13px;
-	line-height: 1.5;
-	color: var(--color-text-subtle);
-}
-
-.contact-aside-column .social-icons {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: var(--space-3);
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.contact-aside-column .social-icons li {
-	display: inline-flex;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-/* -------------------------------------------------------------------------
    Responsive — same breakpoints as collections.css
    ------------------------------------------------------------------------- */
 
 @media (min-width: 768px) {
 	.contact-page__grid {
-		grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-		gap: 56px;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+		gap: 64px;
 	}
 
-	.contact-aside-column {
-		padding-top: 12px;
+	.contact-page__hero-content {
+		padding: 48px 64px;
 	}
 }
 
@@ -289,25 +355,31 @@ body.page-template-page-contact .site-content {
 	.contact-page__grid {
 		gap: 80px;
 	}
-
-	.contact-page__hero .scene-copy {
-		padding: 0 64px 56px;
-	}
 }
 
 @media (max-width: 767px) {
-	.contact-page__hero.scene {
-		min-height: 45vh;
-		height: 45vh;
-		max-height: 420px;
+	.contact-page__hero {
+		padding: 0;
 	}
 
-	.contact-page__hero .scene-copy {
-		padding: 0 24px 36px;
+	.contact-page__hero-grid {
+		grid-template-columns: 1fr;
+		min-height: 0;
 	}
 
-	.contact-page__hero .scene-headline--contact {
-		font-size: clamp(32px, 9vw, 44px);
+	.contact-page__hero-media {
+		min-height: 0;
+		height: 40vh;
+		max-height: 320px;
+	}
+
+	.contact-page__hero-image {
+		min-height: 0;
+		height: 100%;
+	}
+
+	.contact-page__hero-content {
+		padding: 32px 24px 40px;
 	}
 
 	.contact-page__content {
@@ -315,15 +387,10 @@ body.page-template-page-contact .site-content {
 	}
 
 	.contact-page__grid {
-		gap: 40px;
-	}
-
-	.contact-form-column {
-		padding: 24px;
+		gap: 48px;
 	}
 
 	.contact-aside-column {
 		max-width: none;
-		padding-top: 0;
 	}
 }
