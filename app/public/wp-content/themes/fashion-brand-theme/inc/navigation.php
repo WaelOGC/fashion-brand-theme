@@ -45,17 +45,63 @@ function fashion_brand_theme_get_product_category_slugs() {
 }
 
 /**
- * Approved WooCommerce product tag slugs for collection groupings.
+ * Active product-tag collections for navigation and the Collections page.
  *
- * Cross-category navigational groupings (not product categories).
+ * Only tags opted in via `_fbt_show_in_collections` with at least one product.
  *
- * @return array<string, string> Tag slug => label.
+ * @return array<int, array<string, mixed>>
  */
-function fashion_brand_theme_get_collection_slugs() {
-	return array(
-		'everyday-essentials'   => __( 'Everyday Essentials', 'fashion-brand-theme' ),
-		'occasion-evening-wear' => __( 'Occasion / Evening Wear', 'fashion-brand-theme' ),
+function fashion_brand_theme_get_active_collections() {
+	if ( ! taxonomy_exists( 'product_tag' ) ) {
+		return array();
+	}
+
+	$terms = get_terms(
+		array(
+			'taxonomy'   => 'product_tag',
+			'hide_empty' => true,
+			'meta_query' => array(
+				array(
+					'key'   => '_fbt_show_in_collections',
+					'value' => 'yes',
+				),
+			),
+		)
 	);
+
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return array();
+	}
+
+	$collections = array();
+
+	foreach ( $terms as $term ) {
+		$term_link = get_term_link( $term );
+
+		if ( is_wp_error( $term_link ) ) {
+			continue;
+		}
+
+		$image_id  = (int) get_term_meta( $term->term_id, '_fbt_collection_image_id', true );
+		$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'medium_large' ) : '';
+
+		$collections[] = array(
+			'term_id'   => (int) $term->term_id,
+			'slug'      => $term->slug,
+			'name'      => $term->name,
+			'url'       => $term_link,
+			'image_url' => $image_url ? $image_url : '',
+		);
+	}
+
+	usort(
+		$collections,
+		static function ( $a, $b ) {
+			return strcasecmp( $a['name'], $b['name'] );
+		}
+	);
+
+	return $collections;
 }
 
 /**
@@ -115,30 +161,6 @@ function fashion_brand_theme_get_product_category_url( $slug ) {
 	}
 
 	return home_url( '/product-category/' . $slug . '/' );
-}
-
-/**
- * Resolve a collection (product tag) URL.
- *
- * @param string $slug Product tag slug.
- * @return string
- */
-function fashion_brand_theme_get_collection_url( $slug ) {
-	$slug = sanitize_title( (string) $slug );
-
-	if ( taxonomy_exists( 'product_tag' ) ) {
-		$term = get_term_by( 'slug', $slug, 'product_tag' );
-
-		if ( $term && ! is_wp_error( $term ) ) {
-			$term_link = get_term_link( $term );
-
-			if ( ! is_wp_error( $term_link ) ) {
-				return $term_link;
-			}
-		}
-	}
-
-	return home_url( '/product-tag/' . $slug . '/' );
 }
 
 /**
@@ -220,7 +242,7 @@ function fashion_brand_theme_primary_nav_fallback( $args ) {
 		array(
 			'label'     => __( 'Collections', 'fashion-brand-theme' ),
 			'url'       => fashion_brand_theme_get_page_url( 'collections' ),
-			'children'  => fashion_brand_theme_get_collection_slugs(),
+			'children'  => fashion_brand_theme_get_active_collections(),
 			'child_url' => 'collection',
 		),
 	);
@@ -257,14 +279,18 @@ function fashion_brand_theme_primary_nav_fallback( $args ) {
 
 			$is_collections = ! empty( $item['child_url'] ) && 'collection' === $item['child_url'];
 
-			foreach ( $item['children'] as $slug => $label ) {
-				$child_url = $is_collections
-					? fashion_brand_theme_get_collection_url( $slug )
-					: fashion_brand_theme_get_product_category_url( $slug );
-
-				echo '<li class="menu-item">';
-				echo '<a href="' . esc_url( $child_url ) . '">' . esc_html( $label ) . '</a>';
-				echo '</li>';
+			if ( $is_collections ) {
+				foreach ( $item['children'] as $collection ) {
+					echo '<li class="menu-item">';
+					echo '<a href="' . esc_url( $collection['url'] ) . '">' . esc_html( $collection['name'] ) . '</a>';
+					echo '</li>';
+				}
+			} else {
+				foreach ( $item['children'] as $slug => $label ) {
+					echo '<li class="menu-item">';
+					echo '<a href="' . esc_url( fashion_brand_theme_get_product_category_url( $slug ) ) . '">' . esc_html( $label ) . '</a>';
+					echo '</li>';
+				}
 			}
 
 			echo '</ul>';

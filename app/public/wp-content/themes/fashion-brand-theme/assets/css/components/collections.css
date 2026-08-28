@@ -1,5 +1,5 @@
 /**
- * Collections landing page — tag groupings grid.
+ * Collections landing page — admin-managed product tag grid.
  *
  * @package Fashion_Brand_Theme
  */
@@ -34,10 +34,18 @@
 	color: var(--color-text);
 }
 
+.collections-empty {
+	margin: 0;
+	max-width: 42ch;
+	font-size: 15px;
+	line-height: 1.6;
+	color: var(--color-muted);
+}
+
 .collections-grid {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 24px;
+	grid-template-columns: 1fr;
+	gap: 20px;
 }
 
 .collection-card {
@@ -52,6 +60,7 @@
 
 .collection-card:hover,
 .collection-card:focus-visible {
+	color: var(--color-text-inverse);
 	transform: translateY(-4px);
 }
 
@@ -63,12 +72,16 @@
 .collection-card__image {
 	display: block;
 	position: relative;
-	aspect-ratio: 4 / 5;
+	aspect-ratio: 3 / 4;
 	background-color: var(--color-surface);
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	transition: transform 0.5s ease;
+}
+
+.collection-card__image--empty {
+	background-color: var(--color-surface-muted);
 }
 
 .collection-card__image::after {
@@ -91,24 +104,31 @@
 
 .collection-card__label {
 	position: absolute;
-	bottom: 24px;
-	left: 24px;
+	bottom: 20px;
+	left: 20px;
 	z-index: 1;
-	max-width: calc(100% - 72px);
+	max-width: calc(100% - 56px);
 	font-family: var(--font-family-display);
 	font-weight: 300;
-	font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+	font-size: clamp(1.125rem, 1.8vw, 1.5rem);
 	line-height: 1.25;
 	letter-spacing: -0.01em;
+	color: inherit;
+}
+
+.collection-card:hover .collection-card__label,
+.collection-card:focus-visible .collection-card__label {
+	color: var(--color-text-inverse);
 }
 
 .collection-card__arrow {
 	position: absolute;
-	right: 24px;
-	bottom: 28px;
+	right: 20px;
+	bottom: 22px;
 	z-index: 1;
 	font-size: 12px;
 	line-height: 1;
+	color: inherit;
 	opacity: 0.6;
 	transition:
 		transform 0.3s ease,
@@ -117,8 +137,22 @@
 
 .collection-card:hover .collection-card__arrow,
 .collection-card:focus-visible .collection-card__arrow {
+	color: var(--color-text-inverse);
 	opacity: 1;
 	transform: translateX(4px);
+}
+
+@media (min-width: 768px) {
+	.collections-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.collections-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
 }
 
 @media (max-width: 767px) {
@@ -126,19 +160,14 @@
 		padding: 28px 20px 80px;
 	}
 
-	.collections-grid {
-		grid-template-columns: 1fr;
-		gap: 20px;
-	}
-
 	.collection-card__label {
-		bottom: 20px;
-		left: 20px;
-		max-width: calc(100% - 64px);
+		bottom: 16px;
+		left: 16px;
+		max-width: calc(100% - 48px);
 	}
 
 	.collection-card__arrow {
-		right: 20px;
-		bottom: 24px;
+		right: 16px;
+		bottom: 18px;
 	}
 }
