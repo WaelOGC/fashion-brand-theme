@@ -49,10 +49,17 @@ $terms        = $terms_page ? get_permalink( $terms_page ) : '#';
 			<?php if ( is_string( $tagline ) && '' !== trim( $tagline ) ) : ?>
 				<p class="site-footer__tagline"><?php echo esc_html( $tagline ); ?></p>
 			<?php endif; ?>
-			<nav class="site-footer__social" aria-label="<?php esc_attr_e( 'Social links', 'fashion-brand-theme' ); ?>">
-				<a href="#"><?php esc_html_e( 'Instagram', 'fashion-brand-theme' ); ?></a>
-				<a href="#"><?php esc_html_e( 'Pinterest', 'fashion-brand-theme' ); ?></a>
-			</nav>
+			<?php if ( fashion_brand_theme_is_setting_enabled( 'footer_social_enabled' ) && ! empty( fashion_brand_theme_get_social_links() ) ) : ?>
+				<nav class="site-footer__social" aria-label="<?php esc_attr_e( 'Social links', 'fashion-brand-theme' ); ?>">
+					<?php
+					fashion_brand_theme_render_social_icons(
+						array(
+							'class' => 'site-footer__social-list social-icons',
+						)
+					);
+					?>
+				</nav>
+			<?php endif; ?>
 		</div>
 
 		<div class="site-footer__col">

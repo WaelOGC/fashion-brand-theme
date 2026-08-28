@@ -9,11 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FASHION_BRAND_THEME_VERSION', '0.3.0' );
+define( 'FASHION_BRAND_THEME_VERSION', '0.4.0' );
 define( 'FASHION_BRAND_THEME_DIR', get_template_directory() );
 define( 'FASHION_BRAND_THEME_URI', get_template_directory_uri() );
 
 require FASHION_BRAND_THEME_DIR . '/inc/setup.php';
+require FASHION_BRAND_THEME_DIR . '/inc/social-media.php';
 require FASHION_BRAND_THEME_DIR . '/inc/enqueue.php';
 require FASHION_BRAND_THEME_DIR . '/inc/template-functions.php';
 require FASHION_BRAND_THEME_DIR . '/inc/navigation.php';

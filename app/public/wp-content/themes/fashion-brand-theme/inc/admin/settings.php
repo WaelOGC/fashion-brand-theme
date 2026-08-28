@@ -412,51 +412,6 @@ function fashion_brand_theme_render_homepage_sections() {
 }
 
 /**
- * Retrieve configured social profile URLs.
- *
- * @return array<string, string> Platform key => URL.
- */
-function fashion_brand_theme_get_social_links() {
-	if ( ! fashion_brand_theme_is_setting_enabled( 'social_enabled' ) ) {
-		return array();
-	}
-
-	$links = array(
-		'instagram' => fashion_brand_theme_get_setting( 'social_instagram' ),
-		'facebook'  => fashion_brand_theme_get_setting( 'social_facebook' ),
-		'pinterest' => fashion_brand_theme_get_setting( 'social_pinterest' ),
-		'tiktok'    => fashion_brand_theme_get_setting( 'social_tiktok' ),
-		'linkedin'  => fashion_brand_theme_get_setting( 'social_linkedin' ),
-		'youtube'   => fashion_brand_theme_get_setting( 'social_youtube' ),
-	);
-
-	return array_filter(
-		$links,
-		static function ( $url ) {
-			return is_string( $url ) && '' !== $url;
-		}
-	);
-}
-
-/**
- * Social link target attribute.
- *
- * @return string
- */
-function fashion_brand_theme_get_social_link_target() {
-	return fashion_brand_theme_is_setting_enabled( 'social_open_new_tab' ) ? '_blank' : '_self';
-}
-
-/**
- * Social link rel attribute.
- *
- * @return string
- */
-function fashion_brand_theme_get_social_link_rel() {
-	return fashion_brand_theme_is_setting_enabled( 'social_open_new_tab' ) ? 'noopener noreferrer' : '';
-}
-
-/**
  * Header CSS modifier classes from settings.
  *
  * @return string[]

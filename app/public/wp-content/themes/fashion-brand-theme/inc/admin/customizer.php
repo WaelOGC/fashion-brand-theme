@@ -90,6 +90,47 @@ function fashion_brand_theme_customize_register( $wp_customize ) {
 add_action( 'customize_register', 'fashion_brand_theme_customize_register' );
 
 /**
+ * Register Customizer social media URL fields.
+ *
+ * @param WP_Customize_Manager $wp_customize Customizer manager.
+ * @return void
+ */
+function fashion_brand_theme_customize_register_social_media( $wp_customize ) {
+	$wp_customize->add_section(
+		'fashion_brand_theme_social_media',
+		array(
+			'title'       => __( 'Social Media', 'fashion-brand-theme' ),
+			'description' => __( 'Add profile URLs to show social icons across the theme. Leave blank to hide a platform.', 'fashion-brand-theme' ),
+			'priority'    => 35,
+		)
+	);
+
+	foreach ( fashion_brand_theme_get_social_platforms() as $platform => $label ) {
+		$setting_id = fashion_brand_theme_get_social_setting_id( $platform );
+
+		$wp_customize->add_setting(
+			$setting_id,
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => '',
+				'transport'         => 'refresh',
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+
+		$wp_customize->add_control(
+			$setting_id,
+			array(
+				'label'   => $label,
+				'section' => 'fashion_brand_theme_social_media',
+				'type'    => 'url',
+			)
+		);
+	}
+}
+add_action( 'customize_register', 'fashion_brand_theme_customize_register_social_media', 20 );
+
+/**
  * Build a Customizer setting ID for a theme setting key.
  *
  * @param string $key Setting key.
