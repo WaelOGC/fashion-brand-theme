@@ -33,7 +33,7 @@ $form_heading = __( 'Send a message', 'fashion-brand-theme' );
 <main id="primary" class="site-main contact-page">
 	<section class="contact-page__hero" aria-labelledby="contact-hero-heading">
 		<div class="contact-page__hero-grid">
-			<div class="contact-page__hero-media">
+			<div class="contact-page__hero-media contact-reveal-hero">
 				<img
 					class="contact-page__hero-image"
 					src="<?php echo esc_url( $hero_image ); ?>"
@@ -45,7 +45,7 @@ $form_heading = __( 'Send a message', 'fashion-brand-theme' );
 				>
 			</div>
 
-			<div class="contact-page__hero-content contact-reveal">
+			<div class="contact-page__hero-content contact-reveal-hero">
 				<p class="contact-page__hero-eyebrow"><?php echo esc_html( $hero_eyebrow ); ?></p>
 				<h1 id="contact-hero-heading" class="contact-page__hero-heading">
 					<?php echo esc_html( $hero_heading ); ?>
@@ -83,7 +83,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	'use strict';
 
 	var reduceMotion = window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
-	var heroReveal = document.querySelector( '.contact-page__hero-content.contact-reveal' );
+	var heroReveals = document.querySelectorAll( '.contact-reveal-hero' );
 	var scrollReveals = document.querySelectorAll( '.contact-page__content .contact-reveal' );
 	var contentSection = document.querySelector( '.contact-page__content' );
 
@@ -94,12 +94,12 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	}
 
 	if ( reduceMotion ) {
-		activate( heroReveal );
+		heroReveals.forEach( activate );
 		scrollReveals.forEach( activate );
 		return;
 	}
 
-	activate( heroReveal );
+	heroReveals.forEach( activate );
 
 	if ( ! contentSection || ! scrollReveals.length ) {
 		return;

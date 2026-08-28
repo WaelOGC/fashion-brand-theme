@@ -93,6 +93,14 @@ function fashion_brand_theme_enqueue_assets() {
 			array( 'fashion-brand-theme-main' ),
 			FASHION_BRAND_THEME_VERSION
 		);
+
+		wp_enqueue_script(
+			'fashion-brand-theme-contact-phone',
+			FASHION_BRAND_THEME_URI . '/assets/js/contact-phone.js',
+			array(),
+			FASHION_BRAND_THEME_VERSION,
+			true
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'fashion_brand_theme_enqueue_assets' );

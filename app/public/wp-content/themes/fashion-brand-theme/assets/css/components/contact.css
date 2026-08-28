@@ -51,11 +51,27 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.contact-reveal > *,
-	.contact-reveal.is-active > * {
+	.contact-reveal.is-active > *,
+	.contact-reveal-hero,
+	.contact-reveal-hero.is-active {
 		opacity: 1;
 		transform: none;
 		transition: none;
 	}
+}
+
+/* Hero entrance — image + copy as one timing group */
+.contact-reveal-hero {
+	opacity: 0;
+	transform: translateY(20px);
+	transition:
+		opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+		transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-reveal-hero.is-active {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 /* -------------------------------------------------------------------------
@@ -152,6 +168,7 @@
 	align-items: flex-start;
 	max-width: 36ch;
 	min-width: 0;
+	align-self: start;
 }
 
 .contact-aside-column__heading {
@@ -231,7 +248,7 @@
 }
 
 /* -------------------------------------------------------------------------
-   Form column — underline fields
+   Form column — bordered fields
    ------------------------------------------------------------------------- */
 
 .contact-form-column {
@@ -269,16 +286,14 @@
 
 .contact-form-column .wpcf7-form input[type="text"],
 .contact-form-column .wpcf7-form input[type="email"],
-.contact-form-column .wpcf7-form input[type="tel"],
 .contact-form-column .wpcf7-form input[type="url"],
 .contact-form-column .wpcf7-form textarea {
 	width: 100%;
 	min-height: 44px;
-	padding: 8px 0;
-	border: 0;
-	border-bottom: 1px solid var(--color-border);
-	border-radius: 0;
-	background: transparent;
+	padding: 12px 14px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background: var(--color-surface);
 	font-family: var(--font-family-base);
 	font-size: 15px;
 	line-height: 1.5;
@@ -287,7 +302,7 @@
 }
 
 .contact-form-column .wpcf7-form textarea {
-	min-height: 120px;
+	min-height: 140px;
 	resize: vertical;
 }
 
@@ -295,7 +310,170 @@
 .contact-form-column .wpcf7-form textarea:focus-visible {
 	outline: var(--focus-outline-width) solid var(--color-focus);
 	outline-offset: var(--focus-outline-offset);
-	border-bottom-color: var(--color-accent);
+	border-color: var(--color-accent);
+}
+
+/* Phone field — country select + number input group */
+.contact-phone-field {
+	display: flex;
+	align-items: stretch;
+	width: 100%;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background: var(--color-surface);
+	transition: border-color var(--transition-base);
+}
+
+.contact-phone-field:focus-within {
+	border-color: var(--color-accent);
+}
+
+.contact-phone-field__country {
+	position: relative;
+	flex: 0 0 auto;
+}
+
+.contact-phone-field__trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 44px;
+	padding: 0 12px;
+	border: 0;
+	border-right: 1px solid var(--color-border);
+	border-radius: var(--radius-md) 0 0 var(--radius-md);
+	background: transparent;
+	font-family: var(--font-family-base);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1;
+	color: var(--color-text);
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.contact-phone-field__trigger:hover,
+.contact-phone-field__trigger:focus-visible {
+	background: var(--color-surface-muted);
+}
+
+.contact-phone-field__trigger:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: -2px;
+}
+
+.contact-phone-field__flag {
+	display: inline-flex;
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.contact-phone-field__flag svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.contact-phone-field__dial {
+	color: var(--color-text);
+}
+
+.contact-phone-field__dropdown {
+	position: absolute;
+	top: calc(100% + 6px);
+	left: 0;
+	z-index: 30;
+	display: none;
+	width: min(18rem, calc(100vw - 2.5rem));
+	max-height: 16rem;
+	overflow: hidden;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background: var(--color-surface);
+	box-shadow: var(--shadow-sm);
+}
+
+.contact-phone-field__dropdown.is-open {
+	display: flex;
+	flex-direction: column;
+}
+
+.contact-phone-field__search {
+	width: 100%;
+	padding: 10px 12px;
+	border: 0;
+	border-bottom: 1px solid var(--color-border);
+	border-radius: 0;
+	background: var(--color-bg);
+	font-family: var(--font-family-base);
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+.contact-phone-field__search:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: -2px;
+}
+
+.contact-phone-field__list {
+	margin: 0;
+	padding: 6px 0;
+	list-style: none;
+	overflow-y: auto;
+}
+
+.contact-phone-field__option {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	padding: 8px 12px;
+	border: 0;
+	background: transparent;
+	font-family: var(--font-family-base);
+	font-size: 14px;
+	line-height: 1.35;
+	color: var(--color-text);
+	text-align: left;
+	cursor: pointer;
+}
+
+.contact-phone-field__option:hover,
+.contact-phone-field__option:focus-visible,
+.contact-phone-field__option.is-selected {
+	background: var(--color-surface-muted);
+}
+
+.contact-phone-field__option:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: -2px;
+}
+
+.contact-phone-field__option-name {
+	flex: 1;
+	min-width: 0;
+}
+
+.contact-phone-field__option-dial {
+	flex-shrink: 0;
+	color: var(--color-text-muted);
+}
+
+.contact-phone-field .wpcf7-form-control-wrap,
+.contact-phone-field input[type="tel"] {
+	flex: 1;
+	min-width: 0;
+}
+
+.contact-phone-field input[type="tel"] {
+	min-height: 44px;
+	padding: 12px 14px;
+	border: 0;
+	border-radius: 0 var(--radius-md) var(--radius-md) 0;
+	background: transparent;
 }
 
 .contact-form-column .wpcf7-form input[type="submit"],
@@ -354,6 +532,11 @@
 
 	.contact-page__grid {
 		gap: 80px;
+	}
+
+	.contact-aside-column {
+		position: sticky;
+		top: calc(var(--site-header-offset) + 24px);
 	}
 }
 
