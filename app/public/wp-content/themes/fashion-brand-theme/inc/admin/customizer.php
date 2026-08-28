@@ -100,13 +100,14 @@ function fashion_brand_theme_customize_register_social_media( $wp_customize ) {
 		'fashion_brand_theme_social_media',
 		array(
 			'title'       => __( 'Social Media', 'fashion-brand-theme' ),
-			'description' => __( 'Add profile URLs to show social icons across the theme. Leave blank to hide a platform.', 'fashion-brand-theme' ),
+			'description' => __( 'Add profile URLs and choose which platforms appear across the theme. Uncheck “Show” to hide a platform temporarily without deleting its URL.', 'fashion-brand-theme' ),
 			'priority'    => 35,
 		)
 	);
 
 	foreach ( fashion_brand_theme_get_social_platforms() as $platform => $label ) {
-		$setting_id = fashion_brand_theme_get_social_setting_id( $platform );
+		$setting_id         = fashion_brand_theme_get_social_setting_id( $platform );
+		$enabled_setting_id = fashion_brand_theme_get_social_enabled_setting_id( $platform );
 
 		$wp_customize->add_setting(
 			$setting_id,
@@ -126,9 +127,48 @@ function fashion_brand_theme_customize_register_social_media( $wp_customize ) {
 				'type'    => 'url',
 			)
 		);
+
+		$wp_customize->add_setting(
+			$enabled_setting_id,
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => true,
+				'transport'         => 'refresh',
+				'sanitize_callback' => 'wp_validate_boolean',
+			)
+		);
+
+		$wp_customize->add_control(
+			$enabled_setting_id,
+			array(
+				/* translators: %s: social platform name. */
+				'label'   => sprintf( __( 'Show %s', 'fashion-brand-theme' ), $label ),
+				'section' => 'fashion_brand_theme_social_media',
+				'type'    => 'checkbox',
+			)
+		);
 	}
 }
 add_action( 'customize_register', 'fashion_brand_theme_customize_register_social_media', 20 );
+
+/**
+ * Persist unchecked social platform enabled toggles.
+ *
+ * @param WP_Customize_Manager $wp_customize Customizer manager.
+ * @return void
+ */
+function fashion_brand_theme_customize_save_social_media_settings( $wp_customize ) {
+	foreach ( array_keys( fashion_brand_theme_get_social_platforms() ) as $platform ) {
+		$enabled_setting = $wp_customize->get_setting(
+			fashion_brand_theme_get_social_enabled_setting_id( $platform )
+		);
+
+		if ( $enabled_setting && false === $enabled_setting->post_value( false ) ) {
+			set_theme_mod( fashion_brand_theme_get_social_enabled_setting_id( $platform ), false );
+		}
+	}
+}
+add_action( 'customize_save_after', 'fashion_brand_theme_customize_save_social_media_settings' );
 
 /**
  * Build a Customizer setting ID for a theme setting key.

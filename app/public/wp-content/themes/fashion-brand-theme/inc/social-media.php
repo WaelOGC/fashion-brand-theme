@@ -38,6 +38,28 @@ function fashion_brand_theme_get_social_setting_id( $platform ) {
 }
 
 /**
+ * Customizer setting ID for a social platform enabled toggle.
+ *
+ * @param string $platform Platform key.
+ * @return string
+ */
+function fashion_brand_theme_get_social_enabled_setting_id( $platform ) {
+	return fashion_brand_theme_get_social_setting_id( $platform ) . '_enabled';
+}
+
+/**
+ * Whether a social platform is enabled in the Customizer.
+ *
+ * @param string $platform Platform key.
+ * @return bool
+ */
+function fashion_brand_theme_is_social_platform_enabled( $platform ) {
+	return (bool) wp_validate_boolean(
+		get_theme_mod( fashion_brand_theme_get_social_enabled_setting_id( $platform ), true )
+	);
+}
+
+/**
  * Retrieve configured social profile URLs from the Customizer.
  *
  * @return array<string, string> Platform key => URL.
@@ -46,6 +68,10 @@ function fashion_brand_theme_get_social_links() {
 	$links = array();
 
 	foreach ( array_keys( fashion_brand_theme_get_social_platforms() ) as $platform ) {
+		if ( ! fashion_brand_theme_is_social_platform_enabled( $platform ) ) {
+			continue;
+		}
+
 		$url = get_theme_mod( fashion_brand_theme_get_social_setting_id( $platform ), '' );
 
 		if ( is_string( $url ) && '' !== trim( $url ) ) {
