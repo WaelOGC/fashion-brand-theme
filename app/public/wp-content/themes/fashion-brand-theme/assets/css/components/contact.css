@@ -1,0 +1,329 @@
+/**
+ * Contact page — hero + two-column form layout.
+ *
+ * Hero reuses homepage `.scene` visual treatment (scrims, typography, reveal).
+ *
+ * Full-bleed note: `.site-content` is constrained in utilities.css via
+ * `width: min(100% - (var(--container-padding) * 2), var(--container-max))`
+ * + `margin-inline: auto`. Homepage clears that with `.home .site-content`.
+ * Contact mirrors that reset and also breakout-bleeds the hero so edges touch
+ * the viewport even if a parent constraint remains.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+/* -------------------------------------------------------------------------
+   Full-bleed shell — match homepage .site-content reset
+   ------------------------------------------------------------------------- */
+
+body.page-contact .site-content,
+body.page-template-page-contact .site-content {
+	width: 100%;
+	max-width: none;
+	padding: 0;
+	margin: 0;
+	margin-inline: 0;
+}
+
+.contact-page {
+	background: var(--color-bg);
+	overflow-x: clip;
+}
+
+/* -------------------------------------------------------------------------
+   Hero — shorter band + true edge-to-edge image
+   ------------------------------------------------------------------------- */
+
+.contact-page__hero.scene {
+	/* Break out of any remaining constrained ancestor (same intent as homepage). */
+	width: 100vw;
+	max-width: 100vw;
+	margin-inline: calc(50% - 50vw);
+	min-height: 55vh;
+	height: 55vh;
+	max-height: 620px;
+}
+
+.contact-page__hero .scene-headline--contact {
+	font-size: clamp(36px, 5.5vw, 72px);
+	margin-bottom: 18px;
+}
+
+.contact-page__hero .scene-subheading {
+	max-width: 42ch;
+	margin: 0;
+	font-family: var(--font-family-base);
+	font-size: clamp(15px, 1.4vw, 17px);
+	line-height: 1.65;
+	color: var(--color-text-inverse);
+	opacity: 0.82;
+}
+
+.contact-page__hero .scene-copy {
+	padding: 0 48px 48px;
+}
+
+/* -------------------------------------------------------------------------
+   Two-column content
+   ------------------------------------------------------------------------- */
+
+.contact-page__content {
+	max-width: var(--container-wide);
+	margin: 0 auto;
+	padding: 72px 48px 100px;
+}
+
+.contact-page__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 48px;
+	align-items: start;
+}
+
+/* -------------------------------------------------------------------------
+   Form column — card + heading
+   ------------------------------------------------------------------------- */
+
+.contact-form-column {
+	min-width: 0;
+	padding: 40px;
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+}
+
+.contact-form-column__heading {
+	margin: 0 0 28px;
+	font-family: var(--font-family-base);
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+}
+
+.contact-form-column .wpcf7 {
+	margin: 0;
+}
+
+.contact-form-column .wpcf7-form p {
+	margin: 0 0 24px;
+}
+
+.contact-form-column .wpcf7-form label {
+	display: block;
+	margin-bottom: 8px;
+	font-family: var(--font-family-base);
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+}
+
+.contact-form-column .wpcf7-form input[type="text"],
+.contact-form-column .wpcf7-form input[type="email"],
+.contact-form-column .wpcf7-form input[type="tel"],
+.contact-form-column .wpcf7-form input[type="url"],
+.contact-form-column .wpcf7-form textarea {
+	width: 100%;
+	min-height: 44px;
+	padding: 12px 14px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	background: var(--color-bg);
+	font-family: var(--font-family-base);
+	font-size: 15px;
+	line-height: 1.5;
+	color: var(--color-text);
+	transition: border-color var(--transition-base);
+}
+
+.contact-form-column .wpcf7-form textarea {
+	min-height: 140px;
+	resize: vertical;
+}
+
+.contact-form-column .wpcf7-form input:focus-visible,
+.contact-form-column .wpcf7-form textarea:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+	border-color: var(--color-border-strong);
+}
+
+.contact-form-column .wpcf7-form input[type="submit"],
+.contact-form-column .wpcf7-submit {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: var(--space-3) var(--space-5);
+	border: 1px solid var(--color-accent);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-accent);
+	color: var(--color-text-inverse);
+	font: var(--font-button);
+	letter-spacing: var(--letter-spacing-nav);
+	cursor: pointer;
+	transition:
+		background-color var(--transition-base),
+		border-color var(--transition-base);
+}
+
+.contact-form-column .wpcf7-form input[type="submit"]:hover,
+.contact-form-column .wpcf7-form input[type="submit"]:focus-visible,
+.contact-form-column .wpcf7-submit:hover,
+.contact-form-column .wpcf7-submit:focus-visible {
+	background-color: var(--color-accent-hover);
+	border-color: var(--color-accent-hover);
+	color: var(--color-text-inverse);
+}
+
+.contact-form-column .wpcf7-not-valid-tip,
+.contact-form-column .wpcf7-response-output {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------
+   Aside column — structured contact info
+   ------------------------------------------------------------------------- */
+
+.contact-aside-column {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	max-width: 36ch;
+	min-width: 0;
+	padding-top: 8px;
+}
+
+.contact-aside-column__eyebrow {
+	margin: 0 0 16px;
+	font-family: var(--font-family-base);
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+}
+
+.contact-aside-column__intro {
+	margin: 0 0 24px;
+	font-family: var(--font-family-base);
+	font-size: 16px;
+	line-height: 1.7;
+	color: var(--color-text-muted);
+}
+
+.contact-aside-column__email {
+	margin: 0 0 12px;
+}
+
+.contact-aside-column__email a {
+	font-family: var(--font-family-base);
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 1.4;
+	color: var(--color-accent);
+	text-decoration: none;
+	transition: color var(--transition-base);
+}
+
+.contact-aside-column__email a:hover,
+.contact-aside-column__email a:focus-visible {
+	color: var(--color-accent-hover);
+}
+
+.contact-aside-column__email a:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.contact-aside-column__response {
+	margin: 0 0 32px;
+	font-family: var(--font-family-base);
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--color-text-subtle);
+}
+
+.contact-aside-column .social-icons {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.contact-aside-column .social-icons li {
+	display: inline-flex;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* -------------------------------------------------------------------------
+   Responsive — same breakpoints as collections.css
+   ------------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+	.contact-page__grid {
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+		gap: 56px;
+	}
+
+	.contact-aside-column {
+		padding-top: 12px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.contact-page__content {
+		padding: 88px 48px 120px;
+	}
+
+	.contact-page__grid {
+		gap: 80px;
+	}
+
+	.contact-page__hero .scene-copy {
+		padding: 0 64px 56px;
+	}
+}
+
+@media (max-width: 767px) {
+	.contact-page__hero.scene {
+		min-height: 45vh;
+		height: 45vh;
+		max-height: 420px;
+	}
+
+	.contact-page__hero .scene-copy {
+		padding: 0 24px 36px;
+	}
+
+	.contact-page__hero .scene-headline--contact {
+		font-size: clamp(32px, 9vw, 44px);
+	}
+
+	.contact-page__content {
+		padding: 48px 20px 80px;
+	}
+
+	.contact-page__grid {
+		gap: 40px;
+	}
+
+	.contact-form-column {
+		padding: 24px;
+	}
+
+	.contact-aside-column {
+		max-width: none;
+		padding-top: 0;
+	}
+}

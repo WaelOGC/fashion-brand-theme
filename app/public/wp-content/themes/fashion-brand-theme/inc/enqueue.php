@@ -85,6 +85,15 @@ function fashion_brand_theme_enqueue_assets() {
 			)
 		);
 	}
+
+	if ( is_page( 'contact' ) ) {
+		wp_enqueue_style(
+			'fashion-brand-theme-contact',
+			FASHION_BRAND_THEME_URI . '/assets/css/components/contact.css',
+			array( 'fashion-brand-theme-main' ),
+			FASHION_BRAND_THEME_VERSION
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'fashion_brand_theme_enqueue_assets' );
 

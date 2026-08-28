@@ -79,3 +79,25 @@ function fashion_brand_theme_ensure_collections_page() {
 	);
 }
 add_action( 'init', 'fashion_brand_theme_ensure_collections_page' );
+
+/**
+ * Ensure the Contact page exists for nav and page-contact.php.
+ *
+ * @return void
+ */
+function fashion_brand_theme_ensure_contact_page() {
+	if ( get_page_by_path( 'contact' ) ) {
+		return;
+	}
+
+	wp_insert_post(
+		array(
+			'post_title'   => __( 'Contact', 'fashion-brand-theme' ),
+			'post_name'    => 'contact',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_content' => '',
+		)
+	);
+}
+add_action( 'init', 'fashion_brand_theme_ensure_contact_page' );
