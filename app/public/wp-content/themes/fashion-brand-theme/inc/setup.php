@@ -57,3 +57,25 @@ function fashion_brand_theme_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'fashion_brand_theme_content_width', 1200 );
 }
 add_action( 'after_setup_theme', 'fashion_brand_theme_content_width', 0 );
+
+/**
+ * Ensure the Collections landing page exists for nav and page-collections.php.
+ *
+ * @return void
+ */
+function fashion_brand_theme_ensure_collections_page() {
+	if ( get_page_by_path( 'collections' ) ) {
+		return;
+	}
+
+	wp_insert_post(
+		array(
+			'post_title'   => __( 'Collections', 'fashion-brand-theme' ),
+			'post_name'    => 'collections',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_content' => '',
+		)
+	);
+}
+add_action( 'init', 'fashion_brand_theme_ensure_collections_page' );

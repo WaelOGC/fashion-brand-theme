@@ -21,6 +21,7 @@
 @import url("components/header.css?ver=0.2.4");
 @import url("components/announcement-bar.css");
 @import url("components/homepage.css");
+@import url("components/collections.css?ver=0.1.0");
 @import url("components/shop.css?ver=0.2.12");
 @import url("components/product.css?ver=0.2.11");
 @import url("components/cart.css?ver=0.1.7");

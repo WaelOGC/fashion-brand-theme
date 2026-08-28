@@ -50,13 +50,14 @@ Home
 │   ├── All Products
 │   ├── T-Shirts
 │   ├── Hoodies
-│   ├── Tops
-│   ├── Dresses
+│   ├── Knitwear
+│   ├── Shirts
 │   ├── Pants
-│   ├── Everyday Essentials
-│   └── Occasion / Evening Wear
+│   └── Dresses
 │
 ├── Collections
+│   ├── Everyday Essentials
+│   └── Occasion / Evening Wear
 │
 ├── Guides
 │
@@ -69,6 +70,16 @@ Utility Navigation:
 ├── Cart
 └── My Account
 ```
+
+> **Resolved 2026-08-27:** An earlier draft of this document listed "Tops",
+> "Everyday Essentials" and "Occasion / Evening Wear" as flat Shop categories
+> alongside garment-type categories. This created overlapping taxonomy (an
+> occasion-based grouping and a garment-type grouping at the same level).
+> Decision: Shop categories are garment-type only (T-Shirts, Hoodies,
+> Knitwear, Shirts, Pants, Dresses — "Tops" dropped as redundant with
+> Shirts/Knitwear/T-Shirts). "Everyday Essentials" and "Occasion / Evening
+> Wear" moved under **Collections**, implemented as WooCommerce product tags
+> (cross-category, non-exclusive groupings) rather than product categories.
 
 ---
 
@@ -102,17 +113,29 @@ The following belong to utility navigation, not the primary menu:
 
 ## 6. Shop Categories
 
-Approved shop categories:
+Approved shop categories (garment type — WooCommerce product categories):
 
 - T-Shirts
 - Hoodies
-- Tops
-- Dresses
+- Knitwear
+- Shirts
 - Pants
+- Dresses
+
+These categories live under Shop and are used for product discovery and archive pages. This taxonomy is garment-type only; occasion-based groupings do not belong here (see Section 6a).
+
+---
+
+## 6a. Collections
+
+Collections are cross-category, occasion-based groupings, implemented as WooCommerce product tags (not categories), since a single product may belong to a garment-type category and a collection at the same time (e.g. a T-Shirt can also be an Everyday Essential).
+
+Approved collections (MVP):
+
 - Everyday Essentials
 - Occasion / Evening Wear
 
-These categories live under Shop and are used for product discovery and archive pages.
+Collections appear as a top-level primary navigation item with these two as dropdown children, resolving to the corresponding `product_tag` archive.
 
 ---
 

@@ -1,0 +1,144 @@
+/**
+ * Collections landing page — tag groupings grid.
+ *
+ * @package Fashion_Brand_Theme
+ */
+
+.collections-page {
+	max-width: var(--container-wide);
+	margin: 0 auto;
+	padding: 40px 48px 100px;
+	background: var(--color-bg);
+}
+
+.collections-header {
+	margin: 0 0 40px;
+}
+
+.collections-eyebrow {
+	margin: 0 0 12px;
+	font-family: var(--font-family-base);
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+}
+
+.collections-header h1 {
+	margin: 0;
+	font-family: var(--font-family-display);
+	font-weight: 300;
+	font-size: clamp(2rem, 3vw, 2.75rem);
+	letter-spacing: -0.02em;
+	color: var(--color-text);
+}
+
+.collections-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 24px;
+}
+
+.collection-card {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	border-radius: var(--radius-md);
+	color: var(--color-text-inverse);
+	text-decoration: none;
+	transition: transform var(--transition-base);
+}
+
+.collection-card:hover,
+.collection-card:focus-visible {
+	transform: translateY(-4px);
+}
+
+.collection-card:focus-visible {
+	outline: var(--focus-outline-width) solid var(--color-focus);
+	outline-offset: var(--focus-outline-offset);
+}
+
+.collection-card__image {
+	display: block;
+	position: relative;
+	aspect-ratio: 4 / 5;
+	background-color: var(--color-surface);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	transition: transform 0.5s ease;
+}
+
+.collection-card__image::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		0deg,
+		color-mix(in srgb, var(--color-ink) 72%, transparent) 0%,
+		color-mix(in srgb, var(--color-ink) 8%, transparent) 45%,
+		transparent 70%
+	);
+	pointer-events: none;
+}
+
+.collection-card:hover .collection-card__image,
+.collection-card:focus-visible .collection-card__image {
+	transform: scale(1.04);
+}
+
+.collection-card__label {
+	position: absolute;
+	bottom: 24px;
+	left: 24px;
+	z-index: 1;
+	max-width: calc(100% - 72px);
+	font-family: var(--font-family-display);
+	font-weight: 300;
+	font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+
+.collection-card__arrow {
+	position: absolute;
+	right: 24px;
+	bottom: 28px;
+	z-index: 1;
+	font-size: 12px;
+	line-height: 1;
+	opacity: 0.6;
+	transition:
+		transform 0.3s ease,
+		opacity 0.3s ease;
+}
+
+.collection-card:hover .collection-card__arrow,
+.collection-card:focus-visible .collection-card__arrow {
+	opacity: 1;
+	transform: translateX(4px);
+}
+
+@media (max-width: 767px) {
+	.collections-page {
+		padding: 28px 20px 80px;
+	}
+
+	.collections-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.collection-card__label {
+		bottom: 20px;
+		left: 20px;
+		max-width: calc(100% - 64px);
+	}
+
+	.collection-card__arrow {
+		right: 20px;
+		bottom: 24px;
+	}
+}
