@@ -9,9 +9,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FASHION_BRAND_THEME_VERSION', '0.4.6' );
+define( 'FASHION_BRAND_THEME_VERSION', '0.4.7' );
 define( 'FASHION_BRAND_THEME_DIR', get_template_directory() );
 define( 'FASHION_BRAND_THEME_URI', get_template_directory_uri() );
+
+/**
+ * Configure PHPMailer to send via Hostinger SMTP when credentials are defined.
+ *
+ * @param PHPMailer $phpmailer PHPMailer instance.
+ * @return void
+ */
+function fashion_brand_theme_configure_smtp( $phpmailer ) {
+	if ( ! defined( 'WREN_WOLD_SMTP_PASSWORD' ) ) {
+		return;
+	}
+
+	$phpmailer->isSMTP();
+	$phpmailer->Host       = 'smtp.hostinger.com';
+	$phpmailer->SMTPAuth   = true;
+	$phpmailer->Port       = 465;
+	$phpmailer->SMTPSecure = 'ssl';
+	$phpmailer->Username   = 'hello@wrenwold.com';
+	$phpmailer->Password   = WREN_WOLD_SMTP_PASSWORD;
+	$phpmailer->setFrom( 'hello@wrenwold.com', get_bloginfo( 'name' ) );
+}
+add_action( 'phpmailer_init', 'fashion_brand_theme_configure_smtp' );
 
 require FASHION_BRAND_THEME_DIR . '/inc/setup.php';
 require FASHION_BRAND_THEME_DIR . '/inc/social-media.php';
